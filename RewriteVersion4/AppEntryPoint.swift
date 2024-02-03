@@ -12,7 +12,7 @@ struct AppEntryPoint: App {
     
     var body: some Scene {
         WindowGroup {
-            InitialView()
+            MainMenuView()
                 .environmentObject(Profile())
         }
     }

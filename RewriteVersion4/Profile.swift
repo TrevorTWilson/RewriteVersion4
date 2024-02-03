@@ -11,4 +11,5 @@ import SwiftUI
 class Profile: ObservableObject {
     
     @Published var isLoggedIn = false
+    @Published var isMetric = true
 }
