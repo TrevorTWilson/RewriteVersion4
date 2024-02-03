@@ -8,10 +8,12 @@
 import SwiftUI
 
 @main
-struct RewriteVersion4App: App {
+struct AppEntryPoint: App {
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            InitialView()
+                .environmentObject(Profile())
         }
     }
 }
