@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     
     @EnvironmentObject var profile:Profile
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
@@ -37,6 +38,7 @@ struct ProfileView: View {
                 }
                 
                 Button(action: {
+                    dismiss()
                                     }, label: {
                     Text("Get Started")
                         .font(.title)

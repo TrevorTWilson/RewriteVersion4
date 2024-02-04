@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B34417F2B6E9C56004C87CF /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B34417E2B6E9C56004C87CF /* MainMenuView.swift */; };
+		5B112F742B6FDFD8009B3111 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */; };
+		5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B34417E2B6E9C56004C87CF /* MainJobView.swift */; };
 		5BFD0B902B6E8231000EA2FA /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */; };
 		5BFD0B922B6E8231000EA2FA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD0B912B6E8231000EA2FA /* ProfileView.swift */; };
 		5BFD0B942B6E8233000EA2FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD0B932B6E8233000EA2FA /* Assets.xcassets */; };
@@ -40,10 +41,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5B34417E2B6E9C56004C87CF /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		5B34417E2B6E9C56004C87CF /* MainJobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainJobView.swift; sourceTree = "<group>"; };
 		5BFD0B8C2B6E8231000EA2FA /* RewriteVersion4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RewriteVersion4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
-		5BFD0B912B6E8231000EA2FA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5BFD0B912B6E8231000EA2FA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		5BFD0B932B6E8233000EA2FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BFD0B962B6E8233000EA2FA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5BFD0B9C2B6E8233000EA2FA /* RewriteVersion4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RewriteVersion4Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,11 +108,12 @@
 		5BFD0B8E2B6E8231000EA2FA /* RewriteVersion4 */ = {
 			isa = PBXGroup;
 			children = (
-				5BFD0BC32B6E85CD000EA2FA /* Profile.swift */,
+				5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */,
 				5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */,
+				5BFD0BC32B6E85CD000EA2FA /* Profile.swift */,
 				5BFD0BBA2B6E8313000EA2FA /* Seed.json */,
 				5BFD0B912B6E8231000EA2FA /* ProfileView.swift */,
-				5B34417E2B6E9C56004C87CF /* MainMenuView.swift */,
+				5B34417E2B6E9C56004C87CF /* MainJobView.swift */,
 				5BFD0BC22B6E839F000EA2FA /* WeldingDataStorage */,
 				5BFD0BC12B6E833A000EA2FA /* WeldingDataModels */,
 				5BFD0B932B6E8233000EA2FA /* Assets.xcassets */,
@@ -267,6 +270,7 @@
 			files = (
 				5BFD0B972B6E8233000EA2FA /* Preview Assets.xcassets in Resources */,
 				5BFD0B942B6E8233000EA2FA /* Assets.xcassets in Resources */,
+				5B112F742B6FDFD8009B3111 /* Launch Screen.storyboard in Resources */,
 				5BFD0BBE2B6E8313000EA2FA /* Seed.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,7 +298,7 @@
 			files = (
 				5BFD0B922B6E8231000EA2FA /* ProfileView.swift in Sources */,
 				5BFD0BC42B6E85CD000EA2FA /* Profile.swift in Sources */,
-				5B34417F2B6E9C56004C87CF /* MainMenuView.swift in Sources */,
+				5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */,
 				5BFD0BBD2B6E8313000EA2FA /* WeldingInspectorModel.swift in Sources */,
 				5BFD0B902B6E8231000EA2FA /* AppEntryPoint.swift in Sources */,
 				5BFD0BC02B6E8313000EA2FA /* StorageFunctions.swift in Sources */,
@@ -465,9 +469,11 @@
 				DEVELOPMENT_TEAM = 55259ULBY3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -494,9 +500,11 @@
 				DEVELOPMENT_TEAM = 55259ULBY3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
