@@ -10,9 +10,17 @@ import SwiftUI
 struct MainJobView: View {
     
     @EnvironmentObject var profile:Profile
+    @State private var weldingInspector: WeldingInspector?
     @State private var showProfileView = false
     @State private var addNewJob = false
 
+    
+    func output<T>(_ data: T) {
+        print(data)
+    }
+
+
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -37,6 +45,7 @@ struct MainJobView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         showProfileView = true
+
                     }) {
                         Image(systemName: "gear")
                             .imageScale(.large)
@@ -44,7 +53,8 @@ struct MainJobView: View {
                 }
             }
             .sheet(isPresented: $showProfileView) {
-                ProfileView()
+                ProfileView(weldingInspector: $weldingInspector)
+                
             }
             .sheet(isPresented: $addNewJob, content: {
                 // Add new job item view
@@ -52,6 +62,7 @@ struct MainJobView: View {
             })
         }
     }
+
 }
 
 
@@ -61,3 +72,4 @@ struct MainJobView: View {
     MainJobView()
         .environmentObject(Profile())
 }
+ 

@@ -11,6 +11,7 @@ struct ProfileView: View {
     
     @EnvironmentObject var profile:Profile
     @Environment(\.dismiss) var dismiss
+    @Binding var weldingInspector: WeldingInspector?
     
     var body: some View {
         VStack {
@@ -26,10 +27,14 @@ struct ProfileView: View {
                 
                 HStack{
                     Button(action: {
+                        if let weldingInspector = self.weldingInspector {
+                            StorageFunctions.storeInspector(weldingInspector: weldingInspector)
+                        }
                         profile.isLoggedIn = false
                     }, label: {
                         Text("Log Out")
                     })
+
                     Button(action: {
                         profile.isMetric.toggle()
                     }, label: {
@@ -38,20 +43,18 @@ struct ProfileView: View {
                 }
                 
                 Button(action: {
+                    weldingInspector = StorageFunctions.retrieveInspector()
                     dismiss()
                                     }, label: {
                     Text("Get Started")
                         .font(.title)
                 })
-//                .sheet(isPresented: $showMainMenu, content: {
-//                    MainMenuView()
-//                })
-                
             } else {
                 
                 Text("Please Log In")
                 Button(action: {
                     profile.isLoggedIn = true
+                    self.weldingInspector = StorageFunctions.retrieveInspector()
                 }, label: {
                     Text("Log In")
                 })
@@ -62,7 +65,11 @@ struct ProfileView: View {
     }
 }
 
-#Preview {
-    ProfileView()
-        .environmentObject(Profile())
+
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView(weldingInspector: .constant(nil))
+            .environmentObject(Profile())
+    }
 }
+ 
