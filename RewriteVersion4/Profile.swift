@@ -10,6 +10,6 @@ import SwiftUI
 
 class Profile: ObservableObject {
     
-    @Published var isLoggedIn = false
+    @Published var isLoggedIn = true
     @Published var isMetric = true
 }

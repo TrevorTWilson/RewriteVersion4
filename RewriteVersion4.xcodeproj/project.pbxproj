@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5B112F742B6FDFD8009B3111 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */; };
+		5B303B292B7BBBA200FB8B59 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B303B282B7BBBA200FB8B59 /* MainViewModel.swift */; };
+		5B303B2B2B7BDA1F00FB8B59 /* ProcedureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */; };
 		5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B34417E2B6E9C56004C87CF /* MainJobView.swift */; };
 		5BFD0B902B6E8231000EA2FA /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */; };
-		5BFD0B922B6E8231000EA2FA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD0B912B6E8231000EA2FA /* ProfileView.swift */; };
 		5BFD0B942B6E8233000EA2FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD0B932B6E8233000EA2FA /* Assets.xcassets */; };
 		5BFD0B972B6E8233000EA2FA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD0B962B6E8233000EA2FA /* Preview Assets.xcassets */; };
 		5BFD0BA12B6E8233000EA2FA /* RewriteVersion4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD0BA02B6E8233000EA2FA /* RewriteVersion4Tests.swift */; };
@@ -42,10 +43,11 @@
 
 /* Begin PBXFileReference section */
 		5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		5B303B282B7BBBA200FB8B59 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureView.swift; sourceTree = "<group>"; };
 		5B34417E2B6E9C56004C87CF /* MainJobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainJobView.swift; sourceTree = "<group>"; };
 		5BFD0B8C2B6E8231000EA2FA /* RewriteVersion4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RewriteVersion4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
-		5BFD0B912B6E8231000EA2FA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		5BFD0B932B6E8233000EA2FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BFD0B962B6E8233000EA2FA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5BFD0B9C2B6E8233000EA2FA /* RewriteVersion4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RewriteVersion4Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B303B272B7BBB8800FB8B59 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5B303B282B7BBBA200FB8B59 /* MainViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		5BFD0B832B6E8231000EA2FA = {
 			isa = PBXGroup;
 			children = (
@@ -112,8 +122,9 @@
 				5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */,
 				5BFD0BC32B6E85CD000EA2FA /* Profile.swift */,
 				5BFD0BBA2B6E8313000EA2FA /* Seed.json */,
-				5BFD0B912B6E8231000EA2FA /* ProfileView.swift */,
 				5B34417E2B6E9C56004C87CF /* MainJobView.swift */,
+				5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */,
+				5B303B272B7BBB8800FB8B59 /* ViewModels */,
 				5BFD0BC22B6E839F000EA2FA /* WeldingDataStorage */,
 				5BFD0BC12B6E833A000EA2FA /* WeldingDataModels */,
 				5BFD0B932B6E8233000EA2FA /* Assets.xcassets */,
@@ -296,13 +307,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BFD0B922B6E8231000EA2FA /* ProfileView.swift in Sources */,
 				5BFD0BC42B6E85CD000EA2FA /* Profile.swift in Sources */,
 				5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */,
+				5B303B2B2B7BDA1F00FB8B59 /* ProcedureView.swift in Sources */,
 				5BFD0BBD2B6E8313000EA2FA /* WeldingInspectorModel.swift in Sources */,
 				5BFD0B902B6E8231000EA2FA /* AppEntryPoint.swift in Sources */,
 				5BFD0BC02B6E8313000EA2FA /* StorageFunctions.swift in Sources */,
 				5BFD0BBF2B6E8313000EA2FA /* Load_Data.swift in Sources */,
+				5B303B292B7BBBA200FB8B59 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

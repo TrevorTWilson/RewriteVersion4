@@ -10,19 +10,19 @@ import SwiftUI
 struct MainJobView: View {
     
     @EnvironmentObject var profile:Profile
-    @State private var weldingInspector: WeldingInspector?
+    @StateObject var mainViewModel: MainViewModel = MainViewModel()
     @State private var showProfileView = false
     @State private var addNewJob = false
-
+    
     
     func output<T>(_ data: T) {
         print(data)
     }
-
-
+    
+    
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 HStack{
                     Text("Select a Job")
@@ -36,8 +36,19 @@ struct MainJobView: View {
                             .imageScale(.large)
                     }
                 }
-               Spacer()
+                Spacer()
                 // Iterate through list of jobs in instance of WeldingInspector for navigation list of each
+                List {
+                    ForEach(mainViewModel.weldingInspector.jobs) { job in
+                        NavigationLink(destination: ProcedureView(mainViewModel: mainViewModel, selectedJob: job)) {
+                            Text(job.name)
+                        }
+                    }
+                    .onDelete { indexSet in
+                        mainViewModel.deleteSelectedJob(index: indexSet)
+                    }
+                }
+
                 
             }
             .navigationTitle("Main Menu")
@@ -45,7 +56,7 @@ struct MainJobView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         showProfileView = true
-
+                        
                     }) {
                         Image(systemName: "gear")
                             .imageScale(.large)
@@ -53,7 +64,7 @@ struct MainJobView: View {
                 }
             }
             .sheet(isPresented: $showProfileView) {
-                ProfileView(weldingInspector: $weldingInspector)
+                //ProfileView(weldingInspector: weldingInspector)
                 
             }
             .sheet(isPresented: $addNewJob, content: {
@@ -62,7 +73,7 @@ struct MainJobView: View {
             })
         }
     }
-
+    
 }
 
 
@@ -72,4 +83,4 @@ struct MainJobView: View {
     MainJobView()
         .environmentObject(Profile())
 }
- 
+
