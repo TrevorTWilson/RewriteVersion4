@@ -27,8 +27,12 @@ struct ProcedureView: View {
         }
         .onAppear(perform: {
             mainViewModel.selectedJob = selectedJob
-            print(mainViewModel.selectedJob?.name as Any)
-            
+            //print(mainViewModel.selectedJob?.name as Any)
+            if let selectedJobName = mainViewModel.selectedJob?.name {
+                print("Selected Job name is \(selectedJobName)")
+            } else {
+                print("No job selected")
+            }
             
         })
     }
