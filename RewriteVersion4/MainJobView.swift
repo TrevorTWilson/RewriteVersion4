@@ -39,8 +39,8 @@ struct MainJobView: View {
                 Spacer()
                 // Iterate through list of jobs in instance of WeldingInspector for navigation list of each
                 List {
-                    ForEach(mainViewModel.weldingInspector.jobs) { job in
-                        NavigationLink(destination: ProcedureView(mainViewModel: mainViewModel, selectedJob: job)) {
+                    ForEach(Array(mainViewModel.weldingInspector.jobs.enumerated()), id: \.element.id) { index, job in
+                        NavigationLink(destination: ProcedureView(mainViewModel: mainViewModel, selectedJob: job, selectedJobIndex: index)) {
                             Text(job.name)
                         }
                     }
@@ -48,6 +48,7 @@ struct MainJobView: View {
                         mainViewModel.deleteSelectedJob(index: indexSet)
                     }
                 }
+
 
                 
             }
