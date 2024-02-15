@@ -13,7 +13,7 @@ class MainViewModel: ObservableObject{
     @Published var weldingInspector: WeldingInspector
     @Published var selectedJob: WeldingInspector.Job?
     @Published var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?
-    @Published var selectedWelder: [WeldingInspector.Job.WeldingProcedure.Welder]?
+    @Published var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
     @Published var selectedWeldNumber: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers]?
     
     //Init of WeldingInspector on project launch
@@ -36,6 +36,10 @@ class MainViewModel: ObservableObject{
     
     func deleteSelectedProcedure(index: IndexSet, jobIndex: Int){
         weldingInspector.jobs[jobIndex].weldingProcedures.remove(atOffsets: index)
+    }
+    
+    func deleteSelectedWelder(index: IndexSet, jobIndex: Int, procedureIndex: Int){
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified.remove(atOffsets: index)
     }
     
     // Methods to set selected Items
