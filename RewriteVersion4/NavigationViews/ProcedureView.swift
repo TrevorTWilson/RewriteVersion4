@@ -1,22 +1,20 @@
 //
-//  WelderView.swift
+//  ProcedureView.swift
 //  RewriteVersion4
 //
-//  Created by trevor wilson on 2024-02-15.
+//  Created by trevor wilson on 2024-02-13.
 //
 
 import SwiftUI
 
-struct WelderView: View {
+struct ProcedureView: View {
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
     var selectedJob: WeldingInspector.Job?
     var selectedJobIndex: Int
-    var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
-    var selectedProcedureIndex: Int
 
     @State private var showProfileView = false
-    @State private var addNewWelder = false
+    @State private var addNewProcedure = false
     
     var body: some View {
         NavigationStack {
@@ -26,16 +24,12 @@ struct WelderView: View {
                     Text(selectedJob?.name ?? "Title")
                 }
                 HStack{
-                    Text("Current Procedure: ")
-                    Text(selectedProcedure?.name ?? "Title")
-                }
-                HStack{
-                    Text("Select a Welder")
+                    Text("Select a Procedure")
                         .font(.title)
                     Spacer()
                     // Add new item to list of jobs
                     Button {
-                        addNewWelder = true
+                        addNewProcedure = true
                     }label: {
                         Image(systemName: "plus.circle.fill")
                             .imageScale(.large)
@@ -44,20 +38,21 @@ struct WelderView: View {
                 Spacer()
                 // Iterate through list of procedures in instance of WeldingInspector for navigation list of each
                 List {
-                    if let welders = selectedProcedure?.weldersQualified, !welders.isEmpty {
-                        ForEach(Array(welders.enumerated()), id: \.element.id) { index, welder in
-                            NavigationLink(destination: WelderNumberView(mainViewModel: mainViewModel, selectedJob: selectedJob, selectedJobIndex: selectedJobIndex, selectedProcedure: selectedProcedure, selectedProcedureIndex: selectedProcedureIndex, selectedWelder: welder, selectedWelderIndex: index )) {
-                                Text(welder.name)
+                    if let weldingProcedures = selectedJob?.weldingProcedures, !weldingProcedures.isEmpty {
+                        ForEach(Array(weldingProcedures.enumerated()), id: \.element.id) { index, procedure in
+                            NavigationLink(destination: WelderView(mainViewModel: mainViewModel, selectedJob: selectedJob, selectedJobIndex: selectedJobIndex, selectedProcedure: procedure, selectedProcedureIndex: index)) {
+                                Text(procedure.name)
                             }
                         }
                         .onDelete { indexSet in
-                            mainViewModel.deleteSelectedWelder(index: indexSet, jobIndex: selectedJobIndex, procedureIndex: selectedProcedureIndex)
+                            mainViewModel.deleteSelectedProcedure(index: indexSet, jobIndex: selectedJobIndex)
                         }
                     } else {
-                        Text("No welders available")
-                        Text("Add qualified welder to current procedure")
+                        Text("No welding procedures available")
+                        Text("Add welding procedures to the selected Job")
                     }
                 }
+
 
 
 
@@ -79,11 +74,18 @@ struct WelderView: View {
                 //ProfileView(weldingInspector: weldingInspector)
                 
             }
-            .sheet(isPresented: $addNewWelder, content: {
+            .sheet(isPresented: $addNewProcedure, content: {
                 // Add new job item view
-                EmptyView()
+                AddProcedureView()
             })
         }
     }
     
 }
+
+
+
+
+//#Preview {
+//    ProcedureView()
+//}

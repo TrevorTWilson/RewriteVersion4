@@ -47,15 +47,7 @@ class MainViewModel: ObservableObject{
     }
 
     
-    // Methods to set selected Items
-    func setSelectedJob(_ job: WeldingInspector.Job) {
-        selectedJob = job
-        if let selectedJobName = selectedJob?.name {
-            print("Selected Job name is \(selectedJobName)")
-        } else {
-            print("No job selected")
-        }
-    }
+    
 
     
     

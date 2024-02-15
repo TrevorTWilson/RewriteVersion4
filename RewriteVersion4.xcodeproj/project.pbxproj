@@ -11,6 +11,11 @@
 		5B18EC492B7E6FD900AD4A9D /* WelderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC482B7E6FD800AD4A9D /* WelderView.swift */; };
 		5B18EC4B2B7E7DD600AD4A9D /* WeldNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */; };
 		5B18EC4D2B7E89A700AD4A9D /* WeldParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC4C2B7E89A700AD4A9D /* WeldParameterView.swift */; };
+		5B18EC512B7E8FF200AD4A9D /* AddJobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC502B7E8FF200AD4A9D /* AddJobView.swift */; };
+		5B18EC532B7E905900AD4A9D /* AddProcedureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC522B7E905900AD4A9D /* AddProcedureView.swift */; };
+		5B18EC552B7E907000AD4A9D /* AddWelderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC542B7E907000AD4A9D /* AddWelderView.swift */; };
+		5B18EC572B7E908C00AD4A9D /* AddWeldNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC562B7E908C00AD4A9D /* AddWeldNumberView.swift */; };
+		5B18EC592B7E90B000AD4A9D /* AddParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC582B7E90B000AD4A9D /* AddParametersView.swift */; };
 		5B303B292B7BBBA200FB8B59 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B303B282B7BBBA200FB8B59 /* MainViewModel.swift */; };
 		5B303B2B2B7BDA1F00FB8B59 /* ProcedureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */; };
 		5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B34417E2B6E9C56004C87CF /* MainJobView.swift */; };
@@ -49,6 +54,11 @@
 		5B18EC482B7E6FD800AD4A9D /* WelderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelderView.swift; sourceTree = "<group>"; };
 		5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeldNumberView.swift; sourceTree = "<group>"; };
 		5B18EC4C2B7E89A700AD4A9D /* WeldParameterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeldParameterView.swift; sourceTree = "<group>"; };
+		5B18EC502B7E8FF200AD4A9D /* AddJobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJobView.swift; sourceTree = "<group>"; };
+		5B18EC522B7E905900AD4A9D /* AddProcedureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProcedureView.swift; sourceTree = "<group>"; };
+		5B18EC542B7E907000AD4A9D /* AddWelderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWelderView.swift; sourceTree = "<group>"; };
+		5B18EC562B7E908C00AD4A9D /* AddWeldNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeldNumberView.swift; sourceTree = "<group>"; };
+		5B18EC582B7E90B000AD4A9D /* AddParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParametersView.swift; sourceTree = "<group>"; };
 		5B303B282B7BBBA200FB8B59 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureView.swift; sourceTree = "<group>"; };
 		5B34417E2B6E9C56004C87CF /* MainJobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainJobView.swift; sourceTree = "<group>"; };
@@ -93,6 +103,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B18EC4E2B7E8EB000AD4A9D /* NavigationViews */ = {
+			isa = PBXGroup;
+			children = (
+				5B34417E2B6E9C56004C87CF /* MainJobView.swift */,
+				5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */,
+				5B18EC482B7E6FD800AD4A9D /* WelderView.swift */,
+				5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */,
+				5B18EC4C2B7E89A700AD4A9D /* WeldParameterView.swift */,
+			);
+			path = NavigationViews;
+			sourceTree = "<group>";
+		};
+		5B18EC4F2B7E8EF700AD4A9D /* Edit_Add_Views */ = {
+			isa = PBXGroup;
+			children = (
+				5B18EC502B7E8FF200AD4A9D /* AddJobView.swift */,
+				5B18EC522B7E905900AD4A9D /* AddProcedureView.swift */,
+				5B18EC542B7E907000AD4A9D /* AddWelderView.swift */,
+				5B18EC562B7E908C00AD4A9D /* AddWeldNumberView.swift */,
+				5B18EC582B7E90B000AD4A9D /* AddParametersView.swift */,
+			);
+			path = Edit_Add_Views;
+			sourceTree = "<group>";
+		};
 		5B303B272B7BBB8800FB8B59 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,11 +162,8 @@
 				5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */,
 				5BFD0BC32B6E85CD000EA2FA /* Profile.swift */,
 				5BFD0BBA2B6E8313000EA2FA /* Seed.json */,
-				5B34417E2B6E9C56004C87CF /* MainJobView.swift */,
-				5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */,
-				5B18EC482B7E6FD800AD4A9D /* WelderView.swift */,
-				5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */,
-				5B18EC4C2B7E89A700AD4A9D /* WeldParameterView.swift */,
+				5B18EC4E2B7E8EB000AD4A9D /* NavigationViews */,
+				5B18EC4F2B7E8EF700AD4A9D /* Edit_Add_Views */,
 				5B303B272B7BBB8800FB8B59 /* ViewModels */,
 				5BFD0BC22B6E839F000EA2FA /* WeldingDataStorage */,
 				5BFD0BC12B6E833A000EA2FA /* WeldingDataModels */,
@@ -320,13 +351,18 @@
 				5B18EC4B2B7E7DD600AD4A9D /* WeldNumberView.swift in Sources */,
 				5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */,
 				5B303B2B2B7BDA1F00FB8B59 /* ProcedureView.swift in Sources */,
+				5B18EC532B7E905900AD4A9D /* AddProcedureView.swift in Sources */,
 				5B18EC492B7E6FD900AD4A9D /* WelderView.swift in Sources */,
 				5BFD0BBD2B6E8313000EA2FA /* WeldingInspectorModel.swift in Sources */,
+				5B18EC552B7E907000AD4A9D /* AddWelderView.swift in Sources */,
+				5B18EC512B7E8FF200AD4A9D /* AddJobView.swift in Sources */,
 				5B18EC4D2B7E89A700AD4A9D /* WeldParameterView.swift in Sources */,
+				5B18EC592B7E90B000AD4A9D /* AddParametersView.swift in Sources */,
 				5BFD0B902B6E8231000EA2FA /* AppEntryPoint.swift in Sources */,
 				5BFD0BC02B6E8313000EA2FA /* StorageFunctions.swift in Sources */,
 				5BFD0BBF2B6E8313000EA2FA /* Load_Data.swift in Sources */,
 				5B303B292B7BBBA200FB8B59 /* MainViewModel.swift in Sources */,
+				5B18EC572B7E908C00AD4A9D /* AddWeldNumberView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

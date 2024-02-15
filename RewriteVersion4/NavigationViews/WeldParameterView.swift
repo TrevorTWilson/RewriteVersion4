@@ -20,7 +20,7 @@ struct WeldParameterView: View {
     
     
     @State private var showProfileView = false
-    @State private var addNewWeldNumber = false
+    @State private var addWeldParameters = false
     
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)

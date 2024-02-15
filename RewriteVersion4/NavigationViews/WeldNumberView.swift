@@ -82,10 +82,6 @@ struct WelderNumberView: View {
                         Text("Add weld number to list of collected parameters")
                     }
                 }
-
-
-
-                
             }
 
             .toolbar {
@@ -105,7 +101,7 @@ struct WelderNumberView: View {
             }
             .sheet(isPresented: $addNewWeldNumber, content: {
                 // Add new job item view
-                EmptyView()
+                AddWeldNumberView()
             })
         }
     }
