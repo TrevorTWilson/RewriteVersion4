@@ -42,6 +42,11 @@ class MainViewModel: ObservableObject{
         weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified.remove(atOffsets: index)
     }
     
+    func deleteSelectedWeldNumber(index: IndexSet, jobIndex: Int, procedureIndex: Int, welderIndex: Int){
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds.remove(atOffsets: index)
+    }
+
+    
     // Methods to set selected Items
     func setSelectedJob(_ job: WeldingInspector.Job) {
         selectedJob = job

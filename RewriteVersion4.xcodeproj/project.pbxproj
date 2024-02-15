@@ -10,6 +10,7 @@
 		5B112F742B6FDFD8009B3111 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */; };
 		5B18EC492B7E6FD900AD4A9D /* WelderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC482B7E6FD800AD4A9D /* WelderView.swift */; };
 		5B18EC4B2B7E7DD600AD4A9D /* WeldNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */; };
+		5B18EC4D2B7E89A700AD4A9D /* WeldParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC4C2B7E89A700AD4A9D /* WeldParameterView.swift */; };
 		5B303B292B7BBBA200FB8B59 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B303B282B7BBBA200FB8B59 /* MainViewModel.swift */; };
 		5B303B2B2B7BDA1F00FB8B59 /* ProcedureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */; };
 		5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B34417E2B6E9C56004C87CF /* MainJobView.swift */; };
@@ -47,6 +48,7 @@
 		5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5B18EC482B7E6FD800AD4A9D /* WelderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelderView.swift; sourceTree = "<group>"; };
 		5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeldNumberView.swift; sourceTree = "<group>"; };
+		5B18EC4C2B7E89A700AD4A9D /* WeldParameterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeldParameterView.swift; sourceTree = "<group>"; };
 		5B303B282B7BBBA200FB8B59 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureView.swift; sourceTree = "<group>"; };
 		5B34417E2B6E9C56004C87CF /* MainJobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainJobView.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				5B303B2A2B7BDA1F00FB8B59 /* ProcedureView.swift */,
 				5B18EC482B7E6FD800AD4A9D /* WelderView.swift */,
 				5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */,
+				5B18EC4C2B7E89A700AD4A9D /* WeldParameterView.swift */,
 				5B303B272B7BBB8800FB8B59 /* ViewModels */,
 				5BFD0BC22B6E839F000EA2FA /* WeldingDataStorage */,
 				5BFD0BC12B6E833A000EA2FA /* WeldingDataModels */,
@@ -319,6 +322,7 @@
 				5B303B2B2B7BDA1F00FB8B59 /* ProcedureView.swift in Sources */,
 				5B18EC492B7E6FD900AD4A9D /* WelderView.swift in Sources */,
 				5BFD0BBD2B6E8313000EA2FA /* WeldingInspectorModel.swift in Sources */,
+				5B18EC4D2B7E89A700AD4A9D /* WeldParameterView.swift in Sources */,
 				5BFD0B902B6E8231000EA2FA /* AppEntryPoint.swift in Sources */,
 				5BFD0BC02B6E8313000EA2FA /* StorageFunctions.swift in Sources */,
 				5BFD0BBF2B6E8313000EA2FA /* Load_Data.swift in Sources */,
