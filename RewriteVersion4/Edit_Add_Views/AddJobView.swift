@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct AddJobView: View {
-    
-    @EnvironmentObject var profile:Profile
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
+    @State private var jobName = ""
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            TextField("New Job Name", text: $jobName)
+            HStack{
+                Button("Add Item") {
+                    mainViewModel.addJob(name: jobName)
+                    dismiss()
+                }
+                Spacer()
+                Button("Cancel") {
+                    dismiss()
+                }
+            }
+        }
+        .navigationTitle("Add New Job Item")
     }
 }
+
 
 
 

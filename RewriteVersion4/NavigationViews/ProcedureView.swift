@@ -91,7 +91,7 @@ struct ProcedureView: View {
             }
             .sheet(isPresented: $addNewProcedure, content: {
                 // Add new job item view
-                AddProcedureView()
+                AddProcedureView(mainViewModel: mainViewModel, selectedJobIndex: selectedJobIndex)
             })
         }
     }

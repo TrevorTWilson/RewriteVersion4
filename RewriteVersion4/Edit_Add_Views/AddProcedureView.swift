@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct AddProcedureView: View {
+    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var mainViewModel: MainViewModel
+    @State private var procedureName = ""
+    
+    var selectedJobIndex: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            TextField("New Procedure Name", text: $procedureName)
+            HStack{
+                Button("Add Item") {
+                    mainViewModel.addProcedure(selectedJobIndex: selectedJobIndex, name: procedureName)
+                    dismiss()
+                }
+                Spacer()
+                Button("Cancel") {
+                    dismiss()
+                }
+            }
+        }
+        .navigationTitle("Add New Procedure Item")
     }
-}
-
-#Preview {
-    AddProcedureView()
 }

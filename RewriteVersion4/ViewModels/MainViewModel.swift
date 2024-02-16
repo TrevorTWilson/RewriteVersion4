@@ -47,9 +47,17 @@ class MainViewModel: ObservableObject{
         weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds.remove(at: index)
     }
 
+    // Methods to add ne items to selected lists
     
-    
+    func addJob(name: String, weldingProcedures: [WeldingInspector.Job.WeldingProcedure] = []) {
+        weldingInspector.jobs.append(WeldingInspector.Job(name: name, weldingProcedures: weldingProcedures))
+    }
 
+    func addProcedure(selectedJobIndex: Int, name: String, type: String = "", usage: String = "", owner: String = "", minRanges: [String: CGFloat] = [:], maxRanges: [String: CGFloat] = [:], weldersQualified: [WeldingInspector.Job.WeldingProcedure.Welder] = [] ) {
+        weldingInspector.jobs[selectedJobIndex].weldingProcedures.append(WeldingInspector.Job.WeldingProcedure(name: name, type: type, usage: usage, owner: owner, minRanges: minRanges, maxRanges: maxRanges, weldersQualified: weldersQualified))
+    }
+    
+    
     
     
 
