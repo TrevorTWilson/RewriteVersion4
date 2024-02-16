@@ -15,6 +15,7 @@ struct WelderView: View {
     var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
     var selectedProcedureIndex: Int
 
+    @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder?
     @State private var showProfileView = false
     @State private var addNewWelder = false
     
@@ -51,7 +52,9 @@ struct WelderView: View {
                             }
                         }
                         .onDelete { indexSet in
-                            mainViewModel.deleteSelectedWelder(index: indexSet, jobIndex: selectedJobIndex, procedureIndex: selectedProcedureIndex)
+                            if let index = indexSet.first {
+                                selectedItemForDeletion = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[index]
+                            }
                         }
                     } else {
                         Text("No welders available")
@@ -64,6 +67,18 @@ struct WelderView: View {
                 
             }
 
+            .alert(item: $selectedItemForDeletion) { welder in
+                Alert(
+                    title: Text("Delete Welder"),
+                    message: Text("Are you sure you want to delete \(welder.name)? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let index = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified.firstIndex(where: { $0.id == welder.id }) {
+                            mainViewModel.deleteSelectedWelder(index: index, jobIndex: selectedJobIndex, procedureIndex: selectedProcedureIndex)
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {

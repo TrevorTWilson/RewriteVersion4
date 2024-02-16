@@ -18,7 +18,7 @@ struct WeldParameterView: View {
     var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
     var selectedWelderIndex: Int
     
-    
+    @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     @State private var showProfileView = false
     @State private var addWeldParameters = false
     
@@ -26,6 +26,16 @@ struct WeldParameterView: View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
+
+
+
+// .onDelete code for future use
+//    .onDelete { indexSet in
+//        if let index = indexSet.first {
+//            selectedItemForDeletion = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[selectedWelderIndex].welds[index]
+//        }
+//    }
+
 
 //#Preview {
 //    WeldParameterView()

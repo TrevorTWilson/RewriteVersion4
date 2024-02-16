@@ -13,6 +13,7 @@ struct ProcedureView: View {
     var selectedJob: WeldingInspector.Job?
     var selectedJobIndex: Int
 
+    @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure?
     @State private var showProfileView = false
     @State private var addNewProcedure = false
     
@@ -45,7 +46,9 @@ struct ProcedureView: View {
                             }
                         }
                         .onDelete { indexSet in
-                            mainViewModel.deleteSelectedProcedure(index: indexSet, jobIndex: selectedJobIndex)
+                            if let index = indexSet.first {
+                                selectedItemForDeletion = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[index]
+                            }
                         }
                     } else {
                         Text("No welding procedures available")
@@ -59,6 +62,18 @@ struct ProcedureView: View {
                 
             }
 
+            .alert(item: $selectedItemForDeletion) { procedure in
+                Alert(
+                    title: Text("Delete Procedure"),
+                    message: Text("Are you sure you want to delete \(procedure.name)? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let index = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures.firstIndex(where: { $0.id == procedure.id }) {
+                            mainViewModel.deleteSelectedProcedure(index: index, jobIndex: selectedJobIndex)
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {

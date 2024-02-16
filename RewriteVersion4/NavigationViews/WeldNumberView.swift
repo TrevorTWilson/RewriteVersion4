@@ -19,6 +19,7 @@ struct WelderNumberView: View {
     var selectedWelderIndex: Int
     
     
+    @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
     @State private var showProfileView = false
     @State private var addNewWeldNumber = false
     
@@ -75,7 +76,9 @@ struct WelderNumberView: View {
                             }
                         }
                         .onDelete { indexSet in
-                            mainViewModel.deleteSelectedWeldNumber(index: indexSet, jobIndex: selectedJobIndex, procedureIndex: selectedProcedureIndex, welderIndex: selectedWelderIndex)
+                            if let index = indexSet.first {
+                                selectedItemForDeletion = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[selectedWelderIndex].welds[index]
+                            }
                         }
                     } else {
                         Text("No Numbers available")
@@ -84,6 +87,18 @@ struct WelderNumberView: View {
                 }
             }
 
+            .alert(item: $selectedItemForDeletion) { weldId in
+                Alert(
+                    title: Text("Delete Weld Number"),
+                    message: Text("Are you sure you want to delete \(weldId.name)? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let index = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[selectedWelderIndex].welds.firstIndex(where: { $0.id == weldId.id }) {
+                            mainViewModel.deleteSelectedWeldNumber(index: index, jobIndex: selectedJobIndex, procedureIndex: selectedProcedureIndex, welderIndex: selectedWelderIndex)
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {

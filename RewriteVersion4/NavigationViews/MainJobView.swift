@@ -11,6 +11,7 @@ struct MainJobView: View {
     
     @EnvironmentObject var profile:Profile
     @StateObject var mainViewModel: MainViewModel = MainViewModel()
+    @State private var selectedItemForDeletion: WeldingInspector.Job?
     @State private var showProfileView = false
     @State private var addNewJob = false
     
@@ -45,12 +46,11 @@ struct MainJobView: View {
                         }
                     }
                     .onDelete { indexSet in
-                        mainViewModel.deleteSelectedJob(index: indexSet)
+                        if let index = indexSet.first {
+                            selectedItemForDeletion = mainViewModel.weldingInspector.jobs[index]
+                        }
                     }
                 }
-
-
-                
             }
             .navigationTitle("Main Menu")
             .toolbar {
@@ -64,9 +64,20 @@ struct MainJobView: View {
                     }
                 }
             }
+            .alert(item: $selectedItemForDeletion) { job in
+                Alert(
+                    title: Text("Delete Job"),
+                    message: Text("Are you sure you want to delete \(job.name)? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let index = mainViewModel.weldingInspector.jobs.firstIndex(where: { $0.id == job.id }) {
+                            mainViewModel.deleteSelectedJob(index: index)
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
             .sheet(isPresented: $showProfileView) {
                 //ProfileView(weldingInspector: weldingInspector)
-                
             }
             .sheet(isPresented: $addNewJob, content: {
                 // Add new job item view
@@ -74,7 +85,6 @@ struct MainJobView: View {
             })
         }
     }
-    
 }
 
 
