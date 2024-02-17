@@ -96,7 +96,7 @@ struct WelderView: View {
             }
             .sheet(isPresented: $addNewWelder, content: {
                 // Add new job item view
-                AddWelderView()
+                AddWelderView(mainViewModel: mainViewModel, selectedJobIndex: selectedJobIndex, selectedProcedureIndex: selectedProcedureIndex)
             })
         }
     }

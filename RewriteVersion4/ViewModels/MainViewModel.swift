@@ -57,8 +57,13 @@ class MainViewModel: ObservableObject{
         weldingInspector.jobs[selectedJobIndex].weldingProcedures.append(WeldingInspector.Job.WeldingProcedure(name: name, type: type, usage: usage, owner: owner, minRanges: minRanges, maxRanges: maxRanges, weldersQualified: weldersQualified))
     }
     
+    func addWelder(selectedProcedureIndex: Int, selectedJobIndex: Int, name: String, welderId: String = "", pressureNumber: String = "", PressureExpiry: String = "", welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = [] ) {
+        weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified.append(WeldingInspector.Job.WeldingProcedure.Welder(name: name, welderId: welderId, pressureNumber: pressureNumber, pressureExpiry: PressureExpiry, welds: welds))
+    }
     
-    
-    
+    func addWeldNumber(selectedWelderIndex: Int, selectedProcedureIndex: Int, selectedJobIndex: Int, name: String , parametersCollected:[WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters] = [] ) {
+        weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[selectedWelderIndex].welds.append(WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers(name: name, parametersCollected: parametersCollected))
+    }
 
+    
 }

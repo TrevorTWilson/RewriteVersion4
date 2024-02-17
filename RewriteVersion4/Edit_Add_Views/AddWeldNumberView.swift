@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct AddWeldNumberView: View {
+    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var mainViewModel: MainViewModel
+    @State private var weldId = ""
+    
+    var selectedJobIndex: Int
+    var selectedProcedureIndex: Int
+    var selectedWelderIndex: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            TextField("New Weld Number", text: $weldId)
+            HStack{
+                Button("Add Weld Number") {
+                    mainViewModel.addWeldNumber(selectedWelderIndex: selectedWelderIndex, selectedProcedureIndex: selectedProcedureIndex, selectedJobIndex: selectedJobIndex, name: weldId)
+                    dismiss()
+                }
+                Spacer()
+                Button("Cancel") {
+                    dismiss()
+                }
+            }
+        }
+        .navigationTitle("Add New Welder")
     }
-}
-
-#Preview {
-    AddWeldNumberView()
 }
