@@ -14,7 +14,7 @@ struct WelderView: View {
     var selectedJobIndex: Int
     var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
     var selectedProcedureIndex: Int
-
+    
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder?
     @State private var showProfileView = false
     @State private var addNewWelder = false
@@ -61,12 +61,8 @@ struct WelderView: View {
                         Text("Add qualified welder to current procedure")
                     }
                 }
-
-
-
-                
             }
-
+            
             .alert(item: $selectedItemForDeletion) { welder in
                 Alert(
                     title: Text("Delete Welder"),
@@ -92,7 +88,6 @@ struct WelderView: View {
             }
             .sheet(isPresented: $showProfileView) {
                 //ProfileView(weldingInspector: weldingInspector)
-                
             }
             .sheet(isPresented: $addNewWelder, content: {
                 // Add new job item view

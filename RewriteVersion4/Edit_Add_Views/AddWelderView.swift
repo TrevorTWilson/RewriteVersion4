@@ -15,13 +15,20 @@ struct AddWelderView: View {
     var selectedJobIndex: Int
     var selectedProcedureIndex: Int
     
+    func addWelder(){
+        mainViewModel.addWelder(selectedProcedureIndex: selectedProcedureIndex, selectedJobIndex: selectedJobIndex, name: welderName)
+        dismiss()
+    }
+    
     var body: some View {
         Form {
             TextField("New Welder Name", text: $welderName)
+                .onSubmit {
+                    addWelder()
+                }
             HStack{
                 Button("Add Welder") {
-                    mainViewModel.addWelder(selectedProcedureIndex: selectedProcedureIndex, selectedJobIndex: selectedJobIndex, name: welderName)
-                    dismiss()
+                    addWelder()
                 }
                 Spacer()
                 Button("Cancel") {

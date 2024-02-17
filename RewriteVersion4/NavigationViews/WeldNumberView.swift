@@ -23,37 +23,9 @@ struct WelderNumberView: View {
     @State private var showProfileView = false
     @State private var addNewWeldNumber = false
     
-    //        var body: some View {
-    //            VStack{
-    //                // Rendering the view based on selected procedure
-    //                Text("Selected Procedure: \(selectedWelder?.name  ?? "None")")
-    //            }
-    //            .onAppear(perform: {
-    //                mainViewModel.selectedWelder = selectedWelder
-    //                if let selectedWelderName = mainViewModel.selectedWelder?.name {
-    //                    print("Selected welder name is \(selectedWelderName)")
-    //                } else {
-    //                    print("No welder selected")
-    //                }
-    //
-    //            })
-    //        }
-    
     var body: some View {
         NavigationStack {
             VStack {
-                HStack{
-                    Text("Current Job: ")
-                    Text(selectedJob?.name ?? "Title")
-                }
-                HStack{
-                    Text("Current Procedure: ")
-                    Text(selectedProcedure?.name ?? "Title")
-                }
-                HStack{
-                    Text("Current Welder: ")
-                    Text(selectedWelder?.name ?? "Title")
-                }
                 HStack{
                     Text("Select a Weld Number")
                         .font(.title)
@@ -65,6 +37,21 @@ struct WelderNumberView: View {
                         Image(systemName: "plus.circle.fill")
                             .imageScale(.large)
                     }
+                }
+                HStack{
+                    Text("Current Job: ")
+                    Spacer()
+                    Text(selectedJob?.name ?? "Title")
+                }
+                HStack{
+                    Text("Current Procedure: ")
+                    Spacer()
+                    Text(selectedProcedure?.name ?? "Title")
+                }
+                HStack{
+                    Text("Current Welder: ")
+                    Spacer()
+                    Text(selectedWelder?.name ?? "Title")
                 }
                 Spacer()
                 // Iterate through list of procedures in instance of WeldingInspector for navigation list of each
@@ -86,7 +73,6 @@ struct WelderNumberView: View {
                     }
                 }
             }
-
             .alert(item: $selectedItemForDeletion) { weldId in
                 Alert(
                     title: Text("Delete Weld Number"),
@@ -112,7 +98,6 @@ struct WelderNumberView: View {
             }
             .sheet(isPresented: $showProfileView) {
                 //ProfileView(weldingInspector: weldingInspector)
-                
             }
             .sheet(isPresented: $addNewWeldNumber, content: {
                 // Add new job item view

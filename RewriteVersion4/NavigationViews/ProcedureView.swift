@@ -12,7 +12,7 @@ struct ProcedureView: View {
     @ObservedObject var mainViewModel: MainViewModel
     var selectedJob: WeldingInspector.Job?
     var selectedJobIndex: Int
-
+    
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure?
     @State private var showProfileView = false
     @State private var addNewProcedure = false
@@ -54,14 +54,9 @@ struct ProcedureView: View {
                         Text("No welding procedures available")
                         Text("Add welding procedures to the selected Job")
                     }
-                }
-
-
-
-
-                
+                }          
             }
-
+            
             .alert(item: $selectedItemForDeletion) { procedure in
                 Alert(
                     title: Text("Delete Procedure"),

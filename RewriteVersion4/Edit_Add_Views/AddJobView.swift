@@ -12,13 +12,20 @@ struct AddJobView: View {
     @ObservedObject var mainViewModel: MainViewModel
     @State private var jobName = ""
     
+    func addJob(){
+        mainViewModel.addJob(name: jobName)
+        dismiss()
+    }
+    
     var body: some View {
         Form {
             TextField("New Job Name", text: $jobName)
+                .onSubmit {
+                    addJob()
+                }
             HStack{
                 Button("Add Item") {
-                    mainViewModel.addJob(name: jobName)
-                    dismiss()
+                    addJob()
                 }
                 Spacer()
                 Button("Cancel") {

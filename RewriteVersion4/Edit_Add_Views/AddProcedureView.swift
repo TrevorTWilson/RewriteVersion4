@@ -14,13 +14,20 @@ struct AddProcedureView: View {
     
     var selectedJobIndex: Int
     
+    func addProcedure(){
+        mainViewModel.addProcedure(selectedJobIndex: selectedJobIndex, name: procedureName)
+        dismiss()
+    }
+    
     var body: some View {
         Form {
             TextField("New Procedure Name", text: $procedureName)
+                .onSubmit {
+                    addProcedure()
+                }
             HStack{
                 Button("Add Item") {
-                    mainViewModel.addProcedure(selectedJobIndex: selectedJobIndex, name: procedureName)
-                    dismiss()
+                    addProcedure()
                 }
                 Spacer()
                 Button("Cancel") {
