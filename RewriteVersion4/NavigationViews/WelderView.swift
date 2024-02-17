@@ -97,3 +97,13 @@ struct WelderView: View {
     }
     
 }
+
+struct WelderView_Previews: PreviewProvider {
+    static var previews: some View {
+        let mockMainViewModel = MainViewModel()
+        mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
+
+        return WelderView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedJobIndex: 1, selectedProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0], selectedProcedureIndex: 0)
+            .environmentObject(Profile())
+    }
+}

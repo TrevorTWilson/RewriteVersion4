@@ -38,3 +38,10 @@ struct AddProcedureView: View {
         .navigationTitle("Add New Procedure Item")
     }
 }
+
+
+struct AddProcedureView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddProcedureView(mainViewModel: MainViewModel(), selectedJobIndex: 0)
+    }
+}

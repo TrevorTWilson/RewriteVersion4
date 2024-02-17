@@ -94,8 +94,13 @@ struct ProcedureView: View {
 }
 
 
+struct ProcedureView_Previews: PreviewProvider {
+    static var previews: some View {
+        let mockMainViewModel = MainViewModel()
+        mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
+        return ProcedureView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedJobIndex: 0)
+            .environmentObject(Profile())
+    }
+}
 
-//#Preview {
-//    ProcedureView()
-//}

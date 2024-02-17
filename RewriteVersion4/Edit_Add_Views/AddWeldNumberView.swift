@@ -40,3 +40,10 @@ struct AddWeldNumberView: View {
         .navigationTitle("Add New Welder")
     }
 }
+
+
+struct AddWeldNumberView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddWeldNumberView(mainViewModel: MainViewModel(), selectedJobIndex: 0, selectedProcedureIndex: 0, selectedWelderIndex: 0)
+    }
+}
