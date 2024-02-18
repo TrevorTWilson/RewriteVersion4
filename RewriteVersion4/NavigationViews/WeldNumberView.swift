@@ -58,7 +58,7 @@ struct WelderNumberView: View {
                 List {
                     if let weldNumbers = selectedWelder?.welds, !weldNumbers.isEmpty {
                         ForEach(Array(weldNumbers.enumerated()), id: \.element.id) { index, weldID in
-                            NavigationLink(destination: WeldParameterView(mainViewModel: mainViewModel)) {
+                            NavigationLink(destination: WeldParameterView(mainViewModel: mainViewModel, selectedWeldNumber: weldID)) {
                                 Text(weldID.name)
                             }
                         }
@@ -116,7 +116,8 @@ struct WeldNumberView_Previews: PreviewProvider {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
-        return WelderNumberView(mainViewModel: mockMainViewModel)
+        return WelderNumberView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0],
+                                selectedWelder: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0])
             .environmentObject(Profile())
     }
 }
