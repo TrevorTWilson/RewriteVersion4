@@ -16,7 +16,7 @@ struct CollectParametersView: View {
         
         let distance = CircleSliderVC(minimunSliderValue: 50, maximunSliderValue: 400, minimunRange: 50, maximunRange: 400, totalValue: 400, knobRadius: 15, radius: 75, initialSliderValue: 185, valueUnit: "mm")
         
-        let time = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 150, minimunRange: 10, maximunRange: 150, totalValue: 150, knobRadius: 15, radius: 75, initialSliderValue: 35, valueUnit: "secs")
+        let time = RoundStopwatchView()
         
         ZStack {
             Rectangle()
