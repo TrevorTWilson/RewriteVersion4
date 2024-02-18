@@ -16,11 +16,6 @@ class MainViewModel: ObservableObject{
     @Published var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
     @Published var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
     @Published var selectedWeldNumberParameters: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters]?
-    {didSet{
-        if let selectedWeldNumber = selectedWeldNumber {
-            print(selectedWeldNumber.parametersCollected)
-        }
-    }}
     
     //Init of WeldingInspector on project launch
     init() {

@@ -33,7 +33,7 @@ struct WeldParameterView: View {
         NavigationStack {
             VStack {
                 HStack{
-                    Text("Select a Weld Number")
+                    Text("Parameters Collected")
                         .font(.title)
                     Spacer()
                     // Add new item to list of jobs
@@ -93,7 +93,6 @@ struct WeldParameterView: View {
                 mainViewModel.selectedWeldNumber = selectedWeldNumber
                 if let weldParameters = mainViewModel.selectedWeldNumber?.parametersCollected{
                     mainViewModel.selectedWeldNumberParameters = weldParameters
-                    print("weldParameters: \(String(describing: mainViewModel.selectedWeldNumberParameters))")
                 }
             }
         }
