@@ -55,16 +55,16 @@ class MainViewModel: ObservableObject{
     }
 
     
-    func deleteSelectedProcedure(index: Int, jobIndex: Int){
-        weldingInspector.jobs[jobIndex].weldingProcedures.remove(at: index)
+    func deleteSelectedProcedure(index: Int){
+        selectedJob?.weldingProcedures.remove(at: index)
     }
     
-    func deleteSelectedWelder(index: Int, jobIndex: Int, procedureIndex: Int){
-        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified.remove(at: index)
+    func deleteSelectedWelder(index: Int){
+        selectedWeldingProcedure?.weldersQualified.remove(at: index)
     }
     
-    func deleteSelectedWeldNumber(index: Int, jobIndex: Int, procedureIndex: Int, welderIndex: Int){
-        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds.remove(at: index)
+    func deleteSelectedWeldNumber(index: Int){
+        selectedWelder?.welds.remove(at: index)
     }
 
     // Methods to add ne items to selected lists
@@ -73,16 +73,16 @@ class MainViewModel: ObservableObject{
         weldingInspector.jobs.append(WeldingInspector.Job(name: name, weldingProcedures: weldingProcedures))
     }
 
-    func addProcedure(selectedJobIndex: Int, name: String, type: String = "", usage: String = "", owner: String = "", minRanges: [String: CGFloat] = [:], maxRanges: [String: CGFloat] = [:], weldersQualified: [WeldingInspector.Job.WeldingProcedure.Welder] = [] ) {
-        weldingInspector.jobs[selectedJobIndex].weldingProcedures.append(WeldingInspector.Job.WeldingProcedure(name: name, type: type, usage: usage, owner: owner, minRanges: minRanges, maxRanges: maxRanges, weldersQualified: weldersQualified))
+    func addProcedure(name: String, type: String = "", usage: String = "", owner: String = "", minRanges: [String: CGFloat] = [:], maxRanges: [String: CGFloat] = [:], weldersQualified: [WeldingInspector.Job.WeldingProcedure.Welder] = [] ) {
+        selectedJob?.weldingProcedures.append(WeldingInspector.Job.WeldingProcedure(name: name, type: type, usage: usage, owner: owner, minRanges: minRanges, maxRanges: maxRanges, weldersQualified: weldersQualified))
     }
     
-    func addWelder(selectedProcedureIndex: Int, selectedJobIndex: Int, name: String, welderId: String = "", pressureNumber: String = "", PressureExpiry: String = "", welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = [] ) {
-        weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified.append(WeldingInspector.Job.WeldingProcedure.Welder(name: name, welderId: welderId, pressureNumber: pressureNumber, pressureExpiry: PressureExpiry, welds: welds))
+    func addWelder(name: String, welderId: String = "", pressureNumber: String = "", PressureExpiry: String = "", welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = [] ) {
+        selectedWeldingProcedure?.weldersQualified.append(WeldingInspector.Job.WeldingProcedure.Welder(name: name, welderId: welderId, pressureNumber: pressureNumber, pressureExpiry: PressureExpiry, welds: welds))
     }
     
-    func addWeldNumber(selectedWelderIndex: Int, selectedProcedureIndex: Int, selectedJobIndex: Int, name: String , parametersCollected:[WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters] = [] ) {
-        weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[selectedWelderIndex].welds.append(WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers(name: name, parametersCollected: parametersCollected))
+    func addWeldNumber(name: String , parametersCollected:[WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters] = [] ) {
+        selectedWelder?.welds.append(WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers(name: name, parametersCollected: parametersCollected))
     }
 
     

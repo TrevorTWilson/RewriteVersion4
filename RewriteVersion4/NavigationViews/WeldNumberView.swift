@@ -11,12 +11,12 @@ struct WelderNumberView: View {
     
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
-    var selectedJob: WeldingInspector.Job?
-    var selectedJobIndex: Int
-    var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
-    var selectedProcedureIndex: Int
+   var selectedJob: WeldingInspector.Job?
+//    var selectedJobIndex: Int
+   var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
+//    var selectedProcedureIndex: Int
     var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
-    var selectedWelderIndex: Int
+    //var selectedWelderIndex: Int
     
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
@@ -41,30 +41,30 @@ struct WelderNumberView: View {
                 HStack{
                     Text("Current Job: ")
                     Spacer()
-                    Text(selectedJob?.name ?? "Title")
+                    Text(mainViewModel.selectedJob?.name ?? "Title")
                 }
                 HStack{
                     Text("Current Procedure: ")
                     Spacer()
-                    Text(selectedProcedure?.name ?? "Title")
+                    Text(mainViewModel.selectedWeldingProcedure?.name ?? "Title")
                 }
                 HStack{
                     Text("Current Welder: ")
                     Spacer()
-                    Text(selectedWelder?.name ?? "Title")
+                    Text(mainViewModel.selectedWelder?.name ?? "Title")
                 }
                 Spacer()
                 // Iterate through list of procedures in instance of WeldingInspector for navigation list of each
                 List {
                     if let weldNumbers = selectedWelder?.welds, !weldNumbers.isEmpty {
                         ForEach(Array(weldNumbers.enumerated()), id: \.element.id) { index, weldID in
-                            NavigationLink(destination: WeldParameterView(mainViewModel: mainViewModel, selectedJob: selectedJob, selectedJobIndex: selectedJobIndex, selectedProcedure: selectedProcedure, selectedProcedureIndex: selectedProcedureIndex, selectedWelder: selectedWelder, selectedWelderIndex: index )) {
+                            NavigationLink(destination: WeldParameterView(mainViewModel: mainViewModel)) {
                                 Text(weldID.name)
                             }
                         }
                         .onDelete { indexSet in
                             if let index = indexSet.first {
-                                selectedItemForDeletion = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[selectedWelderIndex].welds[index]
+                                selectedItemForDeletion = mainViewModel.selectedWelder?.welds[index]
                             }
                         }
                     } else {
@@ -81,8 +81,8 @@ struct WelderNumberView: View {
                     title: Text("Delete Weld Number"),
                     message: Text("Are you sure you want to delete \(weldId.name)? This action cannot be undone."),
                     primaryButton: .destructive(Text("Delete")) {
-                        if let index = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[selectedWelderIndex].welds.firstIndex(where: { $0.id == weldId.id }) {
-                            mainViewModel.deleteSelectedWeldNumber(index: index, jobIndex: selectedJobIndex, procedureIndex: selectedProcedureIndex, welderIndex: selectedWelderIndex)
+                        if let index = mainViewModel.selectedWelder?.welds.firstIndex(where: { $0.id == weldId.id }) {
+                            mainViewModel.deleteSelectedWeldNumber(index: index)
                         }
                     },
                     secondaryButton: .cancel()
@@ -104,7 +104,7 @@ struct WelderNumberView: View {
             }
             .sheet(isPresented: $addNewWeldNumber, content: {
                 // Add new job item view
-                AddWeldNumberView( mainViewModel: mainViewModel, selectedJobIndex: selectedJobIndex, selectedProcedureIndex: selectedProcedureIndex, selectedWelderIndex: selectedWelderIndex)
+                AddWeldNumberView( mainViewModel: mainViewModel)
             })
         }
     }
@@ -116,7 +116,7 @@ struct WeldNumberView_Previews: PreviewProvider {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
-        return WelderNumberView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedJobIndex: 1, selectedProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0], selectedProcedureIndex: 0,selectedWelder: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0], selectedWelderIndex: 0)
+        return WelderNumberView(mainViewModel: mockMainViewModel)
             .environmentObject(Profile())
     }
 }

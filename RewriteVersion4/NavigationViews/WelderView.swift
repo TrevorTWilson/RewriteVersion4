@@ -11,9 +11,9 @@ struct WelderView: View {
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
     var selectedJob: WeldingInspector.Job?
-    var selectedJobIndex: Int
+    //var selectedJobIndex: Int
     var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
-    var selectedProcedureIndex: Int
+    //var selectedProcedureIndex: Int
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder?
     @State private var showProfileView = false
@@ -24,11 +24,11 @@ struct WelderView: View {
             VStack {
                 HStack{
                     Text("Current Job: ")
-                    Text(selectedJob?.name ?? "Title")
+                    Text(mainViewModel.selectedJob?.name ?? "Title")
                 }
                 HStack{
                     Text("Current Procedure: ")
-                    Text(selectedProcedure?.name ?? "Title")
+                    Text(mainViewModel.selectedWeldingProcedure?.name ?? "Title")
                 }
                 HStack{
                     Text("Select a Welder")
@@ -47,13 +47,13 @@ struct WelderView: View {
                 List {
                     if let welders = selectedProcedure?.weldersQualified, !welders.isEmpty {
                         ForEach(Array(welders.enumerated()), id: \.element.id) { index, welder in
-                            NavigationLink(destination: WelderNumberView(mainViewModel: mainViewModel, selectedJob: selectedJob, selectedJobIndex: selectedJobIndex, selectedProcedure: selectedProcedure, selectedProcedureIndex: selectedProcedureIndex, selectedWelder: welder, selectedWelderIndex: index )) {
+                            NavigationLink(destination: WelderNumberView(mainViewModel: mainViewModel, selectedWelder: welder)) {
                                 Text(welder.name)
                             }
                         }
                         .onDelete { indexSet in
                             if let index = indexSet.first {
-                                selectedItemForDeletion = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified[index]
+                                selectedItemForDeletion = mainViewModel.selectedWeldingProcedure?.weldersQualified[index]
                             }
                         }
                     } else {
@@ -71,8 +71,8 @@ struct WelderView: View {
                     title: Text("Delete Welder"),
                     message: Text("Are you sure you want to delete \(welder.name)? This action cannot be undone."),
                     primaryButton: .destructive(Text("Delete")) {
-                        if let index = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[selectedProcedureIndex].weldersQualified.firstIndex(where: { $0.id == welder.id }) {
-                            mainViewModel.deleteSelectedWelder(index: index, jobIndex: selectedJobIndex, procedureIndex: selectedProcedureIndex)
+                        if let index = mainViewModel.selectedWeldingProcedure?.weldersQualified.firstIndex(where: { $0.id == welder.id }) {
+                            mainViewModel.deleteSelectedWelder(index: index)
                         }
                     },
                     secondaryButton: .cancel()
@@ -94,7 +94,7 @@ struct WelderView: View {
             }
             .sheet(isPresented: $addNewWelder, content: {
                 // Add new job item view
-                AddWelderView(mainViewModel: mainViewModel, selectedJobIndex: selectedJobIndex, selectedProcedureIndex: selectedProcedureIndex)
+                AddWelderView(mainViewModel: mainViewModel)
             })
         }
     }
@@ -106,7 +106,7 @@ struct WelderView_Previews: PreviewProvider {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
-        return WelderView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedJobIndex: 1, selectedProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0], selectedProcedureIndex: 0)
+        return WelderView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0])
             .environmentObject(Profile())
     }
 }

@@ -12,12 +12,12 @@ struct AddWeldNumberView: View {
     @ObservedObject var mainViewModel: MainViewModel
     @State private var weldId = ""
     
-    var selectedJobIndex: Int
-    var selectedProcedureIndex: Int
-    var selectedWelderIndex: Int
+//    var selectedJobIndex: Int
+//    var selectedProcedureIndex: Int
+//    var selectedWelderIndex: Int
     
     func addWeldNumber(){
-        mainViewModel.addWeldNumber(selectedWelderIndex: selectedWelderIndex, selectedProcedureIndex: selectedProcedureIndex, selectedJobIndex: selectedJobIndex, name: weldId)
+        mainViewModel.addWeldNumber( name: weldId)
         dismiss()
     }
     
@@ -44,6 +44,6 @@ struct AddWeldNumberView: View {
 
 struct AddWeldNumberView_Previews: PreviewProvider {
     static var previews: some View {
-        AddWeldNumberView(mainViewModel: MainViewModel(), selectedJobIndex: 0, selectedProcedureIndex: 0, selectedWelderIndex: 0)
+        AddWeldNumberView(mainViewModel: MainViewModel())
     }
 }

@@ -11,7 +11,7 @@ struct ProcedureView: View {
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
     var selectedJob: WeldingInspector.Job?
-    var selectedJobIndex: Int
+    //var selectedJobIndex: Int
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure?
     @State private var showProfileView = false
@@ -23,7 +23,7 @@ struct ProcedureView: View {
             VStack {
                 HStack{
                     Text("Current Job: ")
-                    Text(selectedJob?.name ?? "Title")
+                    Text(mainViewModel.selectedJob?.name ?? "Title")
                 }
                 HStack{
                     Text("Select a Procedure")
@@ -42,13 +42,13 @@ struct ProcedureView: View {
                 List {
                     if let weldingProcedures = selectedJob?.weldingProcedures, !weldingProcedures.isEmpty {
                         ForEach(Array(weldingProcedures.enumerated()), id: \.element.id) { index, procedure in
-                            NavigationLink(destination: WelderView(mainViewModel: mainViewModel, selectedJob: selectedJob, selectedJobIndex: selectedJobIndex, selectedProcedure: procedure, selectedProcedureIndex: index)) {
+                            NavigationLink(destination: WelderView(mainViewModel: mainViewModel, selectedProcedure: procedure)) {
                                 Text(procedure.name)
                             }
                         }
                         .onDelete { indexSet in
                             if let index = indexSet.first {
-                                selectedItemForDeletion = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures[index]
+                                selectedItemForDeletion = mainViewModel.selectedJob?.weldingProcedures[index]
                             }
                         }
                     } else {
@@ -66,8 +66,8 @@ struct ProcedureView: View {
                     title: Text("Delete Procedure"),
                     message: Text("Are you sure you want to delete \(procedure.name)? This action cannot be undone."),
                     primaryButton: .destructive(Text("Delete")) {
-                        if let index = mainViewModel.weldingInspector.jobs[selectedJobIndex].weldingProcedures.firstIndex(where: { $0.id == procedure.id }) {
-                            mainViewModel.deleteSelectedProcedure(index: index, jobIndex: selectedJobIndex)
+                        if let index = mainViewModel.selectedJob?.weldingProcedures.firstIndex(where: { $0.id == procedure.id }) {
+                            mainViewModel.deleteSelectedProcedure(index: index)
                         }
                     },
                     secondaryButton: .cancel()
@@ -90,7 +90,7 @@ struct ProcedureView: View {
             }
             .sheet(isPresented: $addNewProcedure, content: {
                 // Add new job item view
-                AddProcedureView(mainViewModel: mainViewModel, selectedJobIndex: selectedJobIndex)
+                AddProcedureView(mainViewModel: mainViewModel)
             })
         }
     }
@@ -103,7 +103,7 @@ struct ProcedureView_Previews: PreviewProvider {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
-        return ProcedureView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedJobIndex: 0)
+        return ProcedureView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1])
             .environmentObject(Profile())
     }
 }

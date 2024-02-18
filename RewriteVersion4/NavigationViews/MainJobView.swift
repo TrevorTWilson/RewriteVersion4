@@ -41,7 +41,7 @@ struct MainJobView: View {
                 // Iterate through list of jobs in instance of WeldingInspector for navigation list of each
                 List {
                     ForEach(Array(mainViewModel.weldingInspector.jobs.enumerated()), id: \.element.id) { index, job in
-                        NavigationLink(destination: ProcedureView(mainViewModel: mainViewModel, selectedJob: job, selectedJobIndex: index)) {
+                        NavigationLink(destination: ProcedureView(mainViewModel: mainViewModel, selectedJob: job)) {
                             Text(job.name)
                         }
                     }

@@ -12,10 +12,10 @@ struct AddProcedureView: View {
     @ObservedObject var mainViewModel: MainViewModel
     @State private var procedureName = ""
     
-    var selectedJobIndex: Int
+    //var selectedJobIndex: Int
     
     func addProcedure(){
-        mainViewModel.addProcedure(selectedJobIndex: selectedJobIndex, name: procedureName)
+        mainViewModel.addProcedure(name: procedureName)
         dismiss()
     }
     
@@ -42,6 +42,6 @@ struct AddProcedureView: View {
 
 struct AddProcedureView_Previews: PreviewProvider {
     static var previews: some View {
-        AddProcedureView(mainViewModel: MainViewModel(), selectedJobIndex: 0)
+        AddProcedureView(mainViewModel: MainViewModel())
     }
 }

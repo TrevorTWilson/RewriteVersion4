@@ -12,11 +12,11 @@ struct WeldParameterView: View {
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
     var selectedJob: WeldingInspector.Job?
-    var selectedJobIndex: Int
+  
     var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
-    var selectedProcedureIndex: Int
+
     var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
-    var selectedWelderIndex: Int
+ 
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     @State private var showProfileView = false
