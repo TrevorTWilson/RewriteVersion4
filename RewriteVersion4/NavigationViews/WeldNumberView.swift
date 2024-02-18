@@ -73,6 +73,9 @@ struct WelderNumberView: View {
                     }
                 }
             }
+            .onAppear{
+                mainViewModel.selectedWelder = selectedWelder
+            }
             .alert(item: $selectedItemForDeletion) { weldId in
                 Alert(
                     title: Text("Delete Weld Number"),

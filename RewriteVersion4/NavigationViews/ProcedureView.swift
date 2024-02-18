@@ -17,6 +17,7 @@ struct ProcedureView: View {
     @State private var showProfileView = false
     @State private var addNewProcedure = false
     
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -55,6 +56,9 @@ struct ProcedureView: View {
                         Text("Add welding procedures to the selected Job")
                     }
                 }          
+            }
+            .onAppear{
+                mainViewModel.selectedJob = selectedJob
             }
             
             .alert(item: $selectedItemForDeletion) { procedure in

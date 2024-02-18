@@ -62,6 +62,9 @@ struct WelderView: View {
                     }
                 }
             }
+            .onAppear{
+                mainViewModel.selectedWeldingProcedure = selectedProcedure
+            }
             
             .alert(item: $selectedItemForDeletion) { welder in
                 Alert(
