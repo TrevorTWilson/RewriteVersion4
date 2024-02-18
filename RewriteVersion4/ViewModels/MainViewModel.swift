@@ -12,29 +12,9 @@ class MainViewModel: ObservableObject{
     // Setup for Objects to be available through scope of app
     @Published var weldingInspector: WeldingInspector
     @Published var selectedJob: WeldingInspector.Job?
-    {didSet{
-        if let selectedJob = selectedJob {
-            print("Selected Job now set to: \(selectedJob.name)")
-        }
-    }}
     @Published var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?
-    {didSet{
-        if let selectedWeldingProcedure = selectedWeldingProcedure {
-            print("Selected Procedure now set to: \(selectedWeldingProcedure.name) Job Name: \(selectedJob?.name ?? "")")
-        }
-    }}
     @Published var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
-    {didSet{
-        if let selectedWelder = selectedWelder {
-            print("Selected Welder now set to: \(selectedWelder.name) Procedure Name: \(selectedWeldingProcedure?.name ?? "") Job Name: \(selectedJob?.name ?? "")")
-        }
-    }}
     @Published var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
-    {didSet{
-        if let selectedWeldNumber = selectedWeldNumber {
-            print("Selected WeldId now set to: \(selectedWeldNumber.name) Welder Name: \(selectedWelder?.name ?? "") Procedure Name: \(selectedWeldingProcedure?.name ?? "") Job Name: \(selectedJob?.name ?? "")")
-        }
-    }}
     
     //Init of WeldingInspector on project launch
     init() {
