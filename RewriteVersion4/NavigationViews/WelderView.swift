@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct WelderView: View {
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
-    var selectedJob: WeldingInspector.Job?
+    //var selectedJob: WeldingInspector.Job?
     //var selectedJobIndex: Int
-    var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
+    var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?
     //var selectedProcedureIndex: Int
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder?
@@ -45,7 +46,7 @@ struct WelderView: View {
                 Spacer()
                 // Iterate through list of procedures in instance of WeldingInspector for navigation list of each
                 List {
-                    if let welders = selectedProcedure?.weldersQualified, !welders.isEmpty {
+                    if let welders = mainViewModel.selectedWeldingProcedure?.weldersQualified, !welders.isEmpty {
                         ForEach(Array(welders.enumerated()), id: \.element.id) { index, welder in
                             NavigationLink(destination: WelderNumberView(mainViewModel: mainViewModel, selectedWelder: welder)) {
                                 Text(welder.name)
@@ -63,7 +64,7 @@ struct WelderView: View {
                 }
             }
             .onAppear{
-                mainViewModel.selectedWeldingProcedure = selectedProcedure
+                mainViewModel.selectedWeldingProcedure = selectedWeldingProcedure
             }
             
             .alert(item: $selectedItemForDeletion) { welder in
@@ -106,7 +107,7 @@ struct WelderView_Previews: PreviewProvider {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
-        return WelderView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0])
+        return WelderView(mainViewModel: mockMainViewModel,  selectedWeldingProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0])
             .environmentObject(Profile())
     }
 }

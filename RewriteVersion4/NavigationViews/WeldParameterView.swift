@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import Combine
 
 struct WeldParameterView: View {
     
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
-    var selectedJob: WeldingInspector.Job?
+    //var selectedJob: WeldingInspector.Job?
     
-    var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
+    //var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
     
-    var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
+    //var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
     
     var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
     var selectedWeldNumberParameters: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
@@ -69,32 +70,31 @@ struct WeldParameterView: View {
                 // Define the keys in the desired order
                 let orderedKeys = ["Amps", "Volts", "ArcSpeed", "HeatInput"]
 
-                // Assuming mainViewModel.selectedWeldNumberParameters is an array of WeldNumbers.Parameters
-                if let parametersArray = mainViewModel.selectedWeldNumberParameters {
-                    ForEach(parametersArray, id: \.id) { parameters in
-                        Text("Pass Name: \(parameters.passName)")
-
-                        ForEach(orderedKeys, id: \.self) { key in
-                            if let value = parameters.collectedValues[key] {
-                                KeyValueView(key: key, value: value)
-                            }
-                        }
-                    }
-                } else {
-                    Text("No Parameters Collected")
-                }
-
-                
-
-
-
+                // Iterate over collectedParameters stored in the weldNumber
+//                if let parametersArray = mainViewModel.selectedWeldNumberParameters {
+//                    ForEach(parametersArray, id: \.id) { parameters in
+//                        Text("Pass Name: \(parameters.passName)")
+//
+//                        ForEach(orderedKeys, id: \.self) { key in
+//                            if let value = parameters.collectedValues[key] {
+//                                KeyValueView(key: key, value: value)
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    Text("No Parameters Collected")
+//                }
             }
             .onAppear{
                 mainViewModel.selectedWeldNumber = selectedWeldNumber
-                if let weldParameters = mainViewModel.selectedWeldNumber?.parametersCollected{
-                    mainViewModel.selectedWeldNumberParameters = weldParameters
-                }
+//                if let weldParameters = mainViewModel.selectedWeldNumber?.parametersCollected{
+//                    mainViewModel.selectedWeldNumberParameters = weldParameters
+//                }
             }
+            .sheet(isPresented: $addWeldParameters, content: {
+                // Add new job item view
+                AddParametersView(mainViewModel: mainViewModel)
+            })
         }
     }
 }
@@ -109,8 +109,7 @@ struct WeldParameterView_Previews: PreviewProvider {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
-        return WeldParameterView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1], selectedProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0],
-                                 selectedWelder: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0],
+        return WeldParameterView(mainViewModel: mockMainViewModel, 
                                  selectedWeldNumber: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0], selectedWeldNumberParameters: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0].parametersCollected[0])
             .environmentObject(Profile())
     }

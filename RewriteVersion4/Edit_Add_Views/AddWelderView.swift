@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AddWelderView: View {
     @Environment(\.dismiss) private var dismiss

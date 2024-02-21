@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ProcedureView: View {
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
+    
     var selectedJob: WeldingInspector.Job?
-    //var selectedJobIndex: Int
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure?
     @State private var showProfileView = false
     @State private var addNewProcedure = false
+    @State private var isHidden = true
+    
     
     
     var body: some View {
@@ -31,6 +34,7 @@ struct ProcedureView: View {
                     Spacer()
                     // Add new item to list of jobs
                     Button {
+                        isHidden.toggle()
                         addNewProcedure = true
                     }label: {
                         Image(systemName: "plus.circle.fill")
@@ -40,9 +44,9 @@ struct ProcedureView: View {
                 Spacer()
                 // Iterate through list of procedures in instance of WeldingInspector for navigation list of each
                 List {
-                    if let weldingProcedures = selectedJob?.weldingProcedures, !weldingProcedures.isEmpty {
+                    if let weldingProcedures = mainViewModel.selectedJob?.weldingProcedures, !weldingProcedures.isEmpty {
                         ForEach(Array(weldingProcedures.enumerated()), id: \.element.id) { index, procedure in
-                            NavigationLink(destination: WelderView(mainViewModel: mainViewModel, selectedProcedure: procedure)) {
+                            NavigationLink(destination: WelderView(mainViewModel: mainViewModel, selectedWeldingProcedure: procedure)) {
                                 Text(procedure.name)
                             }
                         }
@@ -55,11 +59,15 @@ struct ProcedureView: View {
                         Text("No welding procedures available")
                         Text("Add welding procedures to the selected Job")
                     }
-                }          
+                }   
+                if !isHidden {
+                    Text("Adding Procedure")                    .font(.headline)                    .foregroundColor(.blue)                    .padding()            }
             }
             .onAppear{
-                mainViewModel.selectedJob = selectedJob
-            }
+                if selectedJob != nil {
+                    mainViewModel.setSelectedJob(job: selectedJob!)
+                }
+                }
             
             .alert(item: $selectedItemForDeletion) { procedure in
                 Alert(
@@ -88,10 +96,24 @@ struct ProcedureView: View {
                 //ProfileView(weldingInspector: weldingInspector)
                 
             }
-            .sheet(isPresented: $addNewProcedure, content: {
-                // Add new job item view
-                AddProcedureView(mainViewModel: mainViewModel)
-            })
+            .sheet(isPresented: $addNewProcedure, onDismiss: {
+                isHidden.toggle()
+                
+//                if selectedJob != nil {
+//                    mainViewModel.setSelectedJob(job: selectedJob!)
+//                }
+            }) {
+                AddProcedureView(mainViewModel: mainViewModel) { procedureName in
+                    // Handle the collected data (procedureName) returned from AddProcedureView
+                    mainViewModel.addProcedure(name: procedureName)
+                    print("Collected Procedure Name: \(procedureName)")
+                    mainViewModel.selectedJob = selectedJob
+                }
+            }
+            
+
+
+
         }
     }
     

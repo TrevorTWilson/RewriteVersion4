@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AddJobView: View {
     @Environment(\.dismiss) private var dismiss

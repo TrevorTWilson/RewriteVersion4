@@ -79,8 +79,8 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
                         var passName: String = ""
                         var collectedValues: [String: CGFloat] = [:]    //Dictionary of amps, volts, arcSpeed, heatInput
                         
-                        init(weldId: String, collectedValues: [String: CGFloat]) {
-                            self.passName = weldId
+                        init(passName: String, collectedValues: [String: CGFloat]) {
+                            self.passName = passName
                             self.collectedValues = collectedValues
                         }
                     }

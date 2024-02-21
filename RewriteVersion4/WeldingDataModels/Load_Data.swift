@@ -8,7 +8,7 @@ import Foundation
 
 func loadSample()-> WeldingInspector{
     let welderParams: [String: CGFloat] = ["Amps": 200, "Volts": 28, "ArcSpeed": 50, "HeatInput": 80]
-    let weldNumbersParams = WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters(weldId: "Root", collectedValues: welderParams)
+    let weldNumbersParams = WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters(passName: "Root", collectedValues: welderParams)
     
     let weldNumber1 = WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers(name: "TI-0001", parametersCollected: [weldNumbersParams])
     

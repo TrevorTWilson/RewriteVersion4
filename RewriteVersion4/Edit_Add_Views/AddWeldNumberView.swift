@@ -6,24 +6,25 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AddWeldNumberView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
-    @State private var weldId = ""
+    @State private var name = ""
     
 //    var selectedJobIndex: Int
 //    var selectedProcedureIndex: Int
 //    var selectedWelderIndex: Int
     
     func addWeldNumber(){
-        mainViewModel.addWeldNumber( name: weldId)
+        mainViewModel.addWeldNumber(name: name)
         dismiss()
     }
     
     var body: some View {
         Form {
-            TextField("New Weld Number", text: $weldId)
+            TextField("New Weld Number", text: $name)
                 .onSubmit {
                     addWeldNumber()
                 }
