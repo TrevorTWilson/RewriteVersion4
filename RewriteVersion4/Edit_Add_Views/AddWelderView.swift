@@ -12,13 +12,14 @@ struct AddWelderView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
     @State private var welderName = ""
+    @Binding var isPresented: Bool
     
 //    var selectedJobIndex: Int
 //    var selectedProcedureIndex: Int
     
     func addWelder(){
         mainViewModel.addWelder(name: welderName)
-        dismiss()
+        isPresented = false
     }
     
     var body: some View {
@@ -33,7 +34,7 @@ struct AddWelderView: View {
                 }
                 Spacer()
                 Button("Cancel") {
-                    dismiss()
+                    isPresented = false
                 }
             }
         }
@@ -44,6 +45,7 @@ struct AddWelderView: View {
 
 struct AddWelderView_Previews: PreviewProvider {
     static var previews: some View {
-        AddWelderView(mainViewModel: MainViewModel())
+        @State var isPresented: Bool = true // Define isPresented as @State variable
+        AddWelderView(mainViewModel: MainViewModel(), isPresented: $isPresented)
     }
 }

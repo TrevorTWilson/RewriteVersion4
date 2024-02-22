@@ -12,6 +12,7 @@ struct AddWeldNumberView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
     @State private var name = ""
+    @Binding var isPresented: Bool
     
 //    var selectedJobIndex: Int
 //    var selectedProcedureIndex: Int
@@ -19,7 +20,7 @@ struct AddWeldNumberView: View {
     
     func addWeldNumber(){
         mainViewModel.addWeldNumber(name: name)
-        dismiss()
+        isPresented = false
     }
     
     var body: some View {
@@ -34,7 +35,7 @@ struct AddWeldNumberView: View {
                 }
                 Spacer()
                 Button("Cancel") {
-                    dismiss()
+                    isPresented = false
                 }
             }
         }
@@ -45,6 +46,7 @@ struct AddWeldNumberView: View {
 
 struct AddWeldNumberView_Previews: PreviewProvider {
     static var previews: some View {
-        AddWeldNumberView(mainViewModel: MainViewModel())
+        @State var isPresented: Bool = true // Define isPresented as @State variable
+        AddWeldNumberView(mainViewModel: MainViewModel(), isPresented: $isPresented)
     }
 }

@@ -8,7 +8,16 @@
 import Foundation
 import Combine
 
-class MainViewModel: ObservableObject{
+class MainViewModel: ObservableObject, Equatable {
+    static func == (lhs: MainViewModel, rhs: MainViewModel) -> Bool {
+        // Implement custom logic to compare two MainViewModel instances for equality
+        return lhs.weldingInspector == rhs.weldingInspector &&
+               lhs.selectedJob == rhs.selectedJob &&
+               lhs.selectedWeldingProcedure == rhs.selectedWeldingProcedure &&
+               lhs.selectedWelder == rhs.selectedWelder &&
+               lhs.selectedWeldNumber == rhs.selectedWeldNumber &&
+               lhs.selectedWeldNumberParameters == rhs.selectedWeldNumberParameters
+    }
     
     // Setup for Objects to be available through scope of app
     @Published var weldingInspector: WeldingInspector {
@@ -145,6 +154,8 @@ class MainViewModel: ObservableObject{
         updatedJob.weldingProcedures.append(newProcedure)
 
         weldingInspector.jobs[jobIndex] = updatedJob
+        
+        
         //print(jobIndex)
 
     }
@@ -176,7 +187,7 @@ class MainViewModel: ObservableObject{
 
         updatedWelder.welds.append(newWeldNumber)
 
-        if let jobIndex = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }), let procedureIndex = weldingInspector.jobs[jobIndex].weldingProcedures.firstIndex(where: { $0.id == selectedWeldingProcedure?.id }), let welderIndex = selectedWeldingProcedure?.weldersQualified.firstIndex(where: { $0.id == selectedWelder?.id }) {
+        if let jobIndex = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }), let procedureIndex = selectedJob?.weldingProcedures.firstIndex(where: { $0.id == selectedWeldingProcedure?.id }), let welderIndex = selectedWeldingProcedure?.weldersQualified.firstIndex(where: { $0.id == selectedWelder?.id }) {
             
             weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex] = updatedWelder
         }
@@ -192,8 +203,10 @@ class MainViewModel: ObservableObject{
 
         updatedWeldNumber.parametersCollected.append(newParameters)
 
-        if let weldNumberIndex = selectedWelder?.welds.firstIndex(where: { $0.id == selectedWeldNumber?.id }) {
-            selectedWelder?.welds[weldNumberIndex] = updatedWeldNumber
+        if let jobIndex = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }), let procedureIndex = selectedJob?.weldingProcedures.firstIndex(where: { $0.id == selectedWeldingProcedure?.id }), let welderIndex = selectedWeldingProcedure?.weldersQualified.firstIndex(where: { $0.id == selectedWelder?.id }), let weldNumberIndex = selectedWelder?.welds.firstIndex(where: { $0.id == selectedWeldNumber?.id }) {
+            
+            //selectedWelder?.welds[weldNumberIndex] = updatedWeldNumber
+            weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex] = updatedWeldNumber
         }
     }
 

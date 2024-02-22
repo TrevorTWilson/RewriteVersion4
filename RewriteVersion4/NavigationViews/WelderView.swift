@@ -46,7 +46,7 @@ struct WelderView: View {
                 Spacer()
                 // Iterate through list of procedures in instance of WeldingInspector for navigation list of each
                 List {
-                    if let welders = mainViewModel.selectedWeldingProcedure?.weldersQualified, !welders.isEmpty {
+                    if let welders = selectedWeldingProcedure?.weldersQualified, !welders.isEmpty {
                         ForEach(Array(welders.enumerated()), id: \.element.id) { index, welder in
                             NavigationLink(destination: WelderNumberView(mainViewModel: mainViewModel, selectedWelder: welder)) {
                                 Text(welder.name)
@@ -95,7 +95,7 @@ struct WelderView: View {
             }
             .sheet(isPresented: $addNewWelder, content: {
                 // Add new job item view
-                AddWelderView(mainViewModel: mainViewModel)
+                AddWelderView(mainViewModel: mainViewModel, isPresented: $addNewWelder)
             })
         }
     }

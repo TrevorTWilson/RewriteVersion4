@@ -9,21 +9,20 @@ import SwiftUI
 import Combine
 
 struct AddProcedureView: View {
-    @Environment(\.dismiss) private var dismiss
+    //@Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
     // var selectedJob: WeldingInspector.Job
+    @Binding var isPresented: Bool
     @State private var procedureName = ""
-    
-    var onAddProcedure: ((String) -> Void) // Completion closure to return collected data
+
     
     
     
     func addProcedure(){
         // mainViewModel.selectedJob = selectedJob
-//        mainViewModel.addProcedure(name: procedureName)
-        
-        onAddProcedure(procedureName) // Call the completion closure with the collected data
-        dismiss()
+        mainViewModel.addProcedure(name: procedureName)
+        isPresented = false
+//        dismiss()
     }
     
     var body: some View {
@@ -38,7 +37,8 @@ struct AddProcedureView: View {
                 }
                 Spacer()
                 Button("Cancel") {
-                    dismiss()
+                    isPresented = false
+//                    dismiss()
                 }
             }
         }
@@ -51,12 +51,10 @@ struct AddProcedureView_Previews: PreviewProvider {
     static var previews: some View {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
-        
-        return AddProcedureView(mainViewModel: mockMainViewModel, onAddProcedure: { procedureName in
-            // Handle the collected data within the closure
-            print("Collected Procedure Name: \(procedureName)")
-            // Add any additional actions based on the collected data here
-        })
+        @State var isPresented: Bool = true // Define isPresented as @State variable
+
+        return AddProcedureView(mainViewModel: mockMainViewModel, isPresented: $isPresented)
     }
 }
+
 

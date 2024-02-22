@@ -19,7 +19,7 @@ struct WeldParameterView: View {
     //var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
     
     var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
-    var selectedWeldNumberParameters: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
+//    var selectedWeldNumberParameters: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     @State private var showProfileView = false
@@ -70,20 +70,24 @@ struct WeldParameterView: View {
                 // Define the keys in the desired order
                 let orderedKeys = ["Amps", "Volts", "ArcSpeed", "HeatInput"]
 
-                // Iterate over collectedParameters stored in the weldNumber
-//                if let parametersArray = mainViewModel.selectedWeldNumberParameters {
-//                    ForEach(parametersArray, id: \.id) { parameters in
-//                        Text("Pass Name: \(parameters.passName)")
-//
-//                        ForEach(orderedKeys, id: \.self) { key in
-//                            if let value = parameters.collectedValues[key] {
-//                                KeyValueView(key: key, value: value)
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    Text("No Parameters Collected")
-//                }
+                // Iterate over collectedParameters stored in the weldNumber data Model
+                List {
+                    if let passParameter = selectedWeldNumber?.parametersCollected, !passParameter.isEmpty {
+                        ForEach(Array(passParameter.enumerated()), id: \.element.id) { index, pass in
+                            NavigationLink(destination: PassParameterView(mainViewModel: mainViewModel, selectedWeldPass: pass)) {
+                                Text(pass.passName)
+                            }
+                        }
+                        .onDelete { indexSet in
+                            if let index = indexSet.first {
+                                selectedItemForDeletion = mainViewModel.selectedWeldNumber?.parametersCollected[index]
+                            }
+                        }
+                    } else {
+                        Text("No Numbers available")
+                        Text("Add weld number to list of collected parameters")
+                    }
+                }
             }
             .onAppear{
                 mainViewModel.selectedWeldNumber = selectedWeldNumber
@@ -93,7 +97,7 @@ struct WeldParameterView: View {
             }
             .sheet(isPresented: $addWeldParameters, content: {
                 // Add new job item view
-                AddParametersView(mainViewModel: mainViewModel)
+                AddParametersView(mainViewModel: mainViewModel, isPresented: $addWeldParameters)
             })
         }
     }
@@ -110,7 +114,7 @@ struct WeldParameterView_Previews: PreviewProvider {
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
         return WeldParameterView(mainViewModel: mockMainViewModel, 
-                                 selectedWeldNumber: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0], selectedWeldNumberParameters: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0].parametersCollected[0])
+                                 selectedWeldNumber: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0])
             .environmentObject(Profile())
     }
 }

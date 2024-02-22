@@ -12,13 +12,8 @@ struct WelderNumberView: View {
     
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
-  // var selectedJob: WeldingInspector.Job?
-//    var selectedJobIndex: Int
- //  var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
-//    var selectedProcedureIndex: Int
+
     var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
-    //var selectedWelderIndex: Int
-    
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
     @State private var showProfileView = false
@@ -57,7 +52,7 @@ struct WelderNumberView: View {
                 Spacer()
                 // Iterate through list of procedures in instance of WeldingInspector for navigation list of each
                 List {
-                    if let weldNumbers = mainViewModel.selectedWelder?.welds, !weldNumbers.isEmpty {
+                    if let weldNumbers = selectedWelder?.welds, !weldNumbers.isEmpty {
                         ForEach(Array(weldNumbers.enumerated()), id: \.element.id) { index, weldID in
                             NavigationLink(destination: WeldParameterView(mainViewModel: mainViewModel, selectedWeldNumber: weldID)) {
                                 Text(weldID.name)
@@ -109,7 +104,7 @@ struct WelderNumberView: View {
             }
             .sheet(isPresented: $addNewWeldNumber, content: {
                 // Add new job item view
-                AddWeldNumberView( mainViewModel: mainViewModel)
+                AddWeldNumberView( mainViewModel: mainViewModel, isPresented: $addNewWeldNumber)
             })
         }
     }

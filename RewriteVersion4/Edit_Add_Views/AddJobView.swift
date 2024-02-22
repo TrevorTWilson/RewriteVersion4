@@ -12,10 +12,11 @@ struct AddJobView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
     @State private var jobName = ""
+    @Binding var isPresented: Bool
     
     func addJob(){
         mainViewModel.addJob(name: jobName)
-        dismiss()
+        isPresented = false
     }
     
     var body: some View {
@@ -30,7 +31,7 @@ struct AddJobView: View {
                 }
                 Spacer()
                 Button("Cancel") {
-                    dismiss()
+                    isPresented = false
                 }
             }
         }
@@ -41,7 +42,8 @@ struct AddJobView: View {
 
 struct AddJobView_Previews: PreviewProvider {
     static var previews: some View {
-        AddJobView(mainViewModel: MainViewModel())
+        @State var isPresented: Bool = true // Define isPresented as @State variable
+        AddJobView(mainViewModel: MainViewModel(), isPresented: $isPresented)
     }
 }
 

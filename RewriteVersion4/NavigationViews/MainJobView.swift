@@ -82,7 +82,7 @@ struct MainJobView: View {
             }
             .sheet(isPresented: $addNewJob, content: {
                 // Add new job item view
-                AddJobView(mainViewModel: mainViewModel)
+                AddJobView(mainViewModel: mainViewModel, isPresented: $addNewJob)
             })
         }
     }

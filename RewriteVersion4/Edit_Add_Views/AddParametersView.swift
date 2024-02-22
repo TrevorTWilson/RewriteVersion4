@@ -13,10 +13,11 @@ struct AddParametersView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
     @State private var passName = ""
+    @Binding var isPresented: Bool
     
     func addParameters(){
         mainViewModel.addParameters(passName: passName)
-        dismiss()
+        isPresented = false
     }
     
     var body: some View {
@@ -26,19 +27,24 @@ struct AddParametersView: View {
                     addParameters()
                 }
             HStack{
-                Button("Add Weld Number") {
+                Button("Add New Pass Name") {
                     addParameters()
                 }
                 Spacer()
                 Button("Cancel") {
-                    dismiss()
+                    isPresented = false
                 }
             }
         }
-        .navigationTitle("Add New Welder")
+        .navigationTitle("Add New Pass")
     }
 }
 
-#Preview {
-    AddParametersView(mainViewModel: MainViewModel())
+struct AddParametersView_Preview: PreviewProvider {
+    @State static var isPresented: Bool = true
+
+    static var previews: some View {
+        AddParametersView(mainViewModel: MainViewModel(), isPresented: $isPresented)
+    }
 }
+
