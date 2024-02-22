@@ -61,9 +61,6 @@ struct WeldPassView: View {
                 }
                 Spacer()
 
-                // Define the keys in the desired order
-                let orderedKeys = ["Amps", "Volts", "ArcSpeed", "HeatInput"]
-
                 // Iterate over collectedParameters stored in the weldNumber data Model
                 List {
                     if let passParameter = selectedWeldNumber?.parametersCollected, !passParameter.isEmpty {

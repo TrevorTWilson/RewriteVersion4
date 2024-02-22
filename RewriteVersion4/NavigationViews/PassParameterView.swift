@@ -16,6 +16,7 @@ struct PassParameterView: View {
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     @State private var showProfileView = false
     @State private var addWeldParameters = false
+    @State private var isExpanded = false
     
     var body: some View {
         NavigationStack {
@@ -32,31 +33,14 @@ struct PassParameterView: View {
                             .imageScale(.large)
                     }
                 }
-                HStack{
-                    Text("Current Job: ")
-                    Spacer()
-                    Text(mainViewModel.selectedJob?.name ?? "Title")
-                }
-                HStack{
-                    Text("Current Procedure: ")
-                    Spacer()
-                    Text(mainViewModel.selectedWeldingProcedure?.name ?? "Title")
-                }
-                HStack{
-                    Text("Current Welder: ")
-                    Spacer()
-                    Text(mainViewModel.selectedWelder?.name ?? "Title")
-                }
-                HStack{
-                    Text("Current Weld Number: ")
-                    Spacer()
-                    Text(mainViewModel.selectedWeldNumber?.name ?? "Number")
-                }
-                HStack{
-                    Text("Current Pass Name: ")
-                    Spacer()
-                    Text(mainViewModel.selectedWeldPass?.passName ?? "passName")
-                }
+                VStack {
+                        DisclosureGroup("Expand Weld Details", isExpanded: $isExpanded) {
+                            if isExpanded {
+                                HStackContent()
+                            }
+                        }
+                    }
+                
                 Spacer()
                 
                 // Define the keys in the desired order
@@ -81,6 +65,35 @@ struct PassParameterView: View {
             .onAppear(){
                 mainViewModel.selectedWeldPass = selectedWeldPass
             }
+        }
+    }
+    
+    @ViewBuilder
+    func HStackContent() -> some View {
+        HStack{
+            Text("Current Job: ")
+            Spacer()
+            Text(mainViewModel.selectedJob?.name ?? "Title")
+        }
+        HStack{
+            Text("Current Procedure: ")
+            Spacer()
+            Text(mainViewModel.selectedWeldingProcedure?.name ?? "Title")
+        }
+        HStack{
+            Text("Current Welder: ")
+            Spacer()
+            Text(mainViewModel.selectedWelder?.name ?? "Title")
+        }
+        HStack{
+            Text("Current Weld Number: ")
+            Spacer()
+            Text(mainViewModel.selectedWeldNumber?.name ?? "Number")
+        }
+        HStack{
+            Text("Current Pass Name: ")
+            Spacer()
+            Text(mainViewModel.selectedWeldPass?.passName ?? "passName")
         }
     }
 }
