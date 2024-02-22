@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct WeldParameterView: View {
+struct WeldPassView: View {
     
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
@@ -113,7 +113,7 @@ struct WeldParameterView_Previews: PreviewProvider {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
 
-        return WeldParameterView(mainViewModel: mockMainViewModel, 
+        return WeldPassView(mainViewModel: mockMainViewModel, 
                                  selectedWeldNumber: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0])
             .environmentObject(Profile())
     }

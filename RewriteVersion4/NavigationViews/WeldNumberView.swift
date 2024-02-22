@@ -54,7 +54,7 @@ struct WelderNumberView: View {
                 List {
                     if let weldNumbers = selectedWelder?.welds, !weldNumbers.isEmpty {
                         ForEach(Array(weldNumbers.enumerated()), id: \.element.id) { index, weldID in
-                            NavigationLink(destination: WeldParameterView(mainViewModel: mainViewModel, selectedWeldNumber: weldID)) {
+                            NavigationLink(destination: WeldPassView(mainViewModel: mainViewModel, selectedWeldNumber: weldID)) {
                                 Text(weldID.name)
                             }
                         }
