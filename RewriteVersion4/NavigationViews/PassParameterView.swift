@@ -18,16 +18,79 @@ struct PassParameterView: View {
     @State private var addWeldParameters = false
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack {
+                HStack{
+                    Text("Parameters Collected")
+                        .font(.title)
+                    Spacer()
+                    // Add new item to list of jobs
+                    Button {
+                        addWeldParameters = true
+                    }label: {
+                        Image(systemName: "plus.circle.fill")
+                            .imageScale(.large)
+                    }
+                }
+                HStack{
+                    Text("Current Job: ")
+                    Spacer()
+                    Text(mainViewModel.selectedJob?.name ?? "Title")
+                }
+                HStack{
+                    Text("Current Procedure: ")
+                    Spacer()
+                    Text(mainViewModel.selectedWeldingProcedure?.name ?? "Title")
+                }
+                HStack{
+                    Text("Current Welder: ")
+                    Spacer()
+                    Text(mainViewModel.selectedWelder?.name ?? "Title")
+                }
+                HStack{
+                    Text("Current Weld Number: ")
+                    Spacer()
+                    Text(mainViewModel.selectedWeldNumber?.name ?? "Number")
+                }
+                HStack{
+                    Text("Current Pass Name: ")
+                    Spacer()
+                    Text(mainViewModel.selectedWeldPass?.passName ?? "passName")
+                }
+                Spacer()
+                
+                // Define the keys in the desired order
+                let orderedKeys = ["Amps", "Volts", "ArcSpeed", "HeatInput"]
+                
+                // Iterate over the orderedKeys array and extract key-value pairs from the dictionary
+                VStack {
+                    Text(selectedWeldPass?.passName ?? "")
+                    ForEach(orderedKeys, id: \.self) { key in
+                        if let value = selectedWeldPass?.collectedValues[key] {
+                            Text("\(key): \(String(format: "%.1f", value))")
+                    } else {     
+                        Text("\(key) not recorded")
+                        }
+                    }
+                }
+                
+                
+            }
+            .onAppear(){
+                mainViewModel.selectedWeldPass = selectedWeldPass
+            }
+        }
     }
 }
 
 struct PassParameterView_Preview: PreviewProvider {
     static var previews: some View {
-        let mainViewModel = MainViewModel() // Initialize MainViewModel
+        let mockMainViewModel = MainViewModel()
+        mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
         
-        return PassParameterView(mainViewModel: mainViewModel)
-            .environmentObject(Profile()) // Provide necessary dependencies
+        return PassParameterView(mainViewModel: mockMainViewModel,
+                                 selectedWeldPass: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0].parametersCollected[0])
+        .environmentObject(Profile()) // Provide necessary dependencies
     }
 }
 

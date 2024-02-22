@@ -12,14 +12,8 @@ struct WeldPassView: View {
     
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
-    //var selectedJob: WeldingInspector.Job?
-    
-    //var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
-    
-    //var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
     
     var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
-//    var selectedWeldNumberParameters: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     @State private var showProfileView = false
@@ -91,9 +85,6 @@ struct WeldPassView: View {
             }
             .onAppear{
                 mainViewModel.selectedWeldNumber = selectedWeldNumber
-//                if let weldParameters = mainViewModel.selectedWeldNumber?.parametersCollected{
-//                    mainViewModel.selectedWeldNumberParameters = weldParameters
-//                }
             }
             .sheet(isPresented: $addWeldParameters, content: {
                 // Add new job item view

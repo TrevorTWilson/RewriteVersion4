@@ -16,7 +16,7 @@ class MainViewModel: ObservableObject, Equatable {
                lhs.selectedWeldingProcedure == rhs.selectedWeldingProcedure &&
                lhs.selectedWelder == rhs.selectedWelder &&
                lhs.selectedWeldNumber == rhs.selectedWeldNumber &&
-               lhs.selectedWeldNumberParameters == rhs.selectedWeldNumberParameters
+               lhs.selectedWeldPass == rhs.selectedWeldPass
     }
     
     // Setup for Objects to be available through scope of app
@@ -84,14 +84,15 @@ class MainViewModel: ObservableObject, Equatable {
             // You can add more logic or actions here based on the new selectedJob value
         }
     }
-    @Published var selectedWeldNumberParameters: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?{
+
+    @Published var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?{
         didSet {
             // Perform actions when selectedJob is set or changed
-            if let parameters = selectedWeldNumberParameters {
+            if let parameters = selectedWeldPass {
                 // Example action: Print the name of the selected job
-                print("Selected parameters: \(parameters.passName)")
+                print("Selected pass Name: \(parameters.passName)")
             } else {
-                print("No job selected")
+                print("No weld pass selected")
             }
             
             // You can add more logic or actions here based on the new selectedJob value
