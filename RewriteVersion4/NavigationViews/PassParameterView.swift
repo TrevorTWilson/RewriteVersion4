@@ -60,21 +60,23 @@ struct PassParameterView: View {
                 Spacer()
                 
                 // Define the keys in the desired order
-                let orderedKeys = ["Amps", "Volts", "ArcSpeed", "HeatInput"]
+                let orderedKeys = ["Amps", "Volts", "Distance", "Time", "ArcSpeed", "HeatInput"]
                 
                 // Iterate over the orderedKeys array and extract key-value pairs from the dictionary
                 VStack {
-                    Text(selectedWeldPass?.passName ?? "")
-                    ForEach(orderedKeys, id: \.self) { key in
-                        if let value = selectedWeldPass?.collectedValues[key] {
-                            Text("\(key): \(String(format: "%.1f", value))")
-                    } else {     
-                        Text("\(key) not recorded")
+                    Text("Weld Pass: \(selectedWeldPass?.passName ?? "Pass Name")") // Provide a default value in case selectedWeldPass?.passName is nil
+                        .font(.largeTitle)
+                        .padding()
+                    
+                    List {
+                        ForEach(orderedKeys, id: \.self) { key in
+                            KeyValueRow(key: key, value: selectedWeldPass?.collectedValues[key])
                         }
                     }
                 }
-                
-                
+
+
+                Spacer()
             }
             .onAppear(){
                 mainViewModel.selectedWeldPass = selectedWeldPass
