@@ -25,6 +25,7 @@
 		5B722F122B82B83700E88D82 /* RoundStopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B722F112B82B83700E88D82 /* RoundStopwatchView.swift */; };
 		5B9649142B87946800497AB7 /* PassParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649132B87946800497AB7 /* PassParameterView.swift */; };
 		5B9649162B87AD5100497AB7 /* KeyValueRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649152B87AD5100497AB7 /* KeyValueRow.swift */; };
+		5B96491A2B87B8FF00497AB7 /* WeldingProcedureFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649192B87B8FF00497AB7 /* WeldingProcedureFormView.swift */; };
 		5BFD0B902B6E8231000EA2FA /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */; };
 		5BFD0B942B6E8233000EA2FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD0B932B6E8233000EA2FA /* Assets.xcassets */; };
 		5BFD0B972B6E8233000EA2FA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD0B962B6E8233000EA2FA /* Preview Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		5B722F112B82B83700E88D82 /* RoundStopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundStopwatchView.swift; sourceTree = "<group>"; };
 		5B9649132B87946800497AB7 /* PassParameterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassParameterView.swift; sourceTree = "<group>"; };
 		5B9649152B87AD5100497AB7 /* KeyValueRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRow.swift; sourceTree = "<group>"; };
+		5B9649192B87B8FF00497AB7 /* WeldingProcedureFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeldingProcedureFormView.swift; sourceTree = "<group>"; };
 		5BFD0B8C2B6E8231000EA2FA /* RewriteVersion4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RewriteVersion4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		5BFD0B932B6E8233000EA2FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				5B18EC562B7E908C00AD4A9D /* AddWeldNumberView.swift */,
 				5B18EC582B7E90B000AD4A9D /* AddParametersView.swift */,
 				5B722F0F2B82B0D500E88D82 /* CollectParametersView.swift */,
+				5B9649192B87B8FF00497AB7 /* WeldingProcedureFormView.swift */,
 			);
 			path = Edit_Add_Views;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 			files = (
 				5B9649162B87AD5100497AB7 /* KeyValueRow.swift in Sources */,
 				5B722F0E2B82B04400E88D82 /* circleSlider VC.swift in Sources */,
+				5B96491A2B87B8FF00497AB7 /* WeldingProcedureFormView.swift in Sources */,
 				5BFD0BC42B6E85CD000EA2FA /* Profile.swift in Sources */,
 				5B18EC4B2B7E7DD600AD4A9D /* WeldNumberView.swift in Sources */,
 				5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */,
