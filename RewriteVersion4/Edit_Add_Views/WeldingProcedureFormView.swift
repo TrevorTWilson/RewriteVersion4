@@ -29,6 +29,9 @@ struct WeldingProcedureFormView: View {
     
     let procedureOwner = ["Client", "Contractor"]
     @State private var selectedProcedureOwner = 0
+    
+    // Define the keys in the desired order
+    let orderedKeys = ["Amps", "Volts", "Distance", "Time", "ArcSpeed", "HeatInput"]
 
     var body: some View {
         Form {
@@ -54,10 +57,15 @@ struct WeldingProcedureFormView: View {
             }
             
             Section(header: Text("Parameter Ranges")) {
-                SliderRow(value: $amps, title: "Amps")
-                SliderRow(value: $volts, title: "Volts")
-                SliderRow(value: $arcSpeed, title: "Arc Speed")
-                SliderRow(value: $heatInput, title: "Heat Input")
+//                SliderRow(value: $amps, title: "Amps")
+//                SliderRow(value: $volts, title: "Volts")
+//                SliderRow(value: $arcSpeed, title: "Arc Speed")
+//                SliderRow(value: $heatInput, title: "Heat Input")
+                
+                ForEach(orderedKeys, id: \.self) { key in
+                    
+                }
+                
             }
 
             Button(action: {
