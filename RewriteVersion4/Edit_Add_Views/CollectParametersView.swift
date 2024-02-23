@@ -48,7 +48,7 @@ struct CollectParametersView: View {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
+struct CollectParametersView_Previews: PreviewProvider {
     static var previews: some View {
         CollectParametersView()
     }
