@@ -143,14 +143,14 @@ class MainViewModel: ObservableObject, Equatable {
         weldingInspector.jobs.append(WeldingInspector.Job(name: name, weldingProcedures: weldingProcedures))
     }
     
-    func addProcedure(name: String, type: String = "", usage: String = "", owner: String = "", minRanges: [String: CGFloat] = [:], maxRanges: [String: CGFloat] = [:], weldersQualified: [WeldingInspector.Job.WeldingProcedure.Welder] = []) {
+    func addProcedure(name: String, type: String = "", usage: String = "", owner: String = "", weldPass: [WeldingInspector.Job.WeldingProcedure.WeldPass] = [], weldersQualified: [WeldingInspector.Job.WeldingProcedure.Welder] = []) {
         guard let jobIndex = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }),
               var updatedJob = selectedJob
         else {
             return
         }
         
-        let newProcedure = WeldingInspector.Job.WeldingProcedure(name: name, type: type, usage: usage, owner: owner, minRanges: minRanges, maxRanges: maxRanges, weldersQualified: weldersQualified)
+        let newProcedure = WeldingInspector.Job.WeldingProcedure(name: name, type: type, usage: usage, owner: owner, weldPass: weldPass, weldersQualified: weldersQualified)
         
         updatedJob.weldingProcedures.append(newProcedure)
         

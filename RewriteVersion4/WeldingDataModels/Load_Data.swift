@@ -18,9 +18,13 @@ func loadSample()-> WeldingInspector{
     
     let welder2 = WeldingInspector.Job.WeldingProcedure.Welder(name: "John Doe", welderId: "99", pressureNumber: "P456", pressureExpiry: "2025-12-31", welds: [weldNumber2])
     
-    let weldingProcedure1 = WeldingInspector.Job.WeldingProcedure(name: "Procedure1", type: "SMAW", usage: "Girth", owner: "Client", minRanges: ["Amps": 200, "Volts": 28, "ArcSpeed": 50, "HeatInput": 80], maxRanges: [:], weldersQualified: [welder1,welder2])
+    let pass1 = WeldingInspector.Job.WeldingProcedure.WeldPass(passName: "Root", minRanges: ["Amps": 200, "Volts": 28, "ArcSpeed": 50, "HeatInput": 80], maxRanges: [:])
     
-    let weldingProcedure2 = WeldingInspector.Job.WeldingProcedure(name: "Procedure2", type: "SMAW", usage: "Girth", owner: "Client", minRanges: ["Amps": 200, "Volts": 28, "ArcSpeed": 50, "HeatInput": 80], maxRanges: [:], weldersQualified: [welder1])
+    let pass2 = WeldingInspector.Job.WeldingProcedure.WeldPass(passName: "HotPass", minRanges: ["Amps": 300, "Volts": 26, "ArcSpeed": 150, "HeatInput": 66], maxRanges: [:])
+    
+    let weldingProcedure1 = WeldingInspector.Job.WeldingProcedure(name: "Procedure1", type: "SMAW", usage: "Girth", owner: "Client", weldPass: [pass1] ,weldersQualified: [welder1,welder2])
+    
+    let weldingProcedure2 = WeldingInspector.Job.WeldingProcedure(name: "Procedure2", type: "SMAW", usage: "Girth", owner: "Client", weldPass: [pass1, pass2], weldersQualified: [welder1])
     
     let job1 = WeldingInspector.Job(name: "Welder Job 1", weldingProcedures: [weldingProcedure1]) // Create an array of weldingProcedures
     

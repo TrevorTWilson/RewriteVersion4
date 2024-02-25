@@ -34,18 +34,30 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
             var type: String = ""                        // SMAW, GMAW, FCAW
             var usage: String = ""                       // Girth, Repair, Girth/Repair, CSA, ABSA
             var owner: String = ""                       // Client, Contractor
-            var minRanges: [String: CGFloat] = [:]      // Dictionary: min->Amps, Volts, ArcSpeed, HeatInput
-            var maxRanges: [String: CGFloat] = [:]      // Dictionary: max->
+            var weldPass: [WeldPass]
             var weldersQualified: [Welder]
             
-            init(name: String, type: String, usage: String, owner: String, minRanges: [String : CGFloat], maxRanges: [String : CGFloat], weldersQualified: [Welder]) {
+            init(name: String, type: String, usage: String, owner: String, weldPass: [WeldPass], weldersQualified: [Welder]) {
                 self.name = name
                 self.type = type
                 self.usage = usage
                 self.owner = owner
-                self.minRanges = minRanges
-                self.maxRanges = maxRanges
+                self.weldPass = weldPass
                 self.weldersQualified = weldersQualified
+            }
+            
+            struct WeldPass: Codable, Identifiable, Hashable {
+                var id = UUID()
+                var passName: String = ""
+                var minRanges: [String: CGFloat] = [:]      // Dictionary: min->Amps, Volts, ArcSpeed, HeatInput
+                var maxRanges: [String: CGFloat] = [:]      // Dictionary: max->
+                
+                init(passName: String, minRanges: [String : CGFloat], maxRanges: [String : CGFloat]) {
+                    self.passName = passName
+                    self.minRanges = minRanges
+                    self.maxRanges = maxRanges
+                }
+                
             }
             
             struct Welder: Codable, Identifiable, Hashable {
