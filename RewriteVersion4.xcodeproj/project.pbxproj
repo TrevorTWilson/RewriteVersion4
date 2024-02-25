@@ -163,6 +163,7 @@
 		5B722F0C2B82A71D00E88D82 /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
+				5B9649212B890D9600497AB7 /* RangeSlider.swift */,
 				5B96491B2B88DB2000497AB7 /* DualSliderView.swift */,
 				5B9649152B87AD5100497AB7 /* KeyValueRow.swift */,
 				5B722F0A2B82A6DC00E88D82 /* KeyValueView.swift */,
@@ -175,7 +176,6 @@
 		5BFD0B832B6E8231000EA2FA = {
 			isa = PBXGroup;
 			children = (
-				5B9649212B890D9600497AB7 /* RangeSlider.swift */,
 				5B96491F2B8903A300497AB7 /* DualHandleSlider.swift */,
 				5B96491D2B88FFB000497AB7 /* TwoHandleSlider.swift */,
 				5BFD0B8E2B6E8231000EA2FA /* RewriteVersion4 */,
