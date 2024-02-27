@@ -10,7 +10,7 @@ import Combine
 
 class MainViewModel: ObservableObject, Equatable {
     static func == (lhs: MainViewModel, rhs: MainViewModel) -> Bool {
-        // Implement custom logic to compare two MainViewModel instances for equality
+        // Comparison models for Equatable lhs=Left Hand Side, rhs=Right Hand Side
         return lhs.weldingInspector == rhs.weldingInspector &&
         lhs.selectedJob == rhs.selectedJob &&
         lhs.selectedWeldingProcedure == rhs.selectedWeldingProcedure &&
@@ -22,82 +22,102 @@ class MainViewModel: ObservableObject, Equatable {
     // Setup for Objects to be available through scope of app
     @Published var weldingInspector: WeldingInspector {
         didSet {
-            // Perform actions when weldingInspector is updated
-            // For example, you can save the updated weldingInspector to storage
-            // saveWeldingInspector()
+            // Perform actions when weldingInspector is updated, for deBugging
             print("weldingInspector Updated")
-            
-            // You can add more logic or actions here based on the updated weldingInspector
         }
     }
     
     @Published var selectedJob: WeldingInspector.Job? {
         didSet {
-            // Perform actions when selectedJob is set or changed
+            // Perform actions when selectedJob is set or changed for deBugging
             if let job = selectedJob {
-                // Example action: Print the name of the selected job
-                print("Selected Job: \(job.name)")
+                // Set the jobIndex value to use with methods in Model
+                // Print to console for deBugging
+                if let index = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }){
+                    jobIndex = index
+                    print("Selected job: \(job.name). Has an index of: \(jobIndex)")
+                } else {
+                    print("Selected Job: \(job.name).  Index Failed")
+                }
             } else {
                 print("No job selected")
             }
-            
-            // You can add more logic or actions here based on the new selectedJob value
         }
     }
     
     @Published var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?{
         didSet {
-            // Perform actions when selectedJob is set or changed
+            // Perform actions when selectedJob is set or changed for deBugging
             if let procedure = selectedWeldingProcedure {
-                // Example action: Print the name of the selected job
-                print("Selected procedure: \(procedure.name)")
+                // Print to console for deBugging
+                if let index = selectedJob?.weldingProcedures.firstIndex(where: {$0.id == selectedWeldingProcedure?.id}){
+                    procedureIndex = index
+                    print("Selected Procedure in JobIndex: \(jobIndex), has been set to index: \(procedureIndex)")
+                } else {
+                    print("Selected procedure: \(procedure.name)  INDEX FAILED")
+                }
             } else {
                 print("No procedure selected")
             }
-            
-            // You can add more logic or actions here based on the new selectedJob value
         }
     }
+    
     @Published var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?{
         didSet {
-            // Perform actions when selectedJob is set or changed
+            // Perform actions when selectedJob is set or changed for deBugging
             if let welder = selectedWelder {
-                // Example action: Print the name of the selected job
-                print("Selected welder: \(welder.name)")
+                // Print to console for deBugging
+                if let index = selectedWeldingProcedure?.weldersQualified.firstIndex(where: {$0.id == selectedWelder?.id}){
+                    welderIndex = index
+                    print("Selected Welder in JobIndex: \(jobIndex) and Procedure Index: \(procedureIndex). has been set to index: \(welderIndex)")
+                } else {
+                    print("Selected welder: \(welder.name) INDEX FAILED")
+                }
             } else {
                 print("No welder selected")
             }
-            
-            // You can add more logic or actions here based on the new selectedJob value
         }
     }
     @Published var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?{
         didSet {
-            // Perform actions when selectedJob is set or changed
+            // Perform actions when selectedJob is set or changed for deBuging
             if let number = selectedWeldNumber {
-                // Example action: Print the name of the selected job
-                print("Selected weld number: \(number.name)")
+                // Print to console for deBugging
+                if let index = selectedWelder?.welds.firstIndex(where: {$0.id == selectedWeldNumber?.id}){
+                    weldNumberIndex = index
+                    print("Selected Weld Number in JobIndex: \(jobIndex) with Procedure Index: \(procedureIndex), and Welder Index \(welderIndex) has been set to index: \(weldNumberIndex)")
+                } else{
+                    print("Selected weld number: \(number.name) INDEX FAILED")
+                }
             } else {
                 print("No weld number selected")
             }
-            
-            // You can add more logic or actions here based on the new selectedJob value
         }
     }
     
     @Published var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?{
         didSet {
-            // Perform actions when selectedJob is set or changed
+            // Perform actions when selectedJob is set or changed for deBugging
             if let parameters = selectedWeldPass {
-                // Example action: Print the name of the selected job
-                print("Selected pass Name: \(parameters.passName)")
+                // Print to console for deBugging
+                if let index = selectedWeldNumber?.parametersCollected.firstIndex(where: {$0.id == selectedWeldPass?.id}){
+                    passIndex = index
+                    print("Selected passName in JobIndex: \(jobIndex) with procedureIndex: \(procedureIndex), welderIndex: \(welderIndex), weldNumberIndex: \(weldNumberIndex) has been set to index: \(passIndex)")
+                } else {
+                    print("Selected WeldPass \(parameters.passName)  INDEX FAILED")
+                }
             } else {
                 print("No weld pass selected")
             }
-            
-            // You can add more logic or actions here based on the new selectedJob value
         }
     }
+    
+    private var jobIndex: Int = 0
+    private var procedureIndex: Int = 0
+    private var welderIndex: Int = 0
+    private var weldNumberIndex: Int = 0
+    private var passIndex: Int = 0
+    
     
     //Init of WeldingInspector on project launch
     init() {
@@ -124,7 +144,6 @@ class MainViewModel: ObservableObject, Equatable {
         weldingInspector.jobs.remove(at: index)
     }
     
-    
     func deleteSelectedProcedure(index: Int){
         selectedJob?.weldingProcedures.remove(at: index)
     }
@@ -140,25 +159,22 @@ class MainViewModel: ObservableObject, Equatable {
     // Methods to add new items to selected lists
     
     func addJob(name: String, weldingProcedures: [WeldingInspector.Job.WeldingProcedure] = []) {
-        weldingInspector.jobs.append(WeldingInspector.Job(name: name, weldingProcedures: weldingProcedures))
+        let newJob = WeldingInspector.Job(name: name, weldingProcedures: weldingProcedures)
+        weldingInspector.jobs.append(newJob)
     }
     
+    
+    
     func addProcedure(name: String, type: String = "", usage: String = "", owner: String = "", weldPass: [WeldingInspector.Job.WeldingProcedure.WeldPass] = [], weldersQualified: [WeldingInspector.Job.WeldingProcedure.Welder] = []) {
-        guard let jobIndex = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }),
-              var updatedJob = selectedJob
+        guard var updatedJob = selectedJob
         else {
             return
         }
-        
         let newProcedure = WeldingInspector.Job.WeldingProcedure(name: name, type: type, usage: usage, owner: owner, weldPass: weldPass, weldersQualified: weldersQualified)
         
         updatedJob.weldingProcedures.append(newProcedure)
         
         weldingInspector.jobs[jobIndex] = updatedJob
-        
-        
-        print(jobIndex)
-        
     }
     
     
@@ -171,39 +187,20 @@ class MainViewModel: ObservableObject, Equatable {
         
         updatedProcedure.weldersQualified.append(newWelder)
         
-        if let jobIndex = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }), let procedureIndex = updatedProcedure.weldersQualified.firstIndex(where: { $0.id == newWelder.id }) {
-            weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedProcedure
-            
-            print("\(jobIndex)  \(procedureIndex)")
-        }
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedProcedure
     }
     
     
     func addWeldNumber(name: String, parametersCollected: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters] = []) {
         guard var updatedWelder = selectedWelder else {
-            print("Failed")
             return
         }
         
-        print("step one")
         let newWeldNumber = WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers(name: name, parametersCollected: parametersCollected)
         
         updatedWelder.welds.append(newWeldNumber)
-        print("Appended temp")
         
-        
-        if let jobIndex = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }),
-           let welderIndex = selectedWeldingProcedure?.weldersQualified.firstIndex(where: { $0.id == selectedWelder?.id }),
-           let procedureIndex = selectedJob?.weldingProcedures.firstIndex(where: { $0.id == selectedWeldingProcedure?.id }){
-            
-            
-            
-            
-            
-            weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex] = updatedWelder
-            
-            print("\(jobIndex)  \(procedureIndex)  \(welderIndex)")
-        }
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex] = updatedWelder
     }
     
     
@@ -215,21 +212,9 @@ class MainViewModel: ObservableObject, Equatable {
         let newParameters = WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters(passName: passName, collectedValues: collectedValues)
         
         updatedWeldNumber.parametersCollected.append(newParameters)
-        
-        if let jobIndex = weldingInspector.jobs.firstIndex(where: { $0.id == selectedJob?.id }), let procedureIndex = selectedJob?.weldingProcedures.firstIndex(where: { $0.id == selectedWeldingProcedure?.id }), let welderIndex = selectedWeldingProcedure?.weldersQualified.firstIndex(where: { $0.id == selectedWelder?.id }), let weldNumberIndex = selectedWelder?.welds.firstIndex(where: { $0.id == selectedWeldNumber?.id }) {
             
             //selectedWelder?.welds[weldNumberIndex] = updatedWeldNumber
             weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex] = updatedWeldNumber
-            
-            print("\(jobIndex)  \(procedureIndex)  \(welderIndex)  \(weldNumberIndex)")
-        }
     }
-    
-    
-    
-    
 }
-
-
-
 

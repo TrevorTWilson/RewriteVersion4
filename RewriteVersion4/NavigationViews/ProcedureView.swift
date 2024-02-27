@@ -62,9 +62,6 @@ struct ProcedureView: View {
                 if addNewProcedure {
                     Text("Adding Procedure")                    .font(.headline)                    .foregroundColor(.blue)                    .padding()            }
             }
-            .onChange(of: mainViewModel.selectedJob?.weldingProcedures){
-                print("CHANGE DETECTED")
-            }
             .onAppear{
                 if selectedJob != nil {
                     mainViewModel.setSelectedJob(job: selectedJob!)
