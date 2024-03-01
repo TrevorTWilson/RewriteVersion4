@@ -63,7 +63,9 @@ struct PassParameterView: View {
                 Spacer()
             }
             .onAppear(){
-                mainViewModel.selectedWeldPass = selectedWeldPass
+                if selectedWeldPass != nil {
+                    mainViewModel.setSelectedWeldPass(weldPass: selectedWeldPass!)
+                }
             }
         }
     }

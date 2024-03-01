@@ -11,11 +11,9 @@ import Combine
 struct WelderView: View {
     @EnvironmentObject var profile:Profile
     @ObservedObject var mainViewModel: MainViewModel
-    //var selectedJob: WeldingInspector.Job?
-    //var selectedJobIndex: Int
+
     var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?
-    //var selectedProcedureIndex: Int
-    
+
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder?
     @State private var showProfileView = false
     @State private var addNewWelder = false
@@ -51,6 +49,21 @@ struct WelderView: View {
                             NavigationLink(destination: WelderNumberView(mainViewModel: mainViewModel, selectedWelder: welder)) {
                                 Text(welder.name)
                             }
+                            .contextMenu {
+                                Button(action: {
+                                    // Edit action
+                                    // Implement editing functionality here
+                                }) {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                                
+                                Button(action: {
+                                    // Delete action
+                                    selectedItemForDeletion = mainViewModel.selectedWeldingProcedure?.weldersQualified[index]
+                                }) {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
                         .onDelete { indexSet in
                             if let index = indexSet.first {
@@ -64,7 +77,9 @@ struct WelderView: View {
                 }
             }
             .onAppear{
-                mainViewModel.selectedWeldingProcedure = selectedWeldingProcedure
+                if selectedWeldingProcedure != nil {
+                    mainViewModel.setSelectedProcedure(procedure: selectedWeldingProcedure!)
+                }
             }
             
             .alert(item: $selectedItemForDeletion) { welder in

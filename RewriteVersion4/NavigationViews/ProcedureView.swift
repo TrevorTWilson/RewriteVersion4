@@ -42,10 +42,26 @@ struct ProcedureView: View {
                 Spacer()
                 // Iterate through list of procedures in instance of WeldingInspector for navigation list of each
                 List {
+                    
                     if let weldingProcedures = selectedJob?.weldingProcedures, !weldingProcedures.isEmpty {
                         ForEach(Array(weldingProcedures.enumerated()), id: \.element.id) { index, procedure in
                             NavigationLink(destination: WelderView(mainViewModel: mainViewModel, selectedWeldingProcedure: procedure)) {
                                 Text(procedure.name)
+                            }
+                            .contextMenu {
+                                Button(action: {
+                                    // Edit action
+                                    // Implement editing functionality here
+                                }) {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                                
+                                Button(action: {
+                                    // Delete action
+                                    selectedItemForDeletion = mainViewModel.selectedJob?.weldingProcedures[index]
+                                }) {
+                                    Label("Delete", systemImage: "trash")
+                                }
                             }
                         }
                         .onDelete { indexSet in
@@ -53,14 +69,13 @@ struct ProcedureView: View {
                                 selectedItemForDeletion = mainViewModel.selectedJob?.weldingProcedures[index]
                             }
                         }
+                        
                     } else {
                         Text("No welding procedures available")
                         Text("Add welding procedures to the selected Job")
                     }
                 }
-                
-                if addNewProcedure {
-                    Text("Adding Procedure")                    .font(.headline)                    .foregroundColor(.blue)                    .padding()            }
+
             }
             .onAppear{
                 if selectedJob != nil {
@@ -74,6 +89,7 @@ struct ProcedureView: View {
                     message: Text("Are you sure you want to delete \(procedure.name)? This action cannot be undone."),
                     primaryButton: .destructive(Text("Delete")) {
                         if let index = mainViewModel.selectedJob?.weldingProcedures.firstIndex(where: { $0.id == procedure.id }) {
+                            print("Alert Index: \(index)")
                             mainViewModel.deleteSelectedProcedure(index: index)
                         }
                     },

@@ -9,42 +9,47 @@ import SwiftUI
 import Combine
 
 struct AddProcedureView: View {
-    //@Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
-    // var selectedJob: WeldingInspector.Job
     @Binding var isPresented: Bool
-    @State private var procedureName = ""
-
+    @State private var procedureName: String
+    var selectedProcedure: WeldingInspector.Job.WeldingProcedure? // Optional parameter for selected procedure
     
+    init(mainViewModel: MainViewModel, isPresented: Binding<Bool>, selectedProcedure: WeldingInspector.Job.WeldingProcedure? = nil) {
+        self.mainViewModel = mainViewModel
+        self._isPresented = isPresented
+        self.selectedProcedure = selectedProcedure
+        _procedureName = State(initialValue: selectedProcedure?.name ?? "") // Initialize with existing procedure name if editing
+    }
     
-    
-    func addProcedure(){
-        // mainViewModel.selectedJob = selectedJob
-        mainViewModel.addProcedure(name: procedureName)
+    func addProcedure() {
+        if let procedure = selectedProcedure {
+            mainViewModel.editProcedure(procedure: procedure, newName: procedureName)
+        } else {
+            mainViewModel.addProcedure(name: procedureName)
+        }
         isPresented = false
-//        dismiss()
     }
     
     var body: some View {
         Form {
-            TextField("New Procedure Name", text: $procedureName)
+            TextField("Procedure Name", text: $procedureName)
                 .onSubmit {
                     addProcedure()
                 }
-            HStack{
-                Button("Add Item") {
+            HStack {
+                Button("Save") {
                     addProcedure()
                 }
                 Spacer()
                 Button("Cancel") {
                     isPresented = false
-//                    dismiss()
                 }
             }
         }
-        .navigationTitle("Add New Procedure Item")
+        .navigationTitle(selectedProcedure != nil ? "Edit Procedure" : "Add New Procedure") // Adjust title based on editing or adding
     }
 }
+
 
 
 struct AddProcedureView_Previews: PreviewProvider {

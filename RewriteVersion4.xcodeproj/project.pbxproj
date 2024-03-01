@@ -30,6 +30,7 @@
 		5B96491E2B88FFB000497AB7 /* TwoHandleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B96491D2B88FFB000497AB7 /* TwoHandleSlider.swift */; };
 		5B9649202B8903A300497AB7 /* DualHandleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B96491F2B8903A300497AB7 /* DualHandleSlider.swift */; };
 		5B9649222B890D9600497AB7 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649212B890D9600497AB7 /* RangeSlider.swift */; };
+		5BEAD33D2B90FB3D008FAE66 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAD33C2B90FB3D008FAE66 /* test.swift */; };
 		5BFD0B902B6E8231000EA2FA /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */; };
 		5BFD0B942B6E8233000EA2FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD0B932B6E8233000EA2FA /* Assets.xcassets */; };
 		5BFD0B972B6E8233000EA2FA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD0B962B6E8233000EA2FA /* Preview Assets.xcassets */; };
@@ -84,6 +85,7 @@
 		5B96491D2B88FFB000497AB7 /* TwoHandleSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoHandleSlider.swift; sourceTree = "<group>"; };
 		5B96491F2B8903A300497AB7 /* DualHandleSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualHandleSlider.swift; sourceTree = "<group>"; };
 		5B9649212B890D9600497AB7 /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
+		5BEAD33C2B90FB3D008FAE66 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		5BFD0B8C2B6E8231000EA2FA /* RewriteVersion4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RewriteVersion4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		5BFD0B932B6E8233000EA2FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 		5BFD0B832B6E8231000EA2FA = {
 			isa = PBXGroup;
 			children = (
+				5BEAD33C2B90FB3D008FAE66 /* test.swift */,
 				5B96491F2B8903A300497AB7 /* DualHandleSlider.swift */,
 				5B96491D2B88FFB000497AB7 /* TwoHandleSlider.swift */,
 				5BFD0B8E2B6E8231000EA2FA /* RewriteVersion4 */,
@@ -401,6 +404,7 @@
 				5B18EC492B7E6FD900AD4A9D /* WelderView.swift in Sources */,
 				5BFD0BBD2B6E8313000EA2FA /* WeldingInspectorModel.swift in Sources */,
 				5B96491C2B88DB2000497AB7 /* DualSliderView.swift in Sources */,
+				5BEAD33D2B90FB3D008FAE66 /* test.swift in Sources */,
 				5B18EC552B7E907000AD4A9D /* AddWelderView.swift in Sources */,
 				5B18EC512B7E8FF200AD4A9D /* AddJobView.swift in Sources */,
 				5B18EC4D2B7E89A700AD4A9D /* WeldPassView.swift in Sources */,

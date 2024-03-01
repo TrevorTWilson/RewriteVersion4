@@ -68,6 +68,21 @@ struct WeldPassView: View {
                             NavigationLink(destination: PassParameterView(mainViewModel: mainViewModel, selectedWeldPass: pass)) {
                                 Text(pass.passName)
                             }
+                            .contextMenu {
+                                Button(action: {
+                                    // Edit action
+                                    // Implement editing functionality here
+                                }) {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                                
+                                Button(action: {
+                                    // Delete action
+                                    selectedItemForDeletion = mainViewModel.selectedWeldNumber?.parametersCollected[index]
+                                }) {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
                         .onDelete { indexSet in
                             if let index = indexSet.first {
@@ -75,13 +90,27 @@ struct WeldPassView: View {
                             }
                         }
                     } else {
-                        Text("No Numbers available")
-                        Text("Add weld number to list of collected parameters")
+                        Text("No passes available")
+                        Text("Add weld pass to list of collected parameters")
                     }
                 }
             }
             .onAppear{
-                mainViewModel.selectedWeldNumber = selectedWeldNumber
+                if selectedWeldNumber != nil {
+                    mainViewModel.setSelectedWeldNumber(weldId: selectedWeldNumber!)
+                }
+            }
+            .alert(item: $selectedItemForDeletion) { pass in
+                Alert(
+                    title: Text("Delete Weld Pass"),
+                    message: Text("Are you sure you want to delete \(pass.passName)? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let index = mainViewModel.selectedWeldNumber?.parametersCollected.firstIndex(where: { $0.id == pass.id }) {
+                            mainViewModel.deleteSelectedWeldPass(index: index)
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
             }
             .sheet(isPresented: $addWeldParameters, content: {
                 // Add new job item view

@@ -45,6 +45,21 @@ struct MainJobView: View {
                         NavigationLink(destination: ProcedureView(mainViewModel: mainViewModel, selectedJob: job)) {
                             Text(job.name)
                         }
+                        .contextMenu {
+                            Button(action: {
+                                // Edit action
+                                // Implement editing functionality here
+                            }) {
+                                Label("Edit", systemImage: "pencil")
+                            }
+                            
+                            Button(action: {
+                                // Delete action
+                                selectedItemForDeletion = mainViewModel.weldingInspector.jobs[index]
+                            }) {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                     }
                     .onDelete { indexSet in
                         if let index = indexSet.first {

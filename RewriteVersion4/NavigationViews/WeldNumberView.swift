@@ -57,6 +57,21 @@ struct WelderNumberView: View {
                             NavigationLink(destination: WeldPassView(mainViewModel: mainViewModel, selectedWeldNumber: weldID)) {
                                 Text(weldID.name)
                             }
+                            .contextMenu {
+                                Button(action: {
+                                    // Edit action
+                                    // Implement editing functionality here
+                                }) {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                                
+                                Button(action: {
+                                    // Delete action
+                                    selectedItemForDeletion = mainViewModel.selectedWelder?.welds[index]
+                                }) {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
                         .onDelete { indexSet in
                             if let index = indexSet.first {
@@ -70,11 +85,9 @@ struct WelderNumberView: View {
                 }
             }
             .onAppear{
-                mainViewModel.selectedWelder = selectedWelder
-               // print(mainViewModel.selectedWelder?.name as Any)
-               // mainViewModel.selectedWelder?.welds.forEach({ weld in
-                 //   print(weld.name)
-               // })
+                if selectedWelder != nil {
+                    mainViewModel.setSelectedWelder(welder: selectedWelder!)
+                }
             }
             .alert(item: $selectedItemForDeletion) { weldId in
                 Alert(
