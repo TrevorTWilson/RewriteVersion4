@@ -31,6 +31,8 @@ struct WeldingProcedureFormView: View {
     // Define the keys in the desired order
     let orderedKeys = ["Amps", "Volts", "ArcSpeed", "HeatInput"]
     
+    
+    
     init(mainViewModel: MainViewModel, isPresented: Binding<Bool>, selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure? = nil) {
         self.mainViewModel = mainViewModel
         self._isPresented = isPresented
@@ -150,15 +152,43 @@ struct WeldingProcedureFormView: View {
     }
 }
 
+func getTemporaryValuesForKey(_ key: String) -> (CGFloat, CGFloat) {
+    switch key {
+    case "Amps":
+        return (CGFloat(90), CGFloat(350))
+    case "Volts":
+        return (CGFloat(7), CGFloat(35))
+    case "ArcSpeed":
+        return (CGFloat(100), CGFloat(1000))
+    case "HeatInput":
+        return (CGFloat(0.8), CGFloat(3.0))
+    default:
+        return (CGFloat(0), CGFloat(0)) // Default values if key does not match
+    }
+}
+
 func addActionFor(pass: WeldingInspector.Job.WeldingProcedure.WeldPass, key: String) {
-    // Handle action for 'Add Range' button based on the pass and key
-    print("Add action for \(pass.passName) - \(key)")
+    // Use temporary values if both minRanges and maxRanges are nil
+    guard let minRange = pass.minRanges[key], let maxRange = pass.maxRanges[key] else {
+        let (tempMin, tempMax) = getTemporaryValuesForKey(key)
+        print("Add action for \(pass.passName) - \(key) with Default minRange: \(tempMin) maxRange: \(tempMax)")
+        return
+    }
+
+    // Handle the case when both minRange and maxRange are available
+    print("Add action for \(pass.passName) - \(key) with UserSet minRange: \(minRange) maxRange: \(maxRange)")
 }
 
 func editActionFor(pass: WeldingInspector.Job.WeldingProcedure.WeldPass, key: String) {
-    // Handle action for 'Edit Range' button based on the pass and key
-    print("Edit action for \(pass.passName) - \(key)")
+    // Check if minRange and maxRange are available
+    if let minRange = pass.minRanges[key], let maxRange = pass.maxRanges[key] {
+        print("Edit action for \(pass.passName) - \(key) with UserSet minRange: \(minRange) maxRange: \(maxRange)")
+    } else {
+        let (tempMin, tempMax) = getTemporaryValuesForKey(key)
+        print("Edit action for \(pass.passName) - \(key) with default minRange: \(tempMin) maxRange: \(tempMax)")
+    }
 }
+
 
 
 struct CustomSectionHeader: View {
