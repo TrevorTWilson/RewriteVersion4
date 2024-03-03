@@ -196,6 +196,23 @@ class MainViewModel: ObservableObject, Equatable {
         setSelectedJob(job: updatedJob)
     }
     
+    func addProcedurePass(name: String, minRanges: [String:CGFloat] = [:], maxRanges: [String:CGFloat] = [:]) {
+        print("Recieved from addProcedurePass")
+        guard var updatedProcedure = selectedWeldingProcedure else {
+            print("FAILED, \(String(describing: selectedWeldingProcedure))")
+            return
+        }
+        print("updated procedure = selected Job: \(weldingInspector.jobs[jobIndex].name) at index: \(jobIndex) and selected procedure \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].name) at index: \(procedureIndex)")
+        let newPass = WeldingInspector.Job.WeldingProcedure.WeldPass(passName: name, minRanges: minRanges, maxRanges: maxRanges)
+        
+        updatedProcedure.weldPass.append(newPass)
+        
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedProcedure
+        print("added \(newPass.passName) to \(weldingInspector.jobs[jobIndex].name) @index: \(jobIndex) in \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].name) @index: \(procedureIndex)")
+        
+        setSelectedProcedure(procedure: updatedProcedure)
+    }
+    
     func addWelder(name: String, welderId: String = "", pressureNumber: String = "", pressureExpiry: String = "", welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = []) {
         guard var updatedProcedure = selectedWeldingProcedure else {
             return

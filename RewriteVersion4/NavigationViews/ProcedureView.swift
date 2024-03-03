@@ -13,12 +13,12 @@ struct ProcedureView: View {
     @ObservedObject var mainViewModel: MainViewModel
     
     var selectedJob: WeldingInspector.Job?
+    var selectedProcedure: WeldingInspector.Job.WeldingProcedure?
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure?
     @State private var showProfileView = false
     @State private var addNewProcedure = false
-
-    
+    @State private var showProcedureFormView = false
 
     var body: some View {
         NavigationStack {
@@ -52,6 +52,9 @@ struct ProcedureView: View {
                                 Button(action: {
                                     // Edit action
                                     // Implement editing functionality here
+                                    mainViewModel.selectedWeldingProcedure = mainViewModel.selectedJob?.weldingProcedures[index]
+                                    showProcedureFormView.toggle()
+                                    
                                 }) {
                                     Label("Edit", systemImage: "pencil")
                                 }
@@ -114,6 +117,13 @@ struct ProcedureView: View {
             .sheet(isPresented: $addNewProcedure, content: {
                 AddProcedureView(mainViewModel: mainViewModel, isPresented: $addNewProcedure)
             })
+            .sheet(isPresented: $showProcedureFormView) {
+                if let selectedProcedure = mainViewModel.selectedWeldingProcedure {
+                    WeldingProcedureFormView(mainViewModel: mainViewModel, isPresented: $showProcedureFormView, selectedWeldingProcedure: selectedProcedure)
+                }
+            }
+
+
         }
     }
 }

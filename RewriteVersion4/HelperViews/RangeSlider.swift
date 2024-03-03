@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct RangeSlider : View {
+    @Environment(\.dismiss) private var dismiss
     @State var width: CGFloat = 0
     @State var width1: CGFloat = 15
     @State private var minRangeValue: Double = 0.0
@@ -18,13 +19,15 @@ struct RangeSlider : View {
     
     var totalWidth = 320.0
     var attributeTitle: String
+    var descriptor: String
     var minValue: Double
     var maxValue: Double
     var mappingValue: Double
     
-    init(isPresented: Binding<Bool>, attributeTitle: String, minValue: Double, maxValue: Double, onValueSelected: ((Double, Double) -> Void)? = nil) { // Add onValueSelected as optional parameter
+    init(isPresented: Binding<Bool>, attributeTitle: String, descriptor: String, minValue: Double, maxValue: Double, onValueSelected: ((Double, Double) -> Void)? = nil) { // Add onValueSelected as optional parameter
         _isPresented = isPresented
         self.attributeTitle = attributeTitle
+        self.descriptor = descriptor
         self.minValue = minValue
         self.maxValue = maxValue
         self.mappingValue = maxValue - minValue
@@ -36,6 +39,9 @@ struct RangeSlider : View {
             Text(attributeTitle)
                 .font(.title)
                 .fontWeight(.bold)
+            Text(descriptor)
+                .font(.title2)
+                
             
             Text("\(self.getValue(value: ((self.width / self.totalWidth)*mappingValue)+minValue)) - \(self.getValue(value: ((self.width1 / self.totalWidth)*mappingValue)+minValue))")
                 .fontWeight(.bold)
@@ -106,6 +112,7 @@ struct RangeSlider : View {
                     
                     // Dismiss the view
                     isPresented.toggle()
+                    dismiss()
                 }
 
 
@@ -114,6 +121,7 @@ struct RangeSlider : View {
                 Button("Cancel") {
                     // Dismiss the view
                     isPresented.toggle()
+                    dismiss()
                 }
                 Spacer()
             }
@@ -142,6 +150,7 @@ struct RangeSlider_Previews: PreviewProvider {
         var rangeSlider = RangeSlider(
             isPresented: $isPresented,
             attributeTitle: "Amps",
+            descriptor: "Add New Range",
             minValue: 90,
             maxValue: 350
         )

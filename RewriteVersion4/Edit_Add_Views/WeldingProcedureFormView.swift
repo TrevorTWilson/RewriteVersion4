@@ -12,6 +12,13 @@ struct WeldingProcedureFormView: View {
     @ObservedObject var mainViewModel: MainViewModel
     var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?
     @Binding var isPresented: Bool
+    @State private var addNewPass = false // add weldPass
+    
+    @State private var isRangeSliderSheetPresented = false
+    @State private var selectedKey: String = "" // Store the selected key
+    @State private var selectedDescriptor: String = "" // Store descriptor
+    @State private var selectedMinRange: Double = 0.0 // Store the minimum range
+    @State private var selectedMaxRange: Double = 0.0 // Store the maximum range
     
     @State  var procedureName = ""
     @State  var procedureType = ""
@@ -30,8 +37,6 @@ struct WeldingProcedureFormView: View {
     
     // Define the keys in the desired order
     let orderedKeys = ["Amps", "Volts", "ArcSpeed", "HeatInput"]
-    
-    
     
     init(mainViewModel: MainViewModel, isPresented: Binding<Bool>, selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure? = nil) {
         self.mainViewModel = mainViewModel
@@ -67,7 +72,6 @@ struct WeldingProcedureFormView: View {
         _procedureWeldPass = State(initialValue: selectedWeldingProcedure?.weldPass ?? [])
     }
     
-    
     var body: some View {
         Form {
             Section(header: Text("Procedure Details")) {
@@ -92,7 +96,7 @@ struct WeldingProcedureFormView: View {
             }
             
             Section(header: CustomSectionHeader(sectionLabel: "Weld Passes", action: {
-                // Add action for the button here
+                addNewPass.toggle()
             })) {
                 if let passList = selectedWeldingProcedure?.weldPass, !passList.isEmpty {
                     ForEach(Array(passList.enumerated()), id: \.element.id) { index, pass in
@@ -112,7 +116,13 @@ struct WeldingProcedureFormView: View {
                                                 .foregroundColor(.white)
                                                 .cornerRadius(5)
                                                 .onTapGesture {
-                                                    addActionFor(pass: pass, key: key)
+                                                    // Get temp values
+                                                    let (tempMin, tempMax) = getTemporaryValuesForKey(key)
+                                                    selectedKey = key
+                                                    selectedDescriptor = "Add new Range Values"
+                                                    selectedMinRange = tempMin
+                                                    selectedMaxRange = tempMax
+                                                    isRangeSliderSheetPresented = true
                                                 }
                                                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                                         } else {
@@ -124,7 +134,13 @@ struct WeldingProcedureFormView: View {
                                                 .foregroundColor(.white)
                                                 .cornerRadius(5)
                                                 .onTapGesture {
-                                                    editActionFor(pass: pass, key: key)
+                                                    let tempMin = pass.minRanges[key]
+                                                    let tempMax = pass.maxRanges[key]
+                                                    selectedKey = key
+                                                    selectedDescriptor = "Edit Range Values"
+                                                    selectedMinRange = tempMin!
+                                                    selectedMaxRange = tempMax!
+                                                    isRangeSliderSheetPresented = true
                                                 }
                                                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                                         }
@@ -134,13 +150,11 @@ struct WeldingProcedureFormView: View {
                             }
                         }
                     }
-                    
                 } else {
                     Text("No welding passes available")
                     Text("Add welding passes to the selected procedure")
                 }
             }
-            
             Button(action: {
                 // Add logic to save the collected data for WeldingProcedure
                 
@@ -148,7 +162,32 @@ struct WeldingProcedureFormView: View {
                 Text("Save Procedure")
             }
         }
+        .onAppear{
+            if selectedWeldingProcedure != nil {
+                mainViewModel.setSelectedProcedure(procedure: selectedWeldingProcedure!)
+            } else {
+                print("onAppear failed")
+            }
+        }
         .navigationTitle("Add Welding Procedure")
+        
+        .sheet(isPresented: $isRangeSliderSheetPresented) {
+            RangeSlider(
+                isPresented: $isPresented,
+                attributeTitle: selectedKey,
+                descriptor: selectedDescriptor,
+                minValue: selectedMinRange,
+                maxValue: selectedMaxRange,
+                onValueSelected: { minValue, maxValue in
+                    print(minValue, maxValue)
+                }
+            )
+        }
+        .sheet(isPresented: $addNewPass, content: {
+            // Add new job item view
+            AddProcedurePass(mainViewModel: mainViewModel, isPresented: $addNewPass)
+        })
+
     }
 }
 
@@ -158,7 +197,8 @@ struct WeldingProcedureFormView_Previews: PreviewProvider {
     static var previews: some View {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
-        
+        //mockMainViewModel.setSelectedJob(job: mockMainViewModel.weldingInspector.jobs[1]) 
+        //mockMainViewModel.selectedWeldingProcedure = mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[1]
         @State var isPresented: Bool = true // Define isPresented as @State variable
         
         return WeldingProcedureFormView(mainViewModel: MainViewModel(), isPresented: $isPresented, selectedWeldingProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[1])
