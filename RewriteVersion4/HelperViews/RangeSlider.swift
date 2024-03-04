@@ -111,16 +111,11 @@ struct RangeSlider : View {
                     onValueSelected(self.minRangeValue, self.maxRangeValue)
                     
                     // Dismiss the view
-                    isPresented.toggle()
                     dismiss()
                 }
-
-
-
                 Spacer()
                 Button("Cancel") {
                     // Dismiss the view
-                    isPresented.toggle()
                     dismiss()
                 }
                 Spacer()

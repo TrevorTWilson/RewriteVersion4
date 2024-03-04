@@ -155,20 +155,30 @@ struct WeldingProcedureFormView: View {
                     Text("Add welding passes to the selected procedure")
                 }
             }
-            Button(action: {
-                // Add logic to save the collected data for WeldingProcedure
-                
-            }) {
-                Text("Save Procedure")
+            HStack{
+                Button(action: {
+                    // Add logic to save the collected data for WeldingProcedure
+                    dismiss()
+                }) {
+                    Text("Save Procedure")
+                }
+                Spacer()
+                Button(action: {
+                    // Add logic to save the collected data for WeldingProcedure
+                    dismiss()
+                }) {
+                    Text("Cancel")
+                }
             }
+            
         }
-        .onAppear{
-            if selectedWeldingProcedure != nil {
-                mainViewModel.setSelectedProcedure(procedure: selectedWeldingProcedure!)
-            } else {
-                print("onAppear failed")
-            }
-        }
+//        .onAppear{
+//            if selectedWeldingProcedure != nil {
+//                mainViewModel.setSelectedProcedure(procedure: selectedWeldingProcedure!)
+//            } else {
+//                print("onAppear failed")
+//            }
+//        }
         .navigationTitle("Add Welding Procedure")
         
         .sheet(isPresented: $isRangeSliderSheetPresented) {

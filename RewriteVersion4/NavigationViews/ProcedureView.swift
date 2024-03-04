@@ -52,8 +52,8 @@ struct ProcedureView: View {
                                 Button(action: {
                                     // Edit action
                                     // Implement editing functionality here
-                                    mainViewModel.selectedWeldingProcedure = mainViewModel.selectedJob?.weldingProcedures[index]
-                                    showProcedureFormView.toggle()
+                                    mainViewModel.setSelectedProcedure(procedure: procedure)
+                                    showProcedureFormView = true
                                     
                                 }) {
                                     Label("Edit", systemImage: "pencil")
@@ -122,8 +122,6 @@ struct ProcedureView: View {
                     WeldingProcedureFormView(mainViewModel: mainViewModel, isPresented: $showProcedureFormView, selectedWeldingProcedure: selectedProcedure)
                 }
             }
-
-
         }
     }
 }
