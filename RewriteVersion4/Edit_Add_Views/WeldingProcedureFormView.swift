@@ -106,9 +106,11 @@ struct WeldingProcedureFormView: View {
                             HStack(spacing: 5) {
                                 // Update the button actions to handle each key individually
                                 ForEach(orderedKeys, id: \.self) { key in
+                                    let (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange) = setTempValuesForKey(for: key, pass: pass)
+                                    
                                     GeometryReader { geometry in
                                         if pass.minRanges[key] == nil || pass.maxRanges[key] == nil {
-                                            Text("Add \(key)")
+                                            Text("Add")
                                                 .padding()
                                                 .font(.system(size: 12))
                                                 .frame(width: 60, height: 60)
@@ -116,17 +118,15 @@ struct WeldingProcedureFormView: View {
                                                 .foregroundColor(.white)
                                                 .cornerRadius(5)
                                                 .onTapGesture {
-                                                    // Get temp values
-                                                    let (tempMin, tempMax) = getTemporaryValuesForKey(key)
-                                                    selectedKey = key
-                                                    selectedDescriptor = "Add new Range Values"
-                                                    selectedMinRange = tempMin
-                                                    selectedMaxRange = tempMax
+                                                    self.selectedKey = selectedKey
+                                                    self.selectedDescriptor = selectedDescriptor
+                                                    self.selectedMinRange = selectedMinRange
+                                                    self.selectedMaxRange = selectedMaxRange
                                                     isRangeSliderSheetPresented = true
                                                 }
                                                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                                         } else {
-                                            Text("Edit \(key)")
+                                            Text("Edit")
                                                 .padding()
                                                 .font(.system(size: 12))
                                                 .frame(width: 60, height: 60)
@@ -134,12 +134,10 @@ struct WeldingProcedureFormView: View {
                                                 .foregroundColor(.white)
                                                 .cornerRadius(5)
                                                 .onTapGesture {
-                                                    let tempMin = pass.minRanges[key]
-                                                    let tempMax = pass.maxRanges[key]
-                                                    selectedKey = key
-                                                    selectedDescriptor = "Edit Range Values"
-                                                    selectedMinRange = tempMin!
-                                                    selectedMaxRange = tempMax!
+                                                    self.selectedKey = selectedKey
+                                                    self.selectedDescriptor = selectedDescriptor
+                                                    self.selectedMinRange = selectedMinRange
+                                                    self.selectedMaxRange = selectedMaxRange
                                                     isRangeSliderSheetPresented = true
                                                 }
                                                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
@@ -147,6 +145,8 @@ struct WeldingProcedureFormView: View {
                                     }
                                     .frame(width: 60, height: 60)
                                 }
+
+
                             }
                         }
                     }

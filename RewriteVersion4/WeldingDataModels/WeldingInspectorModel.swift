@@ -49,10 +49,10 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
             struct WeldPass: Codable, Identifiable, Hashable {
                 var id = UUID()
                 var passName: String = ""
-                var minRanges: [String: CGFloat] = [:]      // Dictionary: min->Amps, Volts, ArcSpeed, HeatInput
-                var maxRanges: [String: CGFloat] = [:]      // Dictionary: max->
+                var minRanges: [String: Double] = [:]      // Dictionary: min->Amps, Volts, ArcSpeed, HeatInput
+                var maxRanges: [String: Double] = [:]      // Dictionary: max->
                 
-                init(passName: String, minRanges: [String : CGFloat], maxRanges: [String : CGFloat]) {
+                init(passName: String, minRanges: [String : Double], maxRanges: [String : Double]) {
                     self.passName = passName
                     self.minRanges = minRanges
                     self.maxRanges = maxRanges
@@ -89,9 +89,9 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
                     struct Parameters: Codable, Identifiable, Hashable {
                         var id = UUID()
                         var passName: String = ""
-                        var collectedValues: [String: CGFloat] = [:]    //Dictionary of amps, volts, arcSpeed, heatInput
+                        var collectedValues: [String: Double] = [:]    //Dictionary of amps, volts, arcSpeed, heatInput
                         
-                        init(passName: String, collectedValues: [String: CGFloat]) {
+                        init(passName: String, collectedValues: [String: Double]) {
                             self.passName = passName
                             self.collectedValues = collectedValues
                         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0EAF192B98B77B000C8482 /* SetTempValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0EAF182B98B77B000C8482 /* SetTempValues.swift */; };
 		5B112F742B6FDFD8009B3111 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */; };
 		5B18EC492B7E6FD900AD4A9D /* WelderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC482B7E6FD800AD4A9D /* WelderView.swift */; };
 		5B18EC4B2B7E7DD600AD4A9D /* WeldNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B0EAF182B98B77B000C8482 /* SetTempValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTempValues.swift; sourceTree = "<group>"; };
 		5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5B18EC482B7E6FD800AD4A9D /* WelderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelderView.swift; sourceTree = "<group>"; };
 		5B18EC4A2B7E7DD600AD4A9D /* WeldNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeldNumberView.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */,
+				5B0EAF182B98B77B000C8482 /* SetTempValues.swift */,
 			);
 			path = HelperFunctions;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				5B18EC512B7E8FF200AD4A9D /* AddJobView.swift in Sources */,
 				5B18EC4D2B7E89A700AD4A9D /* WeldPassView.swift in Sources */,
 				5B722F0B2B82A6DC00E88D82 /* KeyValueView.swift in Sources */,
+				5B0EAF192B98B77B000C8482 /* SetTempValues.swift in Sources */,
 				5BEAD3482B93882E008FAE66 /* AddProcedurePass.swift in Sources */,
 				5B18EC592B7E90B000AD4A9D /* AddParametersView.swift in Sources */,
 				5BEAD3442B9241A8008FAE66 /* CustomSectionHeader.swift in Sources */,

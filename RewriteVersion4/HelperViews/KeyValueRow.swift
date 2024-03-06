@@ -9,7 +9,7 @@ import SwiftUI
 
 struct KeyValueRow: View {
     let key: String
-    let value: CGFloat?
+    let value: Double?
     
     var body: some View {
         HStack {

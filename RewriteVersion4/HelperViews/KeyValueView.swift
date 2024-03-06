@@ -9,7 +9,7 @@ import SwiftUI
 
 struct KeyValueView: View {
     let key: String
-    let value: CGFloat
+    let value: Double
 
     var body: some View {
         switch key {

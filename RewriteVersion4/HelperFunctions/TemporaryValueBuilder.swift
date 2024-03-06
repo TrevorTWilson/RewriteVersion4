@@ -10,17 +10,19 @@ import Foundation
 
 // Sets temporary values for minRange and maxRange in WeldingInspector.Jobs.WeldingProcedure[index].passName.minRange(maxRange)
 
-func getTemporaryValuesForKey(_ key: String) -> (CGFloat, CGFloat) {
+func getTemporaryValuesForKey(_ key: String) -> (Double, Double) {
     switch key {
     case "Amps":
-        return (CGFloat(90), CGFloat(350))
+        return (Double(90), Double(350))
     case "Volts":
-        return (CGFloat(7), CGFloat(35))
+        return (Double(7), Double(35))
     case "ArcSpeed":
-        return (CGFloat(100), CGFloat(1000))
+        return (Double(100), Double(1000))
     case "HeatInput":
-        return (CGFloat(0.8), CGFloat(3.0))
+        return (Double(0.8), Double(3.0))
     default:
-        return (CGFloat(0), CGFloat(0)) // Default values if key does not match
+        return (Double(0), Double(0)) // Default values if key does not match
     }
 }
+
+

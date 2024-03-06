@@ -12,23 +12,23 @@ import SwiftUI
 
 
 struct CircleSliderVC: View {
-    //@State var sliderValue: CGFloat = 0.0
-    @State private var angleValue: CGFloat
-    @State private var sliderValue: CGFloat
+    //@State var sliderValue: Double = 0.0
+    @State private var angleValue: Double
+    @State private var sliderValue: Double
 
-    var minimunSliderValue : CGFloat
-    var maximunSliderValue : CGFloat
-    var minimunRange : CGFloat
-    var maximunRange : CGFloat
-    var totalValue : CGFloat
-    var knobRadius : CGFloat
-    var radius : CGFloat
-    var initialSliderValue : CGFloat
+    var minimunSliderValue : Double
+    var maximunSliderValue : Double
+    var minimunRange : Double
+    var maximunRange : Double
+    var totalValue : Double
+    var knobRadius : Double
+    var radius : Double
+    var initialSliderValue : Double
     var valueUnit: String
     
-    //var sliderValue : CGFloat
+    //var sliderValue : Double
     
-    init(minimunSliderValue: CGFloat, maximunSliderValue: CGFloat, minimunRange: CGFloat, maximunRange: CGFloat, totalValue: CGFloat, knobRadius: CGFloat, radius: CGFloat, initialSliderValue: CGFloat, valueUnit: String) {
+    init(minimunSliderValue: Double, maximunSliderValue: Double, minimunRange: Double, maximunRange: Double, totalValue: Double, knobRadius: Double, radius: Double, initialSliderValue: Double, valueUnit: String) {
         self.minimunSliderValue = minimunSliderValue
         self.maximunSliderValue = maximunSliderValue
         self.minimunRange = minimunRange

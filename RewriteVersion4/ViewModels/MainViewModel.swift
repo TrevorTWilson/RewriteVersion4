@@ -196,7 +196,7 @@ class MainViewModel: ObservableObject, Equatable {
         setSelectedJob(job: updatedJob)
     }
     
-    func addProcedurePass(name: String, minRanges: [String:CGFloat] = [:], maxRanges: [String:CGFloat] = [:]) {
+    func addProcedurePass(name: String, minRanges: [String:Double] = [:], maxRanges: [String:Double] = [:]) {
         print("Recieved from addProcedurePass")
         guard var updatedProcedure = selectedWeldingProcedure else {
             print("FAILED, \(String(describing: selectedWeldingProcedure))")
@@ -239,7 +239,7 @@ class MainViewModel: ObservableObject, Equatable {
         setSelectedWelder(welder: updatedWelder)
     }
     
-    func addParameters(passName: String, collectedValues: [String: CGFloat] = [:]) {
+    func addParameters(passName: String, collectedValues: [String: Double] = [:]) {
         guard var updatedWeldNumber = selectedWeldNumber else {
             return
         }

@@ -10,8 +10,8 @@ import SwiftUI
 
 struct RangeSlider : View {
     @Environment(\.dismiss) private var dismiss
-    @State var width: CGFloat = 0
-    @State var width1: CGFloat = 15
+    @State var width: Double = 0
+    @State var width1: Double = 15
     @State private var minRangeValue: Double = 0.0
     @State private var maxRangeValue: Double = 0.0
     @Binding var isPresented: Bool
@@ -125,7 +125,7 @@ struct RangeSlider : View {
         .padding()
     }
     
-    private func getValue(value: CGFloat) -> String {
+    private func getValue(value: Double) -> String {
         var newValue = value
         if newValue < 90 {
             newValue = value + minValue
