@@ -248,22 +248,21 @@ class MainViewModel: ObservableObject, Equatable {
     }
     
     func addProcedurePaasRange(key: String, minRange: Double, maxRange: Double) {
-        guard var updatedWeldPass = selectedProcedurePass else {
-            print("Failed to add \(key) to \(selectedWeldingProcedure?.name ?? "Unknown Procedure")")
+        guard var updatedProcedure = selectedWeldingProcedure else {
+            print("FAILED, \(String(describing: selectedWeldingProcedure))")
             return
         }
-        //print("updated weldPass-minRange/maxRange = selected Job: \(weldingInspector.jobs[jobIndex].name) at index: \(jobIndex) and selected procedure \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].name) at index: \(procedureIndex) and selected weldPass \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldPass[weldPassIndex].passName)")
         let newMinRange = minRange
         let newMaxRange = maxRange
         
-        updatedWeldPass.minRanges[key] = newMinRange
-        updatedWeldPass.maxRanges[key] = newMaxRange
+        updatedProcedure.weldPass[weldPassIndex].minRanges[key] = newMinRange
+        updatedProcedure.weldPass[weldPassIndex].maxRanges[key] = newMaxRange
         
-        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldPass[weldPassIndex] = updatedWeldPass
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedProcedure
         
         print("Added minRange value: \(newMinRange) and maxRange value: \(newMaxRange) to key: \(key) inside welding procedure pass: \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldPass[weldPassIndex].passName)")
         
-        setSelectedProcedurePass(weldPass: updatedWeldPass)
+        setSelectedProcedure(procedure: updatedProcedure)
     }
     
     func addWelder(name: String, welderId: String = "", pressureNumber: String = "", pressureExpiry: String = "", welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = []) {
