@@ -21,9 +21,7 @@ struct WeldingProcedureFormView: View {
     @State private var selectedMaxRange: Double = 0.0 // Store the maximum range
     
     @State  var procedureName = ""
-    @State  var procedureType = ""
-    @State  var procedureUsage = ""
-    @State  var procedureOwner = ""
+
     @State  var procedureWeldPass: [WeldingInspector.Job.WeldingProcedure.WeldPass] = []
     
     let procedureTypesList = ["","SMAW", "FCAW", "GMAW", "GTAW"]
@@ -37,7 +35,7 @@ struct WeldingProcedureFormView: View {
     
     // Define the keys in the desired order
     let orderedKeys = ["Amps", "Volts", "ArcSpeed", "HeatInput"]
-    
+    // Initializer with a passed in weldingProcedure
     init(mainViewModel: MainViewModel, isPresented: Binding<Bool>, selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure? = nil) {
         self.mainViewModel = mainViewModel
         self._isPresented = isPresented
@@ -72,6 +70,7 @@ struct WeldingProcedureFormView: View {
         _procedureWeldPass = State(initialValue: selectedWeldingProcedure?.weldPass ?? [])
     }
     
+    
     var body: some View {
         Form {
             Section(header: Text("Procedure Details")) {
@@ -98,62 +97,69 @@ struct WeldingProcedureFormView: View {
             Section(header: CustomSectionHeader(sectionLabel: "Weld Passes", action: {
                 addNewPass.toggle()
             })) {
-                if let passList = selectedWeldingProcedure?.weldPass, !passList.isEmpty {
-                    ForEach(Array(passList.enumerated()), id: \.element.id) { index, pass in
-                        HStack {
-                            Text(pass.passName)
-                            
-                            HStack(spacing: 5) {
-                                // Update the button actions to handle each key individually
-                                ForEach(orderedKeys, id: \.self) { key in
-                                    let (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange) = setTempValuesForKey(for: key, pass: pass)
+                ScrollView(.vertical) {
+                    LazyVStack{
+                        if let passList = selectedWeldingProcedure?.weldPass, !passList.isEmpty {
+                            ForEach(Array(passList.enumerated()), id: \.element.id) { index, pass in
+                                HStack {
+                                    Text(pass.passName)
+                                        .frame(width: 60, height: 60)
                                     
-                                    GeometryReader { geometry in
-                                        if pass.minRanges[key] == nil || pass.maxRanges[key] == nil {
-                                            Text("Add")
-                                                .padding()
-                                                .font(.system(size: 12))
-                                                .frame(width: 60, height: 60)
-                                                .background(Color.red)
-                                                .foregroundColor(.white)
-                                                .cornerRadius(5)
-                                                .onTapGesture {
-                                                    self.selectedKey = selectedKey
-                                                    self.selectedDescriptor = selectedDescriptor
-                                                    self.selectedMinRange = selectedMinRange
-                                                    self.selectedMaxRange = selectedMaxRange
-                                                    isRangeSliderSheetPresented = true
+                                    HStack(spacing: 5) {
+                                        // Update the button actions to handle each key individually
+                                        ForEach(orderedKeys, id: \.self) { key in
+                                            let (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange) = setTempValuesForKey(for: key, pass: pass)
+                                            
+                                            GeometryReader { geometry in
+                                                if pass.minRanges[key] == nil || pass.maxRanges[key] == nil {
+                                                    Text("Add")
+                                                        .padding()
+                                                        .font(.system(size: 12))
+                                                        .frame(width: 60, height: 60)
+                                                        .background(Color.red)
+                                                        .foregroundColor(.white)
+                                                        .cornerRadius(5)
+                                                        .onTapGesture {
+                                                            self.selectedKey = selectedKey
+                                                            self.selectedDescriptor = selectedDescriptor
+                                                            self.selectedMinRange = selectedMinRange
+                                                            self.selectedMaxRange = selectedMaxRange
+                                                            mainViewModel.setSelectedProcedurePass(weldPass: pass)
+                                                            self.isRangeSliderSheetPresented = true
+                                                        }
+                                                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                                                } else {
+                                                    Text("Edit")
+                                                        .padding()
+                                                        .font(.system(size: 12))
+                                                        .frame(width: 60, height: 60)
+                                                        .background(Color.green)
+                                                        .foregroundColor(.black)
+                                                        .cornerRadius(5)
+                                                        .onTapGesture {
+                                                            self.selectedKey = selectedKey
+                                                            self.selectedDescriptor = selectedDescriptor
+                                                            self.selectedMinRange = selectedMinRange
+                                                            self.selectedMaxRange = selectedMaxRange
+                                                            mainViewModel.setSelectedProcedurePass(weldPass: pass)
+                                                            self.isRangeSliderSheetPresented = true
+                                                        }
+                                                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                                                 }
-                                                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                                        } else {
-                                            Text("Edit")
-                                                .padding()
-                                                .font(.system(size: 12))
-                                                .frame(width: 60, height: 60)
-                                                .background(Color.green)
-                                                .foregroundColor(.white)
-                                                .cornerRadius(5)
-                                                .onTapGesture {
-                                                    self.selectedKey = selectedKey
-                                                    self.selectedDescriptor = selectedDescriptor
-                                                    self.selectedMinRange = selectedMinRange
-                                                    self.selectedMaxRange = selectedMaxRange
-                                                    isRangeSliderSheetPresented = true
-                                                }
-                                                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                                            }
+                                            .frame(width: 60, height: 60)
                                         }
                                     }
-                                    .frame(width: 60, height: 60)
                                 }
-
-
                             }
+                        } else {
+                            Text("No welding passes available")
+                            Text("Add welding passes to the selected procedure")
                         }
                     }
-                } else {
-                    Text("No welding passes available")
-                    Text("Add welding passes to the selected procedure")
                 }
+                .scrollIndicatorsFlash(onAppear: true)
+                .frame(maxHeight: 200) // Set a maximum height for the scrollable
             }
             HStack{
                 Button(action: {
@@ -172,24 +178,18 @@ struct WeldingProcedureFormView: View {
             }
             
         }
-//        .onAppear{
-//            if selectedWeldingProcedure != nil {
-//                mainViewModel.setSelectedProcedure(procedure: selectedWeldingProcedure!)
-//            } else {
-//                print("onAppear failed")
-//            }
-//        }
         .navigationTitle("Add Welding Procedure")
         
         .sheet(isPresented: $isRangeSliderSheetPresented) {
             RangeSlider(
-                isPresented: $isPresented,
-                attributeTitle: selectedKey,
-                descriptor: selectedDescriptor,
-                minValue: selectedMinRange,
-                maxValue: selectedMaxRange,
+                isRangeSliderSheetPresented: $isRangeSliderSheetPresented,
+                attributeTitle: self.selectedKey,
+                descriptor: self.selectedDescriptor,
+                minValue: self.selectedMinRange,
+                maxValue: self.selectedMaxRange,
                 onValueSelected: { minValue, maxValue in
                     print(minValue, maxValue)
+                    mainViewModel.addProcedurePaasRange(key: self.selectedKey, minRange: minValue, maxRange: maxValue)
                 }
             )
         }
@@ -197,7 +197,7 @@ struct WeldingProcedureFormView: View {
             // Add new job item view
             AddProcedurePass(mainViewModel: mainViewModel, isPresented: $addNewPass)
         })
-
+        
     }
 }
 
@@ -207,7 +207,7 @@ struct WeldingProcedureFormView_Previews: PreviewProvider {
     static var previews: some View {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
-        //mockMainViewModel.setSelectedJob(job: mockMainViewModel.weldingInspector.jobs[1]) 
+        //mockMainViewModel.setSelectedJob(job: mockMainViewModel.weldingInspector.jobs[1])
         //mockMainViewModel.selectedWeldingProcedure = mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[1]
         @State var isPresented: Bool = true // Define isPresented as @State variable
         

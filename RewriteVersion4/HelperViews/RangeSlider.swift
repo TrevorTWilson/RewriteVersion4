@@ -14,7 +14,7 @@ struct RangeSlider : View {
     @State var width1: Double = 15
     @State private var minRangeValue: Double = 0.0
     @State private var maxRangeValue: Double = 0.0
-    @Binding var isPresented: Bool
+    @Binding var isRangeSliderSheetPresented: Bool
     var onValueSelected: ((Double, Double) -> Void)? // Include the onValueSelected parameter
     
     var totalWidth = 320.0
@@ -24,8 +24,8 @@ struct RangeSlider : View {
     var maxValue: Double
     var mappingValue: Double
     
-    init(isPresented: Binding<Bool>, attributeTitle: String, descriptor: String, minValue: Double, maxValue: Double, onValueSelected: ((Double, Double) -> Void)? = nil) { // Add onValueSelected as optional parameter
-        _isPresented = isPresented
+    init(isRangeSliderSheetPresented: Binding<Bool>, attributeTitle: String, descriptor: String, minValue: Double, maxValue: Double, onValueSelected: ((Double, Double) -> Void)? = nil) { // Add onValueSelected as optional parameter
+        _isRangeSliderSheetPresented = isRangeSliderSheetPresented
         self.attributeTitle = attributeTitle
         self.descriptor = descriptor
         self.minValue = minValue
@@ -111,12 +111,14 @@ struct RangeSlider : View {
                     onValueSelected(self.minRangeValue, self.maxRangeValue)
                     
                     // Dismiss the view
-                    dismiss()
+                    //dismiss()
+                    isRangeSliderSheetPresented = false
                 }
                 Spacer()
                 Button("Cancel") {
                     // Dismiss the view
-                    dismiss()
+                    //dismiss()
+                    isRangeSliderSheetPresented = false
                 }
                 Spacer()
             }
@@ -137,13 +139,13 @@ struct RangeSlider : View {
 }
 
 struct RangeSlider_Previews: PreviewProvider {
-    @State static var isPresented: Bool = false
+    @State static var isRangeSliderSheetPresented: Bool = false
     @State static var selectedMinValue: Double = 0.0
     @State static var selectedMaxValue: Double = 0.0
     
     static var previews: some View {
         var rangeSlider = RangeSlider(
-            isPresented: $isPresented,
+            isRangeSliderSheetPresented: $isRangeSliderSheetPresented,
             attributeTitle: "Amps",
             descriptor: "Add New Range",
             minValue: 90,

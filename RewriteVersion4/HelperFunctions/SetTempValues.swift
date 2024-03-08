@@ -29,6 +29,7 @@ func setTempValuesForKey(for key: String, pass: WeldingInspector.Job.WeldingProc
     selectedKey = key
     selectedMinRange = tempMin
     selectedMaxRange = tempMax
+    //print("\(pass!.passName)---\(selectedKey)---\(selectedDescriptor)---\(selectedMinRange)---\(selectedMaxRange)")
 
     return (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange)
 }

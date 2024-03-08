@@ -62,6 +62,23 @@ class MainViewModel: ObservableObject, Equatable {
         }
     }
     
+    @Published var selectedProcedurePass: WeldingInspector.Job.WeldingProcedure.WeldPass?{
+        didSet {
+            // Perform actions when selectedJob is set or changed for deBugging
+            if let weldPass = selectedProcedurePass {
+                // Print to console for deBugging
+                if let index = weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldPass.firstIndex(where: {$0.id == selectedProcedurePass?.id}){
+                    weldPassIndex = index
+                    print("Selected WeldPass in JobIndex: \(jobIndex), and Procedureindex: \(procedureIndex), has been set to: \(weldPassIndex)")
+                } else {
+                    print("Selected WeldPass: \(weldPass.passName)  INDEX FAILED")
+                }
+            } else {
+                print("No procedure selected")
+            }
+        }
+    }
+    
     @Published var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?{
         didSet {
             // Perform actions when selectedJob is set or changed for deBugging
@@ -114,6 +131,7 @@ class MainViewModel: ObservableObject, Equatable {
     
     private var jobIndex: Int = 0
     private var procedureIndex: Int = 0
+    private var weldPassIndex: Int = 0
     private var welderIndex: Int = 0
     private var weldNumberIndex: Int = 0
     private var passIndex: Int = 0
@@ -132,6 +150,10 @@ class MainViewModel: ObservableObject, Equatable {
     
     func setSelectedProcedure(procedure: WeldingInspector.Job.WeldingProcedure) {
         selectedWeldingProcedure = procedure
+    }
+    
+    func setSelectedProcedurePass(weldPass: WeldingInspector.Job.WeldingProcedure.WeldPass) {
+        selectedProcedurePass = weldPass
     }
     
     func setSelectedWelder(welder: WeldingInspector.Job.WeldingProcedure.Welder){
@@ -182,12 +204,23 @@ class MainViewModel: ObservableObject, Equatable {
         weldingInspector.jobs.append(newJob)
     }
     
-    func addProcedure(name: String, type: String = "", usage: String = "", owner: String = "", weldPass: [WeldingInspector.Job.WeldingProcedure.WeldPass] = [], weldersQualified: [WeldingInspector.Job.WeldingProcedure.Welder] = []) {
-        guard var updatedJob = selectedJob
-        else {
+    func addProcedure(name: String,
+                      type: String? = nil,
+                      usage: String? = nil,
+                      owner: String? = nil,
+                      weldPass: [WeldingInspector.Job.WeldingProcedure.WeldPass] = [],
+                      weldersQualified: [WeldingInspector.Job.WeldingProcedure.Welder] = []) {
+      
+        guard var updatedJob = selectedJob else {
             return
         }
-        let newProcedure = WeldingInspector.Job.WeldingProcedure(name: name, type: type, usage: usage, owner: owner, weldPass: weldPass, weldersQualified: weldersQualified)
+        
+        let newProcedure = WeldingInspector.Job.WeldingProcedure(name: name,
+                                                                 type: type ?? "",
+                                                                 usage: usage ?? "",
+                                                                 owner: owner ?? "",
+                                                                 weldPass: weldPass,
+                                                                 weldersQualified: weldersQualified)
         
         updatedJob.weldingProcedures.append(newProcedure)
         
@@ -195,6 +228,7 @@ class MainViewModel: ObservableObject, Equatable {
         
         setSelectedJob(job: updatedJob)
     }
+
     
     func addProcedurePass(name: String, minRanges: [String:Double] = [:], maxRanges: [String:Double] = [:]) {
         print("Recieved from addProcedurePass")
@@ -211,6 +245,25 @@ class MainViewModel: ObservableObject, Equatable {
         print("added \(newPass.passName) to \(weldingInspector.jobs[jobIndex].name) @index: \(jobIndex) in \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].name) @index: \(procedureIndex)")
         
         setSelectedProcedure(procedure: updatedProcedure)
+    }
+    
+    func addProcedurePaasRange(key: String, minRange: Double, maxRange: Double) {
+        guard var updatedWeldPass = selectedProcedurePass else {
+            print("Failed to add \(key) to \(selectedWeldingProcedure?.name ?? "Unknown Procedure")")
+            return
+        }
+        //print("updated weldPass-minRange/maxRange = selected Job: \(weldingInspector.jobs[jobIndex].name) at index: \(jobIndex) and selected procedure \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].name) at index: \(procedureIndex) and selected weldPass \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldPass[weldPassIndex].passName)")
+        let newMinRange = minRange
+        let newMaxRange = maxRange
+        
+        updatedWeldPass.minRanges[key] = newMinRange
+        updatedWeldPass.maxRanges[key] = newMaxRange
+        
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldPass[weldPassIndex] = updatedWeldPass
+        
+        print("Added minRange value: \(newMinRange) and maxRange value: \(newMaxRange) to key: \(key) inside welding procedure pass: \(weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldPass[weldPassIndex].passName)")
+        
+        setSelectedProcedurePass(weldPass: updatedWeldPass)
     }
     
     func addWelder(name: String, welderId: String = "", pressureNumber: String = "", pressureExpiry: String = "", welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = []) {
