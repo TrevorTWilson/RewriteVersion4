@@ -22,17 +22,33 @@ struct RangeSlider : View {
     var descriptor: String
     var minValue: Double
     var maxValue: Double
+    var initialMinValue: Double
+    var initialMaxValue: Double
     var mappingValue: Double
+    var resolution: Double
     
-    init(isRangeSliderSheetPresented: Binding<Bool>, attributeTitle: String, descriptor: String, minValue: Double, maxValue: Double, onValueSelected: ((Double, Double) -> Void)? = nil) { // Add onValueSelected as optional parameter
+    init(isRangeSliderSheetPresented: Binding<Bool>, attributeTitle: String, descriptor: String, minValue: Double, maxValue: Double, initialMinValue: Double, initialMaxValue: Double, resolution: Double, onValueSelected: ((Double, Double) -> Void)? = nil) {
         _isRangeSliderSheetPresented = isRangeSliderSheetPresented
         self.attributeTitle = attributeTitle
         self.descriptor = descriptor
         self.minValue = minValue
         self.maxValue = maxValue
+        self.initialMinValue = initialMinValue
+        self.initialMaxValue = initialMaxValue
         self.mappingValue = maxValue - minValue
-        self.onValueSelected = onValueSelected // Assign the onValueSelected closure
+        self.resolution = resolution
+        
+        let initialWidth = Double(((self.initialMinValue - self.minValue) / (self.maxValue - self.minValue) * totalWidth))
+        let initialWidth1 = Double(((self.initialMaxValue - self.minValue) / (self.maxValue - self.minValue) * totalWidth))
+        
+        _width = State(initialValue: initialWidth)
+        _width1 = State(initialValue: initialWidth1)
+        
+        print("MinValue: \(self.width) MaxValue: \(self.width1)")
+        print("Resolution: \(self.resolution)")
+        self.onValueSelected = onValueSelected
     }
+
     
     var body: some View {
         VStack {
@@ -43,7 +59,7 @@ struct RangeSlider : View {
                 .font(.title2)
                 
             
-            Text("\(self.getValue(value: ((self.width / self.totalWidth)*mappingValue)+minValue)) - \(self.getValue(value: ((self.width1 / self.totalWidth)*mappingValue)+minValue))")
+            Text("\(self.getValue(value: ((self.width / self.totalWidth)*mappingValue)+minValue, resolution: self.resolution)) - \(self.getValue(value: ((self.width1 / self.totalWidth)*mappingValue)+minValue, resolution: self.resolution))")
                 .fontWeight(.bold)
                 .padding(.top)
             
@@ -67,7 +83,7 @@ struct RangeSlider : View {
                                 .onChanged({ value in
                                     if value.location.x >= 0 && value.location.x <= self.width1 {
                                         self.width = value.location.x
-                                        self.minRangeValue = Double(getValue(value: ((self.width / self.totalWidth)*mappingValue)+minValue))!
+                                        self.minRangeValue = Double(getValue(value: ((self.width / self.totalWidth)*mappingValue)+minValue, resolution: self.resolution))!
                                         print(minRangeValue, maxRangeValue)
                                     }
                                 })
@@ -82,7 +98,7 @@ struct RangeSlider : View {
                                 .onChanged({ value in
                                     if value.location.x <= self.totalWidth && value.location.x >= self.width {
                                         self.width1 = value.location.x
-                                        self.maxRangeValue = Double(getValue(value: ((self.width1 / self.totalWidth)*mappingValue)+minValue))!
+                                        self.maxRangeValue = Double(getValue(value: ((self.width1 / self.totalWidth)*mappingValue)+minValue, resolution: self.resolution))!
                                         print(minRangeValue, maxRangeValue)
                                     }
                                 })
@@ -93,8 +109,8 @@ struct RangeSlider : View {
                 Spacer()
                 Button("Save") {
                     // Update the minRangeValue and maxRangeValue
-                    let newMinRangeValue = Double(self.getValue(value: ((self.width / self.totalWidth) * self.mappingValue) + self.minValue))
-                    let newMaxRangeValue = Double(self.getValue(value: ((self.width1 / self.totalWidth) * self.mappingValue) + self.minValue))
+                    let newMinRangeValue = Double(self.getValue(value: ((self.width / self.totalWidth) * self.mappingValue) + self.minValue, resolution: self.resolution))
+                    let newMaxRangeValue = Double(self.getValue(value: ((self.width1 / self.totalWidth) * self.mappingValue) + self.minValue, resolution: self.resolution))
                     
                     if let minRangeValue = newMinRangeValue, let maxRangeValue = newMaxRangeValue {
                         self.minRangeValue = minRangeValue
@@ -127,15 +143,21 @@ struct RangeSlider : View {
         .padding()
     }
     
-    private func getValue(value: Double) -> String {
+    private func getValue(value: Double, resolution: Double) -> String {
         var newValue = value
-        if newValue < 90 {
-            newValue = value + minValue
+        if newValue < self.minValue {
+            newValue = self.minValue
         } else {
-            newValue = value
+            newValue = (value / resolution).rounded() * resolution // Round the value to the nearest resolution
         }
-        return String(format: "%.0f", newValue)
+        let decimalPlaces = Int(-log10(resolution))
+        let formatString = String(format: "%%.%df", decimalPlaces)
+        let formattedString = String(format: formatString, newValue)
+        
+        return formattedString
     }
+
+
 }
 
 struct RangeSlider_Previews: PreviewProvider {
@@ -148,8 +170,11 @@ struct RangeSlider_Previews: PreviewProvider {
             isRangeSliderSheetPresented: $isRangeSliderSheetPresented,
             attributeTitle: "Amps",
             descriptor: "Add New Range",
-            minValue: 90,
-            maxValue: 350
+            minValue: 0.8,
+            maxValue: 3.0,
+            initialMinValue: 0.9,
+            initialMaxValue: 2.2,
+            resolution: 0.01
         )
         rangeSlider.onValueSelected = { minValue, maxValue in
             selectedMinValue = minValue

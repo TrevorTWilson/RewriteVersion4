@@ -19,6 +19,9 @@ struct WeldingProcedureFormView: View {
     @State private var selectedDescriptor: String = "" // Store descriptor
     @State private var selectedMinRange: Double = 0.0 // Store the minimum range
     @State private var selectedMaxRange: Double = 0.0 // Store the maximum range
+    @State private var selectedInitialMin: Double = 0.0 //Store initial min Value
+    @State private var selectedInitialMax: Double = 0.0 // Store initial max Value
+    @State private var selectedResolution: Double = 0.0 // store rangeslider resolution
     
     @State  var procedureName = ""
     
@@ -113,11 +116,14 @@ struct WeldingProcedureFormView: View {
                                         // Update the button actions to handle each key individually
                                         ForEach(orderedKeys, id: \.self) { key in
                                             // Call to handleKeyAction in WeldingProcedureFormView
-                                            handleKeyAction(for: key, pass: pass, mainViewModel: mainViewModel, updateKeyValues: { updatedKey, updatedDescriptor, updatedMinRange, updatedMaxRange in
+                                            handleKeyAction(for: key, pass: pass, mainViewModel: mainViewModel, updateKeyValues: { updatedKey, updatedDescriptor, updatedMinRange, updatedMaxRange, updatedInitialMin, updatedInitialMax, updatedResolution in
                                                 self.selectedKey = updatedKey
                                                 self.selectedDescriptor = updatedDescriptor
                                                 self.selectedMinRange = updatedMinRange
                                                 self.selectedMaxRange = updatedMaxRange
+                                                self.selectedInitialMin = updatedInitialMin
+                                                self.selectedInitialMax = updatedInitialMax
+                                                self.selectedResolution = updatedResolution
                                             }, isRangeSliderSheetPresented: $isRangeSliderSheetPresented)
                                         }
                                     }
@@ -145,8 +151,15 @@ struct WeldingProcedureFormView: View {
                     }
                 }
                 .scrollIndicatorsFlash(onAppear: true)
-                .frame(maxHeight: 200) // Set a maximum height for the scrollable
+                .frame(maxHeight: 220) // Set a maximum height for the scrollable
             }
+            VStack {
+                HStack {
+                    Text("Tap on Pass Name to delete pass")
+                        .foregroundColor(Color.gray)
+                }
+            }
+            Spacer()
             HStack{
                 Button(action: {
                     // Add logic to save the collected data for WeldingProcedure
@@ -180,6 +193,9 @@ struct WeldingProcedureFormView: View {
                 descriptor: self.selectedDescriptor,
                 minValue: self.selectedMinRange,
                 maxValue: self.selectedMaxRange,
+                initialMinValue: self.selectedInitialMin,
+                initialMaxValue: self.selectedInitialMax,
+                resolution: self.selectedResolution,
                 onValueSelected: { minValue, maxValue in
                     print(minValue, maxValue)
                     mainViewModel.addProcedurePaasRange(key: self.selectedKey, minRange: minValue, maxRange: maxValue)

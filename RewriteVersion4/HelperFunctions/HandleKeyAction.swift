@@ -11,14 +11,14 @@ import SwiftUI
 func handleKeyAction(for key: String,
                      pass: WeldingInspector.Job.WeldingProcedure.WeldPass,
                      mainViewModel: MainViewModel,
-                     updateKeyValues: @escaping (String, String, Double, Double) -> Void,
+                     updateKeyValues: @escaping (String, String, Double, Double, Double, Double, Double) -> Void,
                      isRangeSliderSheetPresented: Binding<Bool>) -> some View {
     
-    let (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange) = setTempValuesForKey(for: key, pass: pass)
+    let (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange, selectedResolution) = setTempValuesForKey(for: key, pass: pass)
     
     return GeometryReader { geometry in
         if pass.minRanges[key] == nil || pass.maxRanges[key] == nil {
-            return Text("Add")
+            Text("Add")
                 .padding()
                 .font(.system(size: 12))
                 .frame(width: 60, height: 60)
@@ -27,13 +27,16 @@ func handleKeyAction(for key: String,
                 .cornerRadius(5)
                 .onTapGesture {
                     print("Add action for key: \(key)")
-                    updateKeyValues(selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange)
+                    let selectedInitialMin = selectedMinRange
+                    let selectedInitialMax = selectedMaxRange
+                    updateKeyValues(selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange, selectedInitialMin, selectedInitialMax, selectedResolution)
                     mainViewModel.setSelectedProcedurePass(weldPass: pass)
                     isRangeSliderSheetPresented.wrappedValue = true
                 }
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                .frame(width: 60, height: 60)
         } else {
-            return Text("Edit")
+            Text("Edit")
                 .padding()
                 .font(.system(size: 12))
                 .frame(width: 60, height: 60)
@@ -42,16 +45,15 @@ func handleKeyAction(for key: String,
                 .cornerRadius(5)
                 .onTapGesture {
                     print("Edit action for key: \(key)")
-                    updateKeyValues(selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange)
+                    let selectedInitialMin = pass.minRanges[key] ?? 0.0
+                    let selectedInitialMax = pass.maxRanges[key] ?? 0.0
+                    updateKeyValues(selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange, selectedInitialMin, selectedInitialMax, selectedResolution)
                     mainViewModel.setSelectedProcedurePass(weldPass: pass)
                     isRangeSliderSheetPresented.wrappedValue = true
                 }
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                .frame(width: 60, height: 60)
         }
     }
-    .frame(width: 60, height: 60)
 }
-
-
-
 
