@@ -316,8 +316,18 @@ class MainViewModel: ObservableObject, Equatable {
     
     //  Methods to edit items on selected lists
     
-    func editProcedure(procedure: WeldingInspector.Job.WeldingProcedure, newName:String){
+    func editProcedure(newName:String, newType: String, newUse: String, newOwner: String){
+        guard var updatedProcedure = selectedWeldingProcedure else {
+            return
+        }
+        updatedProcedure.name = newName
+        updatedProcedure.type = newType
+        updatedProcedure.usage = newUse
+        updatedProcedure.owner = newOwner
         
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedProcedure
+        
+        setSelectedProcedure(procedure: updatedProcedure)
     }
 }
 

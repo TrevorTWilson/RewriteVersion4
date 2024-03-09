@@ -22,11 +22,9 @@ struct AddProcedureView: View {
     }
     
     func addProcedure() {
-        if let procedure = selectedProcedure {
-            mainViewModel.editProcedure(procedure: procedure, newName: procedureName)
-        } else {
-            mainViewModel.addProcedure(name: procedureName)
-        }
+        
+        mainViewModel.addProcedure(name: procedureName)
+        
         isPresented = false
     }
     
@@ -57,7 +55,7 @@ struct AddProcedureView_Previews: PreviewProvider {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
         @State var isPresented: Bool = true // Define isPresented as @State variable
-
+        
         return AddProcedureView(mainViewModel: mockMainViewModel, isPresented: $isPresented)
     }
 }

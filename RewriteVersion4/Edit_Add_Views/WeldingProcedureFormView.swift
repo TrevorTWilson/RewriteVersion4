@@ -150,6 +150,13 @@ struct WeldingProcedureFormView: View {
             HStack{
                 Button(action: {
                     // Add logic to save the collected data for WeldingProcedure
+                    let updatedProcedureName = procedureName
+                    let updatedProcedureType = procedureTypesList[selectedProcedureType]
+                    let updatedProcedureUse = procedureUseList[selectedProcedureUse]
+                    let updatedProcedureOwner = procedureOwnerList[selectedProcedureOwner]
+                    
+                    mainViewModel.editProcedure(newName: updatedProcedureName, newType: updatedProcedureType, newUse: updatedProcedureUse, newOwner: updatedProcedureOwner)
+                    
                     dismiss()
                 }) {
                     Text("Save Procedure")
