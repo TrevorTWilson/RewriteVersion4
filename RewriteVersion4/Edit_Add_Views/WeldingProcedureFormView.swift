@@ -21,7 +21,7 @@ struct WeldingProcedureFormView: View {
     @State private var selectedMaxRange: Double = 0.0 // Store the maximum range
     
     @State  var procedureName = ""
-
+    
     @State  var procedureWeldPass: [WeldingInspector.Job.WeldingProcedure.WeldPass] = []
     
     let procedureTypesList = ["","SMAW", "FCAW", "GMAW", "GTAW"]
@@ -101,29 +101,29 @@ struct WeldingProcedureFormView: View {
                     LazyVStack{
                         if let passList = selectedWeldingProcedure?.weldPass, !passList.isEmpty {
                             
-                                ForEach(Array(passList.enumerated()), id: \.element.id) { index, pass in
-                                 
-                                    HStack {
-                                        Text(pass.passName)
-                                            .frame(width: 60, height: 60)
-                                        
-                                        HStack(spacing: 5) {
-                                            // Update the button actions to handle each key individually
-                                            ForEach(orderedKeys, id: \.self) { key in
-                                                // Call to handleKeyAction in WeldingProcedureFormView
-                                                handleKeyAction(for: key, pass: pass, mainViewModel: mainViewModel, updateKeyValues: { updatedKey, updatedDescriptor, updatedMinRange, updatedMaxRange in
-                                                    self.selectedKey = updatedKey
-                                                    self.selectedDescriptor = updatedDescriptor
-                                                    self.selectedMinRange = updatedMinRange
-                                                    self.selectedMaxRange = updatedMaxRange
-                                                }, isRangeSliderSheetPresented: $isRangeSliderSheetPresented)
-
-                                            }
+                            ForEach(Array(passList.enumerated()), id: \.element.id) { index, pass in
+                                
+                                HStack {
+                                    Text(pass.passName)
+                                        .frame(width: 60, height: 60)
+                                    
+                                    HStack(spacing: 5) {
+                                        // Update the button actions to handle each key individually
+                                        ForEach(orderedKeys, id: \.self) { key in
+                                            // Call to handleKeyAction in WeldingProcedureFormView
+                                            handleKeyAction(for: key, pass: pass, mainViewModel: mainViewModel, updateKeyValues: { updatedKey, updatedDescriptor, updatedMinRange, updatedMaxRange in
+                                                self.selectedKey = updatedKey
+                                                self.selectedDescriptor = updatedDescriptor
+                                                self.selectedMinRange = updatedMinRange
+                                                self.selectedMaxRange = updatedMaxRange
+                                            }, isRangeSliderSheetPresented: $isRangeSliderSheetPresented)
+                                            
                                         }
                                     }
-                                    
                                 }
                                 
+                            }
+                            
                         } else {
                             Text("No welding passes available")
                             Text("Add welding passes to the selected procedure")

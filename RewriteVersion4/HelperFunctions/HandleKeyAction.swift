@@ -42,8 +42,9 @@ func handleKeyAction(for key: String,
                 .cornerRadius(5)
                 .onTapGesture {
                     print("Edit action for key: \(key)")
+                    updateKeyValues(selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange)
                     mainViewModel.setSelectedProcedurePass(weldPass: pass)
-                    // Any other logic you want to perform
+                    isRangeSliderSheetPresented.wrappedValue = true
                 }
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
         }
