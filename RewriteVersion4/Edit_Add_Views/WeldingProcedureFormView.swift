@@ -106,7 +106,9 @@ struct WeldingProcedureFormView: View {
                                 HStack {
                                     Text(pass.passName)
                                         .frame(width: 60, height: 60)
-                                    
+                                        .onTapGesture{
+                                            selectedItemForDeletion = mainViewModel.selectedWeldingProcedure?.weldPass[index]
+                                        } 
                                     HStack(spacing: 5) {
                                         // Update the button actions to handle each key individually
                                         ForEach(orderedKeys, id: \.self) { key in
@@ -117,21 +119,20 @@ struct WeldingProcedureFormView: View {
                                                 self.selectedMinRange = updatedMinRange
                                                 self.selectedMaxRange = updatedMaxRange
                                             }, isRangeSliderSheetPresented: $isRangeSliderSheetPresented)
-                                            
                                         }
                                     }
                                 }
-                                
+                               
                             }
-                            
                         } else {
                             Text("No welding passes available")
                             Text("Add welding passes to the selected procedure")
                         }
                     }
+                    
                     .alert(item: $selectedItemForDeletion) { passRemove in
                         Alert(
-                            title: Text("Delete Weld Pass"),
+                            title: Text("Delete \(passRemove.passName) Weld Pass"),
                             message: Text("Are you sure you want to delete \(passRemove.passName)? This action cannot be undone."),
                             primaryButton: .destructive(Text("Delete")) {
                                 if let index = mainViewModel.selectedWeldingProcedure?.weldPass.firstIndex(where: { $0.id == passRemove.id }) {
@@ -199,4 +200,5 @@ struct WeldingProcedureFormView_Previews: PreviewProvider {
         return WeldingProcedureFormView(mainViewModel: MainViewModel(), isPresented: $isPresented, selectedWeldingProcedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[1])
     }
 }
+
 
