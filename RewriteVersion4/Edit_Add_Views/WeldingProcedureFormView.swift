@@ -13,7 +13,7 @@ struct WeldingProcedureFormView: View {
     var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?
     @Binding var isPresented: Bool
     @State private var addNewPass = false // add weldPass
-    
+    @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.WeldPass?
     @State private var isRangeSliderSheetPresented = false
     @State private var selectedKey: String = "" // Store the selected key
     @State private var selectedDescriptor: String = "" // Store descriptor
@@ -100,62 +100,47 @@ struct WeldingProcedureFormView: View {
                 ScrollView(.vertical) {
                     LazyVStack{
                         if let passList = selectedWeldingProcedure?.weldPass, !passList.isEmpty {
-                            ForEach(Array(passList.enumerated()), id: \.element.id) { index, pass in
-                                HStack {
-                                    Text(pass.passName)
-                                        .frame(width: 60, height: 60)
-                                    
-                                    HStack(spacing: 5) {
-                                        // Update the button actions to handle each key individually
-                                        ForEach(orderedKeys, id: \.self) { key in
-                                            let (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange) = setTempValuesForKey(for: key, pass: pass)
-                                            
-                                            GeometryReader { geometry in
-                                                if pass.minRanges[key] == nil || pass.maxRanges[key] == nil {
-                                                    Text("Add")
-                                                        .padding()
-                                                        .font(.system(size: 12))
-                                                        .frame(width: 60, height: 60)
-                                                        .background(Color.red)
-                                                        .foregroundColor(.white)
-                                                        .cornerRadius(5)
-                                                        .onTapGesture {
-                                                            self.selectedKey = selectedKey
-                                                            self.selectedDescriptor = selectedDescriptor
-                                                            self.selectedMinRange = selectedMinRange
-                                                            self.selectedMaxRange = selectedMaxRange
-                                                            mainViewModel.setSelectedProcedurePass(weldPass: pass)
-                                                            self.isRangeSliderSheetPresented = true
-                                                        }
-                                                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                                                } else {
-                                                    Text("Edit")
-                                                        .padding()
-                                                        .font(.system(size: 12))
-                                                        .frame(width: 60, height: 60)
-                                                        .background(Color.green)
-                                                        .foregroundColor(.black)
-                                                        .cornerRadius(5)
-                                                        .onTapGesture {
-                                                            self.selectedKey = selectedKey
-                                                            self.selectedDescriptor = selectedDescriptor
-                                                            self.selectedMinRange = selectedMinRange
-                                                            self.selectedMaxRange = selectedMaxRange
-                                                            mainViewModel.setSelectedProcedurePass(weldPass: pass)
-                                                            self.isRangeSliderSheetPresented = true
-                                                        }
-                                                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                                                }
-                                            }
+                            
+                                ForEach(Array(passList.enumerated()), id: \.element.id) { index, pass in
+                                 
+                                    HStack {
+                                        Text(pass.passName)
                                             .frame(width: 60, height: 60)
+                                        
+                                        HStack(spacing: 5) {
+                                            // Update the button actions to handle each key individually
+                                            ForEach(orderedKeys, id: \.self) { key in
+                                                // Call to handleKeyAction in WeldingProcedureFormView
+                                                handleKeyAction(for: key, pass: pass, mainViewModel: mainViewModel, updateKeyValues: { updatedKey, updatedDescriptor, updatedMinRange, updatedMaxRange in
+                                                    self.selectedKey = updatedKey
+                                                    self.selectedDescriptor = updatedDescriptor
+                                                    self.selectedMinRange = updatedMinRange
+                                                    self.selectedMaxRange = updatedMaxRange
+                                                }, isRangeSliderSheetPresented: $isRangeSliderSheetPresented)
+
+                                            }
                                         }
                                     }
+                                    
                                 }
-                            }
+                                
                         } else {
                             Text("No welding passes available")
                             Text("Add welding passes to the selected procedure")
                         }
+                    }
+                    .alert(item: $selectedItemForDeletion) { passRemove in
+                        Alert(
+                            title: Text("Delete Weld Pass"),
+                            message: Text("Are you sure you want to delete \(passRemove.passName)? This action cannot be undone."),
+                            primaryButton: .destructive(Text("Delete")) {
+                                if let index = mainViewModel.selectedWeldingProcedure?.weldPass.firstIndex(where: { $0.id == passRemove.id }) {
+                                    print("Alert Index: \(index)")
+                                    mainViewModel.deleteSelectedProcedurePass(index: index)
+                                }
+                            },
+                            secondaryButton: .cancel()
+                        )
                     }
                 }
                 .scrollIndicatorsFlash(onAppear: true)

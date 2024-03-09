@@ -185,6 +185,16 @@ class MainViewModel: ObservableObject, Equatable {
         weldingInspector.jobs[jobIndex].weldingProcedures.remove(at: index)
     }
     
+    func deleteSelectedProcedurePass(index: Int) {
+        guard var updatedProcedure = selectedWeldingProcedure else {
+            print("FAILED, \(String(describing: selectedWeldingProcedure))")
+            return
+        }
+        updatedProcedure.weldPass.remove(at: index)
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedProcedure
+        setSelectedProcedure(procedure: updatedProcedure)
+    }
+    
     func deleteSelectedWelder(index: Int){
         weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified.remove(at: index)
     }

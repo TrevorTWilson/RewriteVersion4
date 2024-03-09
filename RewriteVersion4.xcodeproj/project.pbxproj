@@ -30,6 +30,7 @@
 		5B96491C2B88DB2000497AB7 /* DualSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B96491B2B88DB2000497AB7 /* DualSliderView.swift */; };
 		5B9649202B8903A300497AB7 /* DualHandleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B96491F2B8903A300497AB7 /* DualHandleSlider.swift */; };
 		5B9649222B890D9600497AB7 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649212B890D9600497AB7 /* RangeSlider.swift */; };
+		5BC18E7F2B9BEE690057A4E2 /* HandleKeyAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC18E7E2B9BEE690057A4E2 /* HandleKeyAction.swift */; };
 		5BEAD3422B9240FC008FAE66 /* TemporaryValueBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */; };
 		5BEAD3442B9241A8008FAE66 /* CustomSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAD3432B9241A8008FAE66 /* CustomSectionHeader.swift */; };
 		5BEAD3482B93882E008FAE66 /* AddProcedurePass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAD3472B93882E008FAE66 /* AddProcedurePass.swift */; };
@@ -87,6 +88,7 @@
 		5B96491B2B88DB2000497AB7 /* DualSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSliderView.swift; sourceTree = "<group>"; };
 		5B96491F2B8903A300497AB7 /* DualHandleSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualHandleSlider.swift; sourceTree = "<group>"; };
 		5B9649212B890D9600497AB7 /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
+		5BC18E7E2B9BEE690057A4E2 /* HandleKeyAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleKeyAction.swift; sourceTree = "<group>"; };
 		5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryValueBuilder.swift; sourceTree = "<group>"; };
 		5BEAD3432B9241A8008FAE66 /* CustomSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionHeader.swift; sourceTree = "<group>"; };
 		5BEAD3472B93882E008FAE66 /* AddProcedurePass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProcedurePass.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		5BEAD33E2B923FD6008FAE66 /* HelperFunctions */ = {
 			isa = PBXGroup;
 			children = (
+				5BC18E7E2B9BEE690057A4E2 /* HandleKeyAction.swift */,
 				5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */,
 				5B0EAF182B98B77B000C8482 /* SetTempValues.swift */,
 			);
@@ -414,6 +417,7 @@
 				5B34417F2B6E9C56004C87CF /* MainJobView.swift in Sources */,
 				5B303B2B2B7BDA1F00FB8B59 /* ProcedureView.swift in Sources */,
 				5B9649222B890D9600497AB7 /* RangeSlider.swift in Sources */,
+				5BC18E7F2B9BEE690057A4E2 /* HandleKeyAction.swift in Sources */,
 				5B722F102B82B0D500E88D82 /* CollectParametersView.swift in Sources */,
 				5B18EC532B7E905900AD4A9D /* AddProcedureView.swift in Sources */,
 				5B18EC492B7E6FD900AD4A9D /* WelderView.swift in Sources */,
