@@ -182,7 +182,14 @@ class MainViewModel: ObservableObject, Equatable {
     }
     
     func deleteSelectedProcedure(index: Int){
-        weldingInspector.jobs[jobIndex].weldingProcedures.remove(at: index)
+        guard var updatedJob = selectedJob else {
+            return
+        }
+        updatedJob.weldingProcedures.remove(at: index)
+        
+        weldingInspector.jobs[jobIndex] = updatedJob
+        
+        setSelectedJob(job: updatedJob)
     }
     
     func deleteSelectedProcedurePass(index: Int) {
@@ -196,15 +203,33 @@ class MainViewModel: ObservableObject, Equatable {
     }
     
     func deleteSelectedWelder(index: Int){
-        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified.remove(at: index)
+        guard var updatedProcedure = selectedWeldingProcedure else {
+            return
+        }
+        updatedProcedure.weldersQualified.remove(at: index)
+        
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedProcedure
+        setSelectedProcedure(procedure: updatedProcedure)
     }
     
     func deleteSelectedWeldNumber(index: Int){
-        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds.remove(at: index)
+        guard var updatedWelder = selectedWelder else {
+            return
+        }
+        updatedWelder.welds.remove(at: index)
+        
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex] = updatedWelder
+        setSelectedWelder(welder: updatedWelder)
     }
     
     func deleteSelectedWeldPass(index: Int){
-        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex].parametersCollected.remove(at: index)
+        guard var updatedWeldNumber = selectedWeldNumber else {
+            return
+        }
+        updatedWeldNumber.parametersCollected.remove(at: index)
+        
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex] = updatedWeldNumber
+        setSelectedWeldNumber(weldId: updatedWeldNumber)
     }
     
     // Methods to add new items to selected lists
@@ -337,7 +362,7 @@ class MainViewModel: ObservableObject, Equatable {
     }
     
     func updateParameters(passName: String) {
-        guard var updatedWeldNumber = selectedWeldNumber else {
+        guard let updatedWeldNumber = selectedWeldNumber else {
             return
         }
         
