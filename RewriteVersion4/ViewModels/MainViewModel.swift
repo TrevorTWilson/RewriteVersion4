@@ -275,7 +275,7 @@ class MainViewModel: ObservableObject, Equatable {
         setSelectedProcedure(procedure: updatedProcedure)
     }
     
-    func addWelder(name: String, welderId: String = "", pressureNumber: String = "", pressureExpiry: String = "", welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = []) {
+    func addWelder(name: String, welderId: String, pressureNumber: String, pressureExpiry: String, welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = []) {
         guard var updatedProcedure = selectedWeldingProcedure else {
             return
         }
@@ -285,6 +285,18 @@ class MainViewModel: ObservableObject, Equatable {
         updatedProcedure.weldersQualified.append(newWelder)
         
         weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedProcedure
+        setSelectedProcedure(procedure: updatedProcedure)
+    }
+    
+    func updateWelder(name: String, welderId: String, pressureNumber: String, pressureExpiry: String, welds: [WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers] = []) {
+        guard let updatedProcedure = selectedWeldingProcedure else {
+            return
+        }
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].name = name
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welderId = welderId
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].pressureNumber = pressureNumber
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].pressureExpiry = pressureExpiry
+        
         setSelectedProcedure(procedure: updatedProcedure)
     }
     

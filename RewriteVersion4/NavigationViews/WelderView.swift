@@ -17,6 +17,8 @@ struct WelderView: View {
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder?
     @State private var showProfileView = false
     @State private var addNewWelder = false
+    @State private var editWelder = false
+    @State private var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder? = nil
     
     var body: some View {
         NavigationStack {
@@ -52,7 +54,9 @@ struct WelderView: View {
                             .contextMenu {
                                 Button(action: {
                                     // Edit action
-                                    // Implement editing functionality here
+                                    mainViewModel.setSelectedWelder(welder: welder)
+                                    selectedWelder = welder
+                                    editWelder = true
                                 }) {
                                     Label("Edit", systemImage: "pencil")
                                 }
@@ -109,8 +113,12 @@ struct WelderView: View {
                 //ProfileView(weldingInspector: weldingInspector)
             }
             .sheet(isPresented: $addNewWelder, content: {
-                // Add new job item view
+                // Add new welder item view
                 AddWelderView(mainViewModel: mainViewModel, isPresented: $addNewWelder)
+            })
+            .sheet(isPresented: $editWelder, content: {
+                // Edit existing welder
+                AddWelderView(mainViewModel: mainViewModel, isPresented: $editWelder, selectedWelder: selectedWelder)
             })
         }
     }

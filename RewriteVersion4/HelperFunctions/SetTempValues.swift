@@ -19,11 +19,12 @@ func setTempValuesForKey(for key: String, pass: WeldingInspector.Job.WeldingProc
     var selectedMaxRange: Double = 0.0
     var selectedResolution: Double = 0.0
 
-    if let minRange = pass?.minRanges[key], let maxRange = pass?.maxRanges[key] {
+    if let _ = pass?.minRanges[key], let _ = pass?.maxRanges[key] {
         selectedDescriptor = "Edit Range Values"
     } else {
         selectedDescriptor = "Add new Range Values"
     }
+
     
     (tempMin, tempMax, tempResolution) = getTemporaryValuesForKey(key)
 
