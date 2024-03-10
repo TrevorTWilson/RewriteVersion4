@@ -16,13 +16,6 @@ struct MainJobView: View {
     @State private var showProfileView = false
     @State private var addNewJob = false
     
-    
-    func output<T>(_ data: T) {
-        print(data)
-    }
-    
-    
-    
     var body: some View {
         NavigationStack {
             VStack {
