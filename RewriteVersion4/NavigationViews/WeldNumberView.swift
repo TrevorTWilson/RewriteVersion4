@@ -15,9 +15,11 @@ struct WelderNumberView: View {
 
     var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
     
+    @State private var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
     @State private var showProfileView = false
     @State private var addNewWeldNumber = false
+    @State private var editWeldNumber = false
     
     var body: some View {
         NavigationStack {
@@ -60,7 +62,9 @@ struct WelderNumberView: View {
                             .contextMenu {
                                 Button(action: {
                                     // Edit action
-                                    // Implement editing functionality here
+                                    mainViewModel.setSelectedWeldNumber(weldId: weldID)
+                                    selectedWeldNumber = weldID
+                                    editWeldNumber = true
                                 }) {
                                     Label("Edit", systemImage: "pencil")
                                 }
@@ -118,6 +122,10 @@ struct WelderNumberView: View {
             .sheet(isPresented: $addNewWeldNumber, content: {
                 // Add new job item view
                 AddWeldNumberView( mainViewModel: mainViewModel, isPresented: $addNewWeldNumber)
+            })
+            .sheet(isPresented: $editWeldNumber, content: {
+                // Add new job item view
+                AddWeldNumberView( mainViewModel: mainViewModel, isPresented: $editWeldNumber, selectedWeldNumber: selectedWeldNumber )
             })
         }
     }

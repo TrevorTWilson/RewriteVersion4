@@ -313,6 +313,16 @@ class MainViewModel: ObservableObject, Equatable {
         setSelectedWelder(welder: updatedWelder)
     }
     
+    func updateWeldNumber(name: String) {
+        guard var updatedWelder = selectedWelder else {
+            return
+        }
+        
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex].name = name
+        
+        setSelectedWelder(welder: updatedWelder)
+    }
+    
     func addParameters(passName: String, collectedValues: [String: Double] = [:]) {
         guard var updatedWeldNumber = selectedWeldNumber else {
             return

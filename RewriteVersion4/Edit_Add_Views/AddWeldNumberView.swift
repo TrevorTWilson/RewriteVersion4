@@ -9,26 +9,41 @@ import SwiftUI
 import Combine
 
 struct AddWeldNumberView: View {
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
-    @State private var name = ""
+    @State private var name: String
     @Binding var isPresented: Bool
     
-//    var selectedJobIndex: Int
-//    var selectedProcedureIndex: Int
-//    var selectedWelderIndex: Int
+    var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
+    @State private var sectionTitle: String = "Add"
+    
+    public init(mainViewModel: MainViewModel, isPresented: Binding<Bool>, selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers? = nil) {
+        self.mainViewModel = mainViewModel
+        self._name = State(initialValue: selectedWeldNumber?.name ?? "")
+        self._isPresented = isPresented
+        self.selectedWeldNumber = selectedWeldNumber
+    }
     
     func addWeldNumber(){
-        mainViewModel.addWeldNumber(name: name)
+        if selectedWeldNumber != nil {
+            // Edit existing weldNumber
+            mainViewModel.updateWeldNumber(name: name)
+        } else {
+            // Add new weldNumber
+            mainViewModel.addWeldNumber(name: name)
+        }
         isPresented = false
     }
     
     var body: some View {
         Form {
-            TextField("New Weld Number", text: $name)
-                .onSubmit {
-                    addWeldNumber()
-                }
+            Section(header: Text("\(sectionTitle) Weld Number")){
+                Text("\(sectionTitle) weld number")
+                TextField("\(sectionTitle) Weld Number", text: $name)
+                    .onSubmit {
+                        addWeldNumber()
+                    }
+            }
+            
             HStack{
                 Button("Add Weld Number") {
                     addWeldNumber()
@@ -40,7 +55,15 @@ struct AddWeldNumberView: View {
             }
         }
         .navigationTitle("Add New Welder")
+        .onAppear {
+            if let selectedWeldNumber = selectedWeldNumber {
+                // Populate form fields with selected welder's data for editing
+                name = selectedWeldNumber.name
+                sectionTitle = "Edit"
+            }
+        }
     }
+        
 }
 
 
