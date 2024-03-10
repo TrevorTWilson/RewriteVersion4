@@ -45,7 +45,7 @@ struct AddWeldNumberView: View {
             }
             
             HStack{
-                Button("Add Weld Number") {
+                Button("\(sectionTitle) Weld Number") {
                     addWeldNumber()
                 }
                 Spacer()

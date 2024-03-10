@@ -10,24 +10,45 @@ import Combine
 
 struct AddParametersView: View {
     
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
-    @State private var passName = ""
+    @State private var passName: String
     @Binding var isPresented: Bool
     
+    var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
+    
+    @State private var sectionTitle: String = "Add"
+    
+    
+    public init(mainViewModel: MainViewModel, isPresented: Binding<Bool>, selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters? = nil) {
+        self.mainViewModel = mainViewModel
+        self._passName = State(initialValue: selectedWeldPass?.passName ?? "")
+        self._isPresented = isPresented
+        self.selectedWeldPass = selectedWeldPass
+    }
+    
     func addParameters(){
-        mainViewModel.addParameters(passName: passName)
+        if selectedWeldPass != nil {
+            // Edit existing weldNumber
+            mainViewModel.updateParameters(passName: passName)
+        } else {
+            // Add new weldNumber
+            mainViewModel.addParameters(passName: passName)
+        }
         isPresented = false
     }
     
     var body: some View {
         Form {
-            TextField("New Pass Name", text: $passName)
-                .onSubmit {
-                    addParameters()
-                }
+            Section(header: Text("\(sectionTitle) Weld Pass")){
+                Text("\(sectionTitle) Pass Name")
+                TextField("\(sectionTitle) Pass Name", text: $passName)
+                    .onSubmit {
+                        addParameters()
+                    }
+            }
+           
             HStack{
-                Button("Add New Pass Name") {
+                Button("\(sectionTitle) Pass Name") {
                     addParameters()
                 }
                 Spacer()
@@ -37,6 +58,13 @@ struct AddParametersView: View {
             }
         }
         .navigationTitle("Add New Pass")
+        .onAppear {
+            if let selectedWeldPass = selectedWeldPass {
+                // Populate form fields with selected welder's data for editing
+                passName = selectedWeldPass.passName
+                sectionTitle = "Edit"
+            }
+        }
     }
 }
 

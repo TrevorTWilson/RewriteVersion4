@@ -314,7 +314,7 @@ class MainViewModel: ObservableObject, Equatable {
     }
     
     func updateWeldNumber(name: String) {
-        guard var updatedWelder = selectedWelder else {
+        guard let updatedWelder = selectedWelder else {
             return
         }
         
@@ -333,6 +333,15 @@ class MainViewModel: ObservableObject, Equatable {
         updatedWeldNumber.parametersCollected.append(newParameters)
 
             weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex] = updatedWeldNumber
+        setSelectedWeldNumber(weldId: updatedWeldNumber)
+    }
+    
+    func updateParameters(passName: String) {
+        guard var updatedWeldNumber = selectedWeldNumber else {
+            return
+        }
+        
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex].parametersCollected[passIndex].passName = passName
         setSelectedWeldNumber(weldId: updatedWeldNumber)
     }
     

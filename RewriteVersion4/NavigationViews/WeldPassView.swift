@@ -16,13 +16,10 @@ struct WeldPassView: View {
     var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
+    @State private var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     @State private var showProfileView = false
-    @State private var addWeldParameters = false
-    
-    
-    func output<T>(_ data: T) {
-        print(data)
-    }
+    @State private var addParametersPass = false
+    @State private var editParametersPass = false
     
     var body: some View {
         NavigationStack {
@@ -33,7 +30,7 @@ struct WeldPassView: View {
                     Spacer()
                     // Add new item to list of jobs
                     Button {
-                        addWeldParameters = true
+                        addParametersPass = true
                     }label: {
                         Image(systemName: "plus.circle.fill")
                             .imageScale(.large)
@@ -71,7 +68,10 @@ struct WeldPassView: View {
                             .contextMenu {
                                 Button(action: {
                                     // Edit action
-                                    // Implement editing functionality here
+                                    mainViewModel.setSelectedWeldPass(weldPass: pass)
+                                    selectedWeldPass = pass
+                                    editParametersPass = true
+                                    
                                 }) {
                                     Label("Edit", systemImage: "pencil")
                                 }
@@ -112,9 +112,13 @@ struct WeldPassView: View {
                     secondaryButton: .cancel()
                 )
             }
-            .sheet(isPresented: $addWeldParameters, content: {
+            .sheet(isPresented: $addParametersPass, content: {
                 // Add new job item view
-                AddParametersView(mainViewModel: mainViewModel, isPresented: $addWeldParameters)
+                AddParametersView(mainViewModel: mainViewModel, isPresented: $addParametersPass)
+            })
+            .sheet(isPresented: $editParametersPass, content: {
+                // Add new job item view
+                AddParametersView(mainViewModel: mainViewModel, isPresented: $editParametersPass, selectedWeldPass: selectedWeldPass)
             })
         }
     }
@@ -125,7 +129,7 @@ struct WeldPassView: View {
 
 
 
-struct WeldParameterView_Previews: PreviewProvider {
+struct WeldPassView_Previews: PreviewProvider {
     static var previews: some View {
         let mockMainViewModel = MainViewModel()
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
