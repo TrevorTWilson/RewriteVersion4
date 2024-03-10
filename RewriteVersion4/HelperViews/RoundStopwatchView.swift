@@ -12,7 +12,7 @@ import SwiftUI
 struct RoundStopwatchView: View {
     @State private var timer: Timer?
     @State private var startTime: Date?
-    @State private var elapsedTime: TimeInterval = 0.0
+    @State private var elapsedTime: TimeInterval? // Define elapsedTime as an optional TimeInterval
     @State private var isRunning = false
 
     var body: some View {
@@ -44,12 +44,24 @@ struct RoundStopwatchView: View {
     }
 
     var elapsedTimeString: String {
-        let minutes = Int(elapsedTime / 60)
-        let seconds = Int(elapsedTime.truncatingRemainder(dividingBy: 60))
-        let milliseconds = Int((elapsedTime * 10).truncatingRemainder(dividingBy: 10))
+        let minutes: Int
+        let seconds: Int
+        let milliseconds: Int
+
+        if let elapsedTime = elapsedTime {
+            minutes = Int(elapsedTime / 60)
+            seconds = Int(elapsedTime.truncatingRemainder(dividingBy: 60))
+            milliseconds = Int((elapsedTime * 10).truncatingRemainder(dividingBy: 10))
+        } else {
+            // Handle the case when elapsedTime is nil
+            minutes = 0
+            seconds = 0
+            milliseconds = 0
+        }
 
         return String(format: "%02d:%02d:%01d", minutes, seconds, milliseconds)
     }
+
 
     func startStopTimer() {
         if isRunning {
@@ -62,13 +74,23 @@ struct RoundStopwatchView: View {
     }
     
     func startTimer() {
-        if timer == nil {
-            startTime = Date()
+            guard let previousElapsedTime = elapsedTime else {
+                startTime = Date()
+                timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+                    updateElapsedTime()
+                }
+                return
+            }
+            
+            startTime = Date().addingTimeInterval(-previousElapsedTime)
             timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                 updateElapsedTime()
             }
         }
-    }
+
+
+
+
 
     func stopTimer() {
         timer?.invalidate()
