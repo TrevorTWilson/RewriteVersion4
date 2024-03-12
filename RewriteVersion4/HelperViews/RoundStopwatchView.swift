@@ -12,8 +12,10 @@ import SwiftUI
 struct RoundStopwatchView: View {
     @State private var timer: Timer?
     @State private var startTime: Date?
-    @State private var elapsedTime: TimeInterval? // Define elapsedTime as an optional TimeInterval
+    //@State private var elapsedTime: TimeInterval? // Define elapsedTime as an optional TimeInterval
     @State private var isRunning = false
+    @Binding var elapsedTime: TimeInterval?
+
 
     var body: some View {
         VStack {
@@ -44,23 +46,21 @@ struct RoundStopwatchView: View {
     }
 
     var elapsedTimeString: String {
-        let minutes: Int
         let seconds: Int
         let milliseconds: Int
 
         if let elapsedTime = elapsedTime {
-            minutes = Int(elapsedTime / 60)
-            seconds = Int(elapsedTime.truncatingRemainder(dividingBy: 60))
-            milliseconds = Int((elapsedTime * 10).truncatingRemainder(dividingBy: 10))
+            seconds = Int(elapsedTime)
+            milliseconds = Int(elapsedTime.truncatingRemainder(dividingBy: 1) * 10)
         } else {
-            // Handle the case when elapsedTime is nil
-            minutes = 0
+            // Default values when elapsedTime is nil
             seconds = 0
             milliseconds = 0
         }
 
-        return String(format: "%02d:%02d:%01d", minutes, seconds, milliseconds)
+        return String(format: "%02d:%01d", seconds, milliseconds)
     }
+
 
 
     func startStopTimer() {
@@ -111,6 +111,11 @@ struct RoundStopwatchView: View {
 }
 
 
-#Preview {
-    RoundStopwatchView()
+struct RoundStopwatchView_Previews: PreviewProvider {
+    @State static var elapsedTime: TimeInterval? = 0.0  // Example initial elapsed time value
+
+    static var previews: some View {
+        RoundStopwatchView(elapsedTime: $elapsedTime)
+    }
 }
+

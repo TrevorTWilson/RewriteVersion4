@@ -348,12 +348,12 @@ class MainViewModel: ObservableObject, Equatable {
         setSelectedWelder(welder: updatedWelder)
     }
     
-    func addParameters(passName: String, collectedValues: [String: Double] = [:]) {
+    func addParameters(passName: String, procedurePass: WeldingInspector.Job.WeldingProcedure.WeldPass, collectedValues: [String: Double] = [:]) {
         guard var updatedWeldNumber = selectedWeldNumber else {
             return
         }
         
-        let newParameters = WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters(passName: passName, collectedValues: collectedValues)
+        let newParameters = WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters(passName: passName, procedurePass: procedurePass, collectedValues: collectedValues)
         
         updatedWeldNumber.parametersCollected.append(newParameters)
 
@@ -361,12 +361,14 @@ class MainViewModel: ObservableObject, Equatable {
         setSelectedWeldNumber(weldId: updatedWeldNumber)
     }
     
-    func updateParameters(passName: String) {
+    func updateParameters(passName: String, procedurePass: WeldingInspector.Job.WeldingProcedure.WeldPass) {
         guard let updatedWeldNumber = selectedWeldNumber else {
             return
         }
         
         weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex].parametersCollected[passIndex].passName = passName
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex].parametersCollected[passIndex].procedurePass = procedurePass
+        
         setSelectedWeldNumber(weldId: updatedWeldNumber)
     }
     

@@ -89,11 +89,13 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
                     struct Parameters: Codable, Identifiable, Hashable {
                         var id = UUID()
                         var passName: String = ""
+                        var procedurePass: WeldPass
                         var collectedValues: [String: Double] = [:]    //Dictionary of amps, volts, arcSpeed, heatInput
                         
-                        init(passName: String, collectedValues: [String: Double]) {
+                        init(passName: String, procedurePass: WeldPass, collectedValues: [String: Double]) {
                             self.passName = passName
                             self.collectedValues = collectedValues
+                            self.procedurePass = procedurePass
                         }
                     }
                 }

@@ -67,6 +67,10 @@ struct PassParameterView: View {
                     mainViewModel.setSelectedWeldPass(weldPass: selectedWeldPass!)
                 }
             }
+            .sheet(isPresented: $addWeldParameters, content: {
+                // Add new job item view
+                CollectParametersView(mainViewModel: mainViewModel, isPresented: $addWeldParameters)
+            })
         }
     }
     

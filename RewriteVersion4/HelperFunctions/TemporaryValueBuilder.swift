@@ -17,9 +17,9 @@ func getTemporaryValuesForKey(_ key: String) -> (Double, Double, Double) {
     case "Volts":
         return (Double(7), Double(35), Double(0.1))
     case "ArcSpeed":
-        return (Double(100), Double(1000), Double(1.0))
+        return (Double(50), Double(1000), Double(1.0))
     case "HeatInput":
-        return (Double(0.8), Double(3.0), Double(0.01))
+        return (Double(0.3), Double(3.0), Double(0.01))
     default:
         return (Double(0), Double(0), Double(1.0)) // Default values if key does not match
     }

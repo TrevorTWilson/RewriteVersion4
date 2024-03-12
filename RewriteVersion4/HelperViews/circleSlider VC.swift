@@ -14,12 +14,10 @@ import SwiftUI
 struct CircleSliderVC: View {
     //@State var sliderValue: Double = 0.0
     @State private var angleValue: Double
-    @State private var sliderValue: Double
+    @Binding var sliderValue: Double
 
     var minimunSliderValue : Double
     var maximunSliderValue : Double
-    var minimunRange : Double
-    var maximunRange : Double
     var totalValue : Double
     var knobRadius : Double
     var radius : Double
@@ -28,16 +26,14 @@ struct CircleSliderVC: View {
     
     //var sliderValue : Double
     
-    init(minimunSliderValue: Double, maximunSliderValue: Double, minimunRange: Double, maximunRange: Double, totalValue: Double, knobRadius: Double, radius: Double, initialSliderValue: Double, valueUnit: String) {
+    init(minimunSliderValue: Double, maximunSliderValue: Double, totalValue: Double, knobRadius: Double, radius: Double, initialSliderValue: Double, valueUnit: String, sliderValue: Binding<Double>) {
         self.minimunSliderValue = minimunSliderValue
         self.maximunSliderValue = maximunSliderValue
-        self.minimunRange = minimunRange
-        self.maximunRange = maximunRange
         self.totalValue = totalValue
         self.knobRadius = knobRadius
         self.radius = radius
         self.initialSliderValue = initialSliderValue
-        self.sliderValue = initialSliderValue // Initialize the sliderValue state variable
+        self._sliderValue = sliderValue // Initialize the sliderValue state variable
         self.valueUnit = valueUnit
         angleValue = (Double(360/totalValue)*initialSliderValue)
     }
@@ -99,7 +95,7 @@ struct CircleSliderVC: View {
 
 struct Content_Previews: PreviewProvider {
     static var previews: some View {
-        //ContentView()
-        CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 40, minimunRange: 100, maximunRange: 200, totalValue: 40, knobRadius: 15, radius: 75, initialSliderValue: 10, valueUnit: "?")
+        CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 40, totalValue: 40, knobRadius: 15, radius: 75, initialSliderValue: 10, valueUnit: "?", sliderValue: .constant(10.0))
     }
 }
+

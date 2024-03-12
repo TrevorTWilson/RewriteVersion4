@@ -29,6 +29,7 @@
 		5B96491A2B87B8FF00497AB7 /* WeldingProcedureFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649192B87B8FF00497AB7 /* WeldingProcedureFormView.swift */; };
 		5B9649222B890D9600497AB7 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649212B890D9600497AB7 /* RangeSlider.swift */; };
 		5BC18E7F2B9BEE690057A4E2 /* HandleKeyAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC18E7E2B9BEE690057A4E2 /* HandleKeyAction.swift */; };
+		5BC18EBD2BA0C7590057A4E2 /* testPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC18EBC2BA0C7590057A4E2 /* testPicker.swift */; };
 		5BEAD3422B9240FC008FAE66 /* TemporaryValueBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */; };
 		5BEAD3442B9241A8008FAE66 /* CustomSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAD3432B9241A8008FAE66 /* CustomSectionHeader.swift */; };
 		5BEAD3482B93882E008FAE66 /* AddProcedurePass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAD3472B93882E008FAE66 /* AddProcedurePass.swift */; };
@@ -85,6 +86,7 @@
 		5B9649192B87B8FF00497AB7 /* WeldingProcedureFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeldingProcedureFormView.swift; sourceTree = "<group>"; };
 		5B9649212B890D9600497AB7 /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		5BC18E7E2B9BEE690057A4E2 /* HandleKeyAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleKeyAction.swift; sourceTree = "<group>"; };
+		5BC18EBC2BA0C7590057A4E2 /* testPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testPicker.swift; sourceTree = "<group>"; };
 		5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryValueBuilder.swift; sourceTree = "<group>"; };
 		5BEAD3432B9241A8008FAE66 /* CustomSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSectionHeader.swift; sourceTree = "<group>"; };
 		5BEAD3472B93882E008FAE66 /* AddProcedurePass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProcedurePass.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 		5BFD0B8E2B6E8231000EA2FA /* RewriteVersion4 */ = {
 			isa = PBXGroup;
 			children = (
+				5BC18EBC2BA0C7590057A4E2 /* testPicker.swift */,
 				5B112F732B6FDFD8009B3111 /* Launch Screen.storyboard */,
 				5BFD0B8F2B6E8231000EA2FA /* AppEntryPoint.swift */,
 				5BFD0BC32B6E85CD000EA2FA /* Profile.swift */,
@@ -431,6 +434,7 @@
 				5B9649142B87946800497AB7 /* PassParameterView.swift in Sources */,
 				5B303B292B7BBBA200FB8B59 /* MainViewModel.swift in Sources */,
 				5B18EC572B7E908C00AD4A9D /* AddWeldNumberView.swift in Sources */,
+				5BC18EBD2BA0C7590057A4E2 /* testPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
