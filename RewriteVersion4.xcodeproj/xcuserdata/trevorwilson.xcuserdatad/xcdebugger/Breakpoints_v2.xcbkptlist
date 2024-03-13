@@ -67,5 +67,53 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A3FB5141-BB01-42CA-BFD3-F8A18B77512B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RewriteVersion4/Edit_Add_Views/CollectParametersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "A3FB5141-BB01-42CA-BFD3-F8A18B77512B - 6e4e832a6b2611bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RewriteVersion4.CollectParametersView.body.getter : some"
+                  moduleName = "RewriteVersion4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/trevorwilson/Documents/Xcode_Projects/New%20Git%20Version/RewriteVersion4/RewriteVersion4/Edit_Add_Views/CollectParametersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "3728">
+               </Location>
+               <Location
+                  uuid = "A3FB5141-BB01-42CA-BFD3-F8A18B77512B - fdf9650132a9056d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.edgesIgnoringSafeArea(SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Spacer, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Spacer, RewriteVersion4.CircleSliderVC, SwiftUI.Spacer, RewriteVersion4.CircleSliderVC, SwiftUI.Spacer)&gt;&gt;, SwiftUI.Spacer, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Spacer, RewriteVersion4.CircleSliderVC, SwiftUI.Spacer, RewriteVersion4.RoundStopwatchView, SwiftUI.Spacer)&gt;&gt;, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.foregroundStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ShapeStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;)&gt; in RewriteVersion4.CollectParametersView.body.getter : some"
+                  moduleName = "RewriteVersion4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/trevorwilson/Documents/Xcode_Projects/New%20Git%20Version/RewriteVersion4/RewriteVersion4/Edit_Add_Views/CollectParametersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "1806">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

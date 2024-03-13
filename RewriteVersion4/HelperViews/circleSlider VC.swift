@@ -18,24 +18,22 @@ struct CircleSliderVC: View {
 
     var minimunSliderValue : Double
     var maximunSliderValue : Double
-    var totalValue : Double
+    var minimumSliderRange : Double
+    var maximumSliderRange : Double
     var knobRadius : Double
     var radius : Double
-    var initialSliderValue : Double
     var valueUnit: String
     
-    //var sliderValue : Double
-    
-    init(minimunSliderValue: Double, maximunSliderValue: Double, totalValue: Double, knobRadius: Double, radius: Double, initialSliderValue: Double, valueUnit: String, sliderValue: Binding<Double>) {
+    init(minimunSliderValue: Double, maximunSliderValue: Double, minimumSliderRange: Double, maximumSliderRange: Double, knobRadius: Double, radius: Double, valueUnit: String, sliderValue: Binding<Double>) {
         self.minimunSliderValue = minimunSliderValue
         self.maximunSliderValue = maximunSliderValue
-        self.totalValue = totalValue
+        self.minimumSliderRange = minimumSliderRange
+        self.maximumSliderRange = maximumSliderRange
         self.knobRadius = knobRadius
         self.radius = radius
-        self.initialSliderValue = initialSliderValue
         self._sliderValue = sliderValue // Initialize the sliderValue state variable
         self.valueUnit = valueUnit
-        angleValue = (Double(360/totalValue)*initialSliderValue)
+        angleValue = (Double(360/maximunSliderValue)*sliderValue.wrappedValue)
     }
 
     var body: some View {
@@ -50,13 +48,14 @@ struct CircleSliderVC: View {
                 .frame(width: self.radius * 2, height: self.radius * 2)
             
             Circle()
-                .trim(from: 0.0, to: self.sliderValue/self.totalValue)
-                .stroke(self.sliderValue < self.maximunSliderValue/2 ? Color.blue : Color.red, lineWidth: 4)
+                .trim(from: 0.0, to: self.sliderValue/self.maximunSliderValue)
+                .stroke((self.sliderValue < self.minimumSliderRange || self.sliderValue > self.maximumSliderRange) ? Color.red : Color.blue, lineWidth: 4)
+
                 .frame(width: self.radius * 2, height: self.radius * 2)
                 .rotationEffect(.degrees(-90))
             
             Circle()
-                .fill(self.sliderValue < self.maximunSliderValue/2 ? Color.blue : Color.red)
+                .fill((self.sliderValue < self.minimumSliderRange || self.sliderValue > self.maximumSliderRange) ? Color.blue : Color.red)
                 .frame(width: self.knobRadius * 2, height: self.knobRadius * 2)
                 .padding(10)
                 .offset(y: -self.radius)
@@ -82,7 +81,7 @@ struct CircleSliderVC: View {
         // convert angle range from (-pi to pi) to (0 to 2pi)
         let fixedAngle = angle < 0.0 ? angle + 2.0 * .pi : angle
         // convert angle value to temperature value
-        let value = fixedAngle / (2.0 * .pi) * self.totalValue
+        let value = fixedAngle / (2.0 * .pi) * self.maximunSliderValue
         
         if value >= self.minimunSliderValue && value <= self.maximunSliderValue {
             self.sliderValue = value
@@ -95,7 +94,7 @@ struct CircleSliderVC: View {
 
 struct Content_Previews: PreviewProvider {
     static var previews: some View {
-        CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 400, totalValue: 400, knobRadius: 15, radius: 75, initialSliderValue: 100, valueUnit: "?", sliderValue: .constant(10.0))
+        CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 400, minimumSliderRange: 100, maximumSliderRange: 300, knobRadius: 15, radius: 75, valueUnit: "?", sliderValue: .constant(10.0))
     }
 }
 

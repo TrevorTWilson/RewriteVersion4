@@ -15,6 +15,7 @@ struct CollectParametersView: View {
     
     var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     
+    
     @State private var elapsedTime: TimeInterval?
     @State private var ampSliderValue: Double = 0.0
     @State private var voltSliderValue: Double = 0.0
@@ -30,6 +31,16 @@ struct CollectParametersView: View {
     @State private var initialVoltValue: Double = 0.0
     @State private var initialDistanceValue: Double = 0.0
     @State private var initialTimeValue: Double = 0.0
+    
+    @State private var ampMinRange: Double = 0.0
+    @State private var ampMaxRange: Double = 0.0
+    @State private var voltMinRange: Double = 0.0
+    @State private var voltMaxRange: Double = 0.0
+    @State private var arcSpeedMinRange: Double = 0.0
+    @State private var arcSpeedMaxRange: Double = 0.0
+    @State private var heatInputMinRange: Double = 0.0
+    @State private var heatInputMaxRange: Double = 0.0
+
     
     // Define the keys in the desired order
     // let orderedKeys = ["Amps", "Volts", "Distance", "Time"]
@@ -49,36 +60,46 @@ struct CollectParametersView: View {
         self._isPresented = isPresented
         self.selectedWeldPass = mainViewModel.selectedWeldPass
         // Set initial values for Sliders and StopWatch
-        if let collectedValues = selectedWeldPass?.collectedValues{
-            let orderedKeys = ["Amps", "Volts", "Distance", "Time"]
+        if let collectedValues = selectedWeldPass?.collectedValues, let passRange = selectedWeldPass?.procedurePass{
+            let orderedKeys = ["Amps", "Volts", "Distance", "Time", "ArcSpeed", "HeatInput"]
             for key in orderedKeys {
-                if let value = collectedValues[key] {
+                if let value = collectedValues[key], let minRanges = passRange.minRanges[key], let maxRanges = passRange.maxRanges[key] {
                     switch key {
                     case "Amps":
-                        self._initialAmpValue = State(initialValue: value)
+                        self._ampSliderValue = State(initialValue: value)
+                        self._ampMinRange = State(initialValue: minRanges)
+                        self._ampMaxRange = State(initialValue: maxRanges)
                     case "Volts":
-                        self._initialVoltValue = State(initialValue: value)
+                        self._voltSliderValue = State(initialValue: value)
+                        self._voltMinRange = State(initialValue: minRanges)
+                        self._voltMaxRange = State(initialValue: maxRanges)
                     case "Distance":
-                        self._initialDistanceValue = State(initialValue: value)
+                        self._distanceSliderValue = State(initialValue: value)
+                    case "ArcSpeed":
+                        self._arcSpeedMinRange = State(initialValue: minRanges)
+                    case "HeatInput":
+                        self._heatInputMaxRange = State(initialValue: maxRanges)
                     case "Time":
                         self._elapsedTime = State(initialValue: value)
                     default:
                         break
                     }
                 }
+                
             }
         }
+        
     }
     
     
     var body: some View {
         
         
-        let amps = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 300, totalValue: 300, knobRadius: 15, radius: 75, initialSliderValue: initialAmpValue, valueUnit: "Amps", sliderValue: $ampSliderValue)
+        let amps = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 300,minimumSliderRange: ampMinRange, maximumSliderRange: ampMaxRange, knobRadius: 15, radius: 75, valueUnit: "Amps", sliderValue: $ampSliderValue)
         
-        let volts = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 40, totalValue: 40, knobRadius: 15, radius: 75, initialSliderValue: initialVoltValue, valueUnit: "Volts", sliderValue: $voltSliderValue)
+        let volts = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 40,minimumSliderRange: voltMinRange, maximumSliderRange: voltMaxRange, knobRadius: 15, radius: 75, valueUnit: "Volts", sliderValue: $voltSliderValue)
         
-        let distance = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 400, totalValue: 400, knobRadius: 15, radius: 75, initialSliderValue: initialDistanceValue, valueUnit: "mm", sliderValue: $distanceSliderValue)
+        let distance = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 400, minimumSliderRange: 0, maximumSliderRange: 400, knobRadius: 15, radius: 75, valueUnit: "mm", sliderValue: $distanceSliderValue)
         
         let time = RoundStopwatchView(elapsedTime: $elapsedTime)
         
