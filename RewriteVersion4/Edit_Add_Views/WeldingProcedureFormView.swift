@@ -168,7 +168,7 @@ struct WeldingProcedureFormView: View {
                     let updatedProcedureUse = procedureUseList[selectedProcedureUse]
                     let updatedProcedureOwner = procedureOwnerList[selectedProcedureOwner]
                     
-                    mainViewModel.editProcedure(newName: updatedProcedureName, newType: updatedProcedureType, newUse: updatedProcedureUse, newOwner: updatedProcedureOwner)
+                    mainViewModel.updateProcedure(newName: updatedProcedureName, newType: updatedProcedureType, newUse: updatedProcedureUse, newOwner: updatedProcedureOwner)
                     
                     dismiss()
                 }) {
