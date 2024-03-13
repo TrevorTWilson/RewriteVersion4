@@ -28,6 +28,8 @@
 		5B9649162B87AD5100497AB7 /* KeyValueRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649152B87AD5100497AB7 /* KeyValueRow.swift */; };
 		5B96491A2B87B8FF00497AB7 /* WeldingProcedureFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649192B87B8FF00497AB7 /* WeldingProcedureFormView.swift */; };
 		5B9649222B890D9600497AB7 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9649212B890D9600497AB7 /* RangeSlider.swift */; };
+		5B9D69DF2BA1E60900272DC6 /* CalculateArcSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9D69DE2BA1E60900272DC6 /* CalculateArcSpeed.swift */; };
+		5B9D69E12BA1E61B00272DC6 /* CalculateHeatInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9D69E02BA1E61B00272DC6 /* CalculateHeatInput.swift */; };
 		5BC18E7F2B9BEE690057A4E2 /* HandleKeyAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC18E7E2B9BEE690057A4E2 /* HandleKeyAction.swift */; };
 		5BC18EBD2BA0C7590057A4E2 /* testPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC18EBC2BA0C7590057A4E2 /* testPicker.swift */; };
 		5BEAD3422B9240FC008FAE66 /* TemporaryValueBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */; };
@@ -85,6 +87,8 @@
 		5B9649152B87AD5100497AB7 /* KeyValueRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRow.swift; sourceTree = "<group>"; };
 		5B9649192B87B8FF00497AB7 /* WeldingProcedureFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeldingProcedureFormView.swift; sourceTree = "<group>"; };
 		5B9649212B890D9600497AB7 /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
+		5B9D69DE2BA1E60900272DC6 /* CalculateArcSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateArcSpeed.swift; sourceTree = "<group>"; };
+		5B9D69E02BA1E61B00272DC6 /* CalculateHeatInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateHeatInput.swift; sourceTree = "<group>"; };
 		5BC18E7E2B9BEE690057A4E2 /* HandleKeyAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleKeyAction.swift; sourceTree = "<group>"; };
 		5BC18EBC2BA0C7590057A4E2 /* testPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testPicker.swift; sourceTree = "<group>"; };
 		5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryValueBuilder.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 		5BEAD33E2B923FD6008FAE66 /* HelperFunctions */ = {
 			isa = PBXGroup;
 			children = (
+				5B9D69DE2BA1E60900272DC6 /* CalculateArcSpeed.swift */,
+				5B9D69E02BA1E61B00272DC6 /* CalculateHeatInput.swift */,
 				5BC18E7E2B9BEE690057A4E2 /* HandleKeyAction.swift */,
 				5BEAD3412B9240FC008FAE66 /* TemporaryValueBuilder.swift */,
 				5B0EAF182B98B77B000C8482 /* SetTempValues.swift */,
@@ -424,6 +430,7 @@
 				5B18EC4D2B7E89A700AD4A9D /* WeldPassView.swift in Sources */,
 				5B722F0B2B82A6DC00E88D82 /* KeyValueView.swift in Sources */,
 				5B0EAF192B98B77B000C8482 /* SetTempValues.swift in Sources */,
+				5B9D69E12BA1E61B00272DC6 /* CalculateHeatInput.swift in Sources */,
 				5BEAD3482B93882E008FAE66 /* AddProcedurePass.swift in Sources */,
 				5B18EC592B7E90B000AD4A9D /* AddParametersView.swift in Sources */,
 				5BEAD3442B9241A8008FAE66 /* CustomSectionHeader.swift in Sources */,
@@ -435,6 +442,7 @@
 				5B303B292B7BBBA200FB8B59 /* MainViewModel.swift in Sources */,
 				5B18EC572B7E908C00AD4A9D /* AddWeldNumberView.swift in Sources */,
 				5BC18EBD2BA0C7590057A4E2 /* testPicker.swift in Sources */,
+				5B9D69DF2BA1E60900272DC6 /* CalculateArcSpeed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

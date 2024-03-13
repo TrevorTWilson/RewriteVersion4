@@ -95,7 +95,7 @@ struct CircleSliderVC: View {
 
 struct Content_Previews: PreviewProvider {
     static var previews: some View {
-        CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 40, totalValue: 40, knobRadius: 15, radius: 75, initialSliderValue: 10, valueUnit: "?", sliderValue: .constant(10.0))
+        CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 400, totalValue: 400, knobRadius: 15, radius: 75, initialSliderValue: 100, valueUnit: "?", sliderValue: .constant(10.0))
     }
 }
 
