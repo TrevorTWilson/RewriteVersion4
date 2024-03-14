@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension MainViewModel {
     
     // Methods to set selectedItems in MainViewModel

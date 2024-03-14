@@ -9,7 +9,6 @@ import Foundation
 
 extension MainViewModel {
     
-    
     // Methods to store and retrieve weldingInspector data from local JSON file (default 'Seed' data available if no file present
     func loadWeldingInspector() {
         weldingInspector = StorageFunctions.retrieveInspector()
