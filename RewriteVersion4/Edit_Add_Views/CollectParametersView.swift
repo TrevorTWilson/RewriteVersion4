@@ -15,7 +15,6 @@ struct CollectParametersView: View {
     
     var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     
-    
     @State private var elapsedTime: TimeInterval?
     @State private var ampSliderValue: Double = 0.0
     @State private var voltSliderValue: Double = 0.0
@@ -26,11 +25,6 @@ struct CollectParametersView: View {
     @State private var arcSpeed: Double = 0.0
     @State private var heatInput: Double = 0.0
     @State private var dataChangeTrigger = UUID()
-    
-    @State private var initialAmpValue: Double = 0.0
-    @State private var initialVoltValue: Double = 0.0
-    @State private var initialDistanceValue: Double = 0.0
-    @State private var initialTimeValue: Double = 0.0
     
     @State private var ampMinRange: Double = 0.0
     @State private var ampMaxRange: Double = 0.0
@@ -61,41 +55,55 @@ struct CollectParametersView: View {
         self.selectedWeldPass = mainViewModel.selectedWeldPass
         // Set initial values for Sliders and StopWatch
         if let collectedValues = selectedWeldPass?.collectedValues, let passRange = selectedWeldPass?.procedurePass{
-            let orderedKeys = ["Amps", "Volts", "Distance", "Time", "ArcSpeed", "HeatInput"]
-            for key in orderedKeys {
-                if let value = collectedValues[key], let minRanges = passRange.minRanges[key], let maxRanges = passRange.maxRanges[key] {
-                    print("\(key)----Value: \(value)---minRange: \(minRanges)---maxRange: \(maxRanges)")
+            let collectedKeys = ["Amps", "Volts", "Distance", "Time"]
+            let rangeKeys = ["Amps", "Volts", "HeatInput", "ArcSpeed"]
+            for key in collectedKeys {
+                if let value = collectedValues[key]{
                     switch key {
                     case "Amps":
-                        print("Set Amps")
                         self._ampSliderValue = State(initialValue: value)
-                        self._ampMinRange = State(initialValue: minRanges)
-                        self._ampMaxRange = State(initialValue: maxRanges)
                     case "Volts":
-                        print("Set Volts")
                         self._voltSliderValue = State(initialValue: value)
-                        self._voltMinRange = State(initialValue: minRanges)
-                        self._voltMaxRange = State(initialValue: maxRanges)
                     case "Distance":
-                        print("Set Distance")
                         self._distanceSliderValue = State(initialValue: value)
-                    case "ArcSpeed":
-                        print("Set ArcSpeed")
-                        self._arcSpeedMinRange = State(initialValue: minRanges)
-                    case "HeatInput":
-                        print("Set HeatInput")
-                        self._heatInputMaxRange = State(initialValue: maxRanges)
                     case "Time":
-                        print("Set Elapsed Time")
                         self._elapsedTime = State(initialValue: value)
                     default:
-                        print("Broke out of switch case")
                         break
                     }
-                } else {
-                    print("Broke out of for key loop")
                 }
-                
+            }
+            for key in rangeKeys {
+                if let minRanges = passRange.minRanges[key] {
+                    switch key {
+                    case "Amps":
+                        self._ampMinRange = State(initialValue: minRanges)
+                    case "Volts":
+                        self._voltMinRange = State(initialValue: minRanges)
+                    case "HeatInput":
+                        self._heatInputMinRange = State(initialValue: minRanges)
+                    case "ArcSpeed":
+                        self._arcSpeedMinRange = State(initialValue: minRanges)
+                    default:
+                        break
+                    }
+                }
+            }
+            for key in rangeKeys {
+                if let maxRanges = passRange.maxRanges[key] {
+                    switch key {
+                    case "Amps":
+                        self._ampMaxRange = State(initialValue: maxRanges)
+                    case "Volts":
+                        self._voltMaxRange = State(initialValue: maxRanges)
+                    case "HeatInput":
+                        self._heatInputMaxRange = State(initialValue: maxRanges)
+                    case "ArcSpeed":
+                        self._arcSpeedMaxRange = State(initialValue: maxRanges)
+                    default:
+                        break
+                    }
+                }
             }
         } else {
             print("CollectedValues or PassRange failed")
@@ -149,7 +157,19 @@ struct CollectParametersView: View {
                 .foregroundStyle(Color.white)
             }
         }
-        .onChange(of: dataChangeTriggers) {
+        .onAppear(){
+            updateFormattedValues()
+        }
+        .onChange(of: elapsedTime) {
+            updateFormattedValues()
+        }
+        .onChange(of: ampSliderValue){
+            updateFormattedValues()
+        }
+        .onChange(of: voltSliderValue){
+            updateFormattedValues()
+        }
+        .onChange(of: distanceSliderValue){
             updateFormattedValues()
         }
         
