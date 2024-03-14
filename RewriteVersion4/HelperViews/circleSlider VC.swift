@@ -55,7 +55,7 @@ struct CircleSliderVC: View {
                 .rotationEffect(.degrees(-90))
             
             Circle()
-                .fill((self.sliderValue < self.minimumSliderRange || self.sliderValue > self.maximumSliderRange) ? Color.blue : Color.red)
+                .fill((self.sliderValue < self.minimumSliderRange || self.sliderValue > self.maximumSliderRange) ? Color.red : Color.blue)
                 .frame(width: self.knobRadius * 2, height: self.knobRadius * 2)
                 .padding(10)
                 .offset(y: -self.radius)
