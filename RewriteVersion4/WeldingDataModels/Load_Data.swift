@@ -10,9 +10,9 @@ func loadSample()-> WeldingInspector{
     
     let pass1 = WeldingInspector.Job.WeldingProcedure.WeldPass(passName: "Root", minRanges: ["Amps": 200, "Volts": 28, "ArcSpeed": 50, "HeatInput": 80], maxRanges: ["Amps": 330, "Volts": 31,  "HeatInput": 50])
     
-    let pass2 = WeldingInspector.Job.WeldingProcedure.WeldPass(passName: "HotPass", minRanges: ["Amps": 300, "Volts": 26, "ArcSpeed": 150, "HeatInput": 66], maxRanges: [:])
+    let pass2 = WeldingInspector.Job.WeldingProcedure.WeldPass(passName: "HotPass", minRanges: ["Amps": 300, "Volts": 26, "ArcSpeed": 150, "HeatInput": 66], maxRanges: ["Amps": 330, "Volts": 31,  "HeatInput": 50])
     
-    let welderParams: [String: Double] = ["Amps": 200, "Volts": 28, "Time": 26, "ArcSpeed": 50, "HeatInput": 80]
+    let welderParams: [String: Double] = ["Amps": 200, "Volts": 28, "Time": 26, "Distance": 150, "ArcSpeed": 50, "HeatInput": 80]
     
     let weldNumbersParams = WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters(passName: "Root",procedurePass: pass1, collectedValues: welderParams)
     

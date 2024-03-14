@@ -64,29 +64,41 @@ struct CollectParametersView: View {
             let orderedKeys = ["Amps", "Volts", "Distance", "Time", "ArcSpeed", "HeatInput"]
             for key in orderedKeys {
                 if let value = collectedValues[key], let minRanges = passRange.minRanges[key], let maxRanges = passRange.maxRanges[key] {
+                    print("\(key)----Value: \(value)---minRange: \(minRanges)---maxRange: \(maxRanges)")
                     switch key {
                     case "Amps":
+                        print("Set Amps")
                         self._ampSliderValue = State(initialValue: value)
                         self._ampMinRange = State(initialValue: minRanges)
                         self._ampMaxRange = State(initialValue: maxRanges)
                     case "Volts":
+                        print("Set Volts")
                         self._voltSliderValue = State(initialValue: value)
                         self._voltMinRange = State(initialValue: minRanges)
                         self._voltMaxRange = State(initialValue: maxRanges)
                     case "Distance":
+                        print("Set Distance")
                         self._distanceSliderValue = State(initialValue: value)
                     case "ArcSpeed":
+                        print("Set ArcSpeed")
                         self._arcSpeedMinRange = State(initialValue: minRanges)
                     case "HeatInput":
+                        print("Set HeatInput")
                         self._heatInputMaxRange = State(initialValue: maxRanges)
                     case "Time":
+                        print("Set Elapsed Time")
                         self._elapsedTime = State(initialValue: value)
                     default:
+                        print("Broke out of switch case")
                         break
                     }
+                } else {
+                    print("Broke out of for key loop")
                 }
                 
             }
+        } else {
+            print("CollectedValues or PassRange failed")
         }
         
     }
@@ -178,3 +190,7 @@ struct CollectParametersView_Previews: PreviewProvider {
         CollectParametersView(mainViewModel: MainViewModel(), isPresented: $isPresented)
     }
 }
+
+
+
+
