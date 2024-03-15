@@ -31,9 +31,9 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
         struct WeldingProcedure: Codable, Identifiable, Hashable {
             var id = UUID()
             var name: String = ""
-            var type: String = ""                        // SMAW, GMAW, FCAW
-            var usage: String = ""                       // Girth, Repair, Girth/Repair, CSA, ABSA
-            var owner: String = ""                       // Client, Contractor
+            var type: String = ""                       
+            var usage: String = ""
+            var owner: String = ""
             var weldPass: [WeldPass]
             var weldersQualified: [Welder]
             
