@@ -27,15 +27,18 @@ struct RoundStopwatchView: View {
                  
                 VStack{
                     Text(elapsedTimeString)
-                        .font(.system(size: 15))
+                        .font(.system(size: 35))
                     Button(action: startStopTimer) {
                         Text(isRunning ? "Stop" : "Start")
                             .foregroundColor(isRunning ? Color.red : Color.green)
+                            .font(.system(size: 35))
+                           
                     }
                     
                     Button(action: resetTimer) {
                         Text("Reset")
                             .foregroundColor(Color.blue)
+              
                     }
                 }
             }
@@ -58,7 +61,7 @@ struct RoundStopwatchView: View {
             milliseconds = 0
         }
 
-        return String(format: "%02d:%01d", seconds, milliseconds)
+        return String(format: "%0d.%01d", seconds, milliseconds)
     }
 
 

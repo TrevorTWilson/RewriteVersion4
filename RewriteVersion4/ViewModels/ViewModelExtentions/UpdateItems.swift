@@ -42,6 +42,21 @@ extension MainViewModel {
         setSelectedWeldNumber(weldId: updatedWeldNumber)
     }
     
+    func updateCollectedValues(ampsValue: Double, voltsValue: Double, distanceValue: Double, arcSpeedValue: Double, heatInputValue: Double, timeValue: Double) {
+        guard var updatedParameters = selectedWeldPass else {
+            return
+        }
+        updatedParameters.collectedValues["Amps"] = ampsValue
+        updatedParameters.collectedValues["Volts"] = voltsValue
+        updatedParameters.collectedValues["Distance"] = distanceValue
+        updatedParameters.collectedValues["ArcSpeed"] = arcSpeedValue
+        updatedParameters.collectedValues["HeaatInput"] = heatInputValue
+        updatedParameters.collectedValues["Time"] = timeValue
+        
+        weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex].parametersCollected[passIndex] = updatedParameters
+        setSelectedWeldPass(weldPass: updatedParameters)
+    }
+    
     //  Methods to edit items on selected lists
     
   

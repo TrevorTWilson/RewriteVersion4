@@ -34,10 +34,11 @@ struct CollectParametersView: View {
     @State private var arcSpeedMaxRange: Double = 0.0
     @State private var heatInputMinRange: Double = 0.0
     @State private var heatInputMaxRange: Double = 0.0
-
     
-    // Define the keys in the desired order
-    // let orderedKeys = ["Amps", "Volts", "Distance", "Time"]
+    @State private var inRange = false
+    @State private var failedRanges: [String] = []
+    
+    @Binding var isPresented: Bool
     
     var dataChangeTriggers: [UUID] {
         return [
@@ -45,9 +46,6 @@ struct CollectParametersView: View {
             UUID()
         ]
     }
-    
-    @Binding var isPresented: Bool
-
     
     init(mainViewModel: MainViewModel, isPresented: Binding<Bool>) {
         self.mainViewModel = mainViewModel
@@ -146,15 +144,76 @@ struct CollectParametersView: View {
                     Spacer()
                 }
                 Spacer()
-                VStack {
-                    Text("Formatted Elapsed Time: \(String(format: "%.1f", formattedElapsedTime))")
-                    Text("Amp Value: \(String(format: "%.1f", formattedAmpSlider))")
-                    Text("Volt Value: \(String(format: "%.1f", voltSliderValue))")
-                    Text("Distance Value: \(String(format: "%.1f", formattedDistanceSlider))")
-                    Text("ArcSpeed Value: \(String(format: "%.1f", arcSpeed))")
-                    Text("HeatInput Value: \(String(format: "%.1f", heatInput))")
+                HStack {
+                    VStack{
+                        Text("ArcSpeed Value: ")
+                        Text("\(String(format: "%.1f", arcSpeed))")
+                            .font(.system(size: 35))
+                    }
+                    
+                    Spacer()
+                    VStack{
+                        Text("HeatInput Value: ")
+                        Text("\(String(format: "%.1f", heatInput))")
+                            .font(.system(size: 35))
+                    }
+                    
                 }
                 .foregroundStyle(Color.white)
+                Spacer()
+                GeometryReader { geometry in
+                    HStack {
+                        Button(action: {
+                            isPresented = false
+                        }) {
+                            Text("Discard Data")
+                                .padding()
+                                .background(Color.white)
+                                .foregroundColor(Color.black)
+                                .cornerRadius(10)
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            
+                        }
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            mainViewModel.updateCollectedValues(ampsValue: formattedAmpSlider, voltsValue: voltSliderValue, distanceValue: formattedDistanceSlider, arcSpeedValue: arcSpeed, heatInputValue: heatInput, timeValue: formattedElapsedTime)
+                            isPresented = false
+                        }) {
+                            Text("Single Entry")
+                                .padding()
+                                .background(inRange ? Color.green : Color.red)
+                                .foregroundColor(inRange ? Color.white : Color.black)
+                                .cornerRadius(10)
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            inRange = false
+                        }
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                        
+                        
+                    }
+                }
+                .frame(height: 50)
+                Spacer()
+                if failedRanges.isEmpty {
+                    Text("All values are within the range.")
+                        .foregroundStyle(Color.white)
+                } else {
+                    Text("Out of range: \(failedRanges.joined(separator: ", "))")
+                        .foregroundStyle(Color.white)
+                }
             }
         }
         .onAppear(){
@@ -181,6 +240,7 @@ struct CollectParametersView: View {
         formattedDistanceSlider = convertSliderValue(sliderValue: distanceSliderValue)
         arcSpeed = calculateArcSpeed(distance: formattedDistanceSlider, time: formattedElapsedTime)
         heatInput = calculateHeatInput(distance: formattedDistanceSlider, time: formattedElapsedTime, amps: formattedAmpSlider, volts: voltSliderValue)
+        failedRanges = checkRanges(ampValue: formattedAmpSlider, voltValue: voltSliderValue, arcSpeedValue: arcSpeed, heatInputValue: heatInput)
     }
     
     func convertSliderValue(sliderValue: Double) -> Double {
@@ -188,6 +248,27 @@ struct CollectParametersView: View {
         return roundedSliderValue
     }
     
+    func checkRanges(ampValue: Double, voltValue: Double, arcSpeedValue: Double, heatInputValue: Double) -> [String] {
+        var failedConditions: [String] = []
+        
+        if !(ampMinRange...ampMaxRange).contains(ampValue) {
+            failedConditions.append("Amps")
+        }
+        if !(voltMinRange...voltMaxRange).contains(voltValue) {
+            failedConditions.append("Volts")
+        }
+        if !(arcSpeedMinRange...arcSpeedMaxRange).contains(arcSpeedValue) {
+            failedConditions.append("ArcSpeed")
+        }
+        if !(heatInputMinRange...heatInputMaxRange).contains(heatInputValue) {
+            failedConditions.append("HeatInput")
+        }
+        
+        inRange = failedConditions.isEmpty
+        
+        return failedConditions
+    }
+
     
     func convertElapsedTimeToNearestSecond() -> Double {
         if let elapsedTime = elapsedTime {
