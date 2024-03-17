@@ -11,6 +11,7 @@ import Combine
 struct AddJobView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
+    var selectedJob: WeldingInspector.Job?
     @State private var jobName = ""
     @State private var savedItems: [String: WeldingInspector.Job.WeldingProcedure] = [:]
     @State private var addProcedures: [WeldingInspector.Job.WeldingProcedure]?
@@ -20,6 +21,8 @@ struct AddJobView: View {
     @State private var isAlertPresented = false
     
     @Binding var isPresented: Bool
+    
+    
     
     func addJob(){
         print("AddJob function called")
@@ -40,7 +43,7 @@ struct AddJobView: View {
                         }
                     }
             }
-            Section(header: Text("Welding Procedure Details")){
+            Section{
                 VStack {
                     let items = mainViewModel.getAllWeldingProcedure()
                     //let items = [:]
@@ -50,20 +53,18 @@ struct AddJobView: View {
                     } else {
                         Text("Welding Procedures are available on this device")
                             .font(.system(size: 14))
-                        DisclosureGroup(isExpanded: $isExpanded) {
+                        
                             MultipleSelectionPicker(items: Array(items.keys), onSave: { selectedItems in
                                 self.savedItems = items.filter { selectedItems.contains($0.key) }
                                 // Extract values from the dictionary to the array
                                 self.selectedWeldingProcedures = Array(self.savedItems.values)
                                 print(selectedWeldingProcedures)
                             }, buttonLabel: "Add")
-                        } label: {
-                            Label("Add available WPDS to Job", systemImage: "chevron.down")
-                        }
+                        
                     }
                 }
             }
-            Section(header: Text("")){
+            Section{
                 if selectedWeldingProcedures.isEmpty {
                     Text("No Procedures linked to \(jobName)")
                 } else {
@@ -102,16 +103,13 @@ struct AddJobView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        .onAppear(){
-            print("JobName: \(jobName)")
-        }
     }
 }
 
 
 struct AddJobView_Previews: PreviewProvider {
     static var previews: some View {
-        @State var isPresented: Bool = true 
+        @State var isPresented: Bool = true
         AddJobView(mainViewModel: MainViewModel(), isPresented: $isPresented)
     }
 }

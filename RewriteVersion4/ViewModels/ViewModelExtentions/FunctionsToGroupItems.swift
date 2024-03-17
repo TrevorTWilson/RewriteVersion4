@@ -25,14 +25,17 @@ extension MainViewModel {
     }
 
     
-    func getAllWelders() -> [WeldingInspector.Job.WeldingProcedure.Welder] {
+    func getAllWelders() -> [String : WeldingInspector.Job.WeldingProcedure.Welder] {
         
-        var allWelders: [WeldingInspector.Job.WeldingProcedure.Welder] = []
+        var allWelders: [String : WeldingInspector.Job.WeldingProcedure.Welder] = [:]
         
         for job in weldingInspector.jobs {
             for weldingProcedure in job.weldingProcedures {
                 for welder in weldingProcedure.weldersQualified {
-                    allWelders.append(welder)
+                    var updatedWelder = welder
+                    updatedWelder.welds = []
+                    let label = updatedWelder.name
+                    allWelders[label] = updatedWelder
                 }
             }
         }

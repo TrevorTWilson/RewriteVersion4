@@ -15,31 +15,34 @@ struct MultipleSelectionPicker<T: Hashable>: View {
     let buttonLabel: String // Button label text
 
     var body: some View {
-        List {
-            ForEach(items, id: \.self) { item in
-                HStack {
-                    Text(String(describing: item))
-                    Spacer()
-                    Toggle("", isOn: Binding(
-                        get: {
-                            self.selectedItems.contains(item)
-                        },
-                        set: { _ in
-                            if self.selectedItems.contains(item) {
-                                self.selectedItems.remove(item)
-                            } else {
-                                self.selectedItems.insert(item)
+        ScrollView {
+            LazyVStack {
+                ForEach(items, id: \.self) { item in
+                    HStack {
+                        Text(String(describing: item))
+                        Spacer()
+                        Toggle("", isOn: Binding(
+                            get: {
+                                self.selectedItems.contains(item)
+                            },
+                            set: { _ in
+                                if self.selectedItems.contains(item) {
+                                    self.selectedItems.remove(item)
+                                } else {
+                                    self.selectedItems.insert(item)
+                                }
                             }
-                        }
-                    ))
+                        ))
+                    }
                 }
             }
         }
-        Button(buttonLabel) { // Use buttonLabel here
+        Button(buttonLabel) {
             self.onSave(Array(self.selectedItems))
         }
     }
 }
+
 
 struct MultiPicker: View {
     let items: [String: WeldingInspector.Job.WeldingProcedure] = [

@@ -13,6 +13,7 @@ struct WelderView: View {
     @ObservedObject var mainViewModel: MainViewModel
 
     var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?
+    var selectedWelders: WeldingInspector.Job.WeldingProcedure.Welder?
 
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder?
     @State private var showProfileView = false

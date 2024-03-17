@@ -40,7 +40,6 @@ extension MainViewModel {
         
         setSelectedJob(job: updatedJob)
     }
-
     
     func addProcedurePass(name: String, minRanges: [String:Double] = [:], maxRanges: [String:Double] = [:]) {
         print("Recieved from addProcedurePass")
@@ -114,5 +113,27 @@ extension MainViewModel {
 
             weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex] = updatedWeldNumber
         setSelectedWeldNumber(weldId: updatedWeldNumber)
+    }
+    
+    // Methods to add groups of items
+    func addMultipleProcedures(selectedProcedures: [WeldingInspector.Job.WeldingProcedure]) {
+        guard var updatedJob = selectedJob else {
+            return
+        }
+        for procedure in selectedProcedures {
+            updatedJob.weldingProcedures.append(procedure)
+            weldingInspector.jobs[jobIndex] = updatedJob
+        }
+        
+    }
+    
+    func addMultipleWelders(selectedWelders: [WeldingInspector.Job.WeldingProcedure.Welder]){
+        guard var updatedWeldingProcedure = selectedWeldingProcedure else {
+            return
+        }
+        for welder in selectedWelders {
+            updatedWeldingProcedure.weldersQualified.append(welder)
+            weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex] = updatedWeldingProcedure
+        }
     }
 }

@@ -44,6 +44,8 @@ extension MainViewModel {
     
     //  Methods to edit items on selected lists
     
+  
+    
     func updateProcedure(newName:String, newType: String, newUse: String, newOwner: String){
         guard var updatedProcedure = selectedWeldingProcedure else {
             return
@@ -57,4 +59,6 @@ extension MainViewModel {
         
         setSelectedProcedure(procedure: updatedProcedure)
     }
+    
+    
 }

@@ -19,7 +19,7 @@ struct ProcedureView: View {
     @State private var showProfileView = false
     @State private var addNewProcedure = false
     @State private var showProcedureFormView = false
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -61,31 +61,41 @@ struct ProcedureView: View {
                                 
                                 Button(action: {
                                     // Delete action
-                                    selectedItemForDeletion = mainViewModel.selectedJob?.weldingProcedures[index]
+                                    print(selectedItemForDeletion as Any)
+                                    //selectedItemForDeletion = mainViewModel.selectedJob?.weldingProcedures[index]
+                                    selectedItemForDeletion = procedure
+                                    
+                                    print(selectedItemForDeletion as Any)
                                 }) {
                                     Label("Delete", systemImage: "trash")
                                 }
                             }
                         }
-                        .onDelete { indexSet in
-                            if let index = indexSet.first {
-                                selectedItemForDeletion = mainViewModel.selectedJob?.weldingProcedures[index]
-                            }
-                        }
+                        
                         
                     } else {
                         Text("No welding procedures available")
                         Text("Add welding procedures to the selected Job")
                     }
                 }
-
+                
             }
             .onAppear{
                 if selectedJob != nil {
                     mainViewModel.setSelectedJob(job: selectedJob!)
                 }
             }
-            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        showProfileView = true
+                        
+                    }) {
+                        Image(systemName: "gear")
+                            .imageScale(.large)
+                    }
+                }
+            }
             .alert(item: $selectedItemForDeletion) { procedure in
                 Alert(
                     title: Text("Delete Procedure"),
@@ -99,17 +109,6 @@ struct ProcedureView: View {
                     secondaryButton: .cancel()
                 )
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        showProfileView = true
-                        
-                    }) {
-                        Image(systemName: "gear")
-                            .imageScale(.large)
-                    }
-                }
-            }
             .sheet(isPresented: $showProfileView) {
                 //ProfileView(weldingInspector: weldingInspector)
                 
@@ -120,6 +119,8 @@ struct ProcedureView: View {
             .sheet(isPresented: $showProcedureFormView) {
                 if let selectedProcedure = mainViewModel.selectedWeldingProcedure {
                     WeldingProcedureFormView(mainViewModel: mainViewModel, isPresented: $showProcedureFormView, selectedWeldingProcedure: selectedProcedure)
+                } else {
+                    WeldingProcedureFormView(mainViewModel: mainViewModel, isPresented: $showProcedureFormView)
                 }
             }
         }
