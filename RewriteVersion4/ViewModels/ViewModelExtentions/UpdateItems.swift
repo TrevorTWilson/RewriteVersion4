@@ -46,11 +46,12 @@ extension MainViewModel {
         guard var updatedParameters = selectedWeldPass else {
             return
         }
+        print("Amps: \(ampsValue)---Volts: \(voltsValue)---Distance: \(distanceValue)---AS: \(arcSpeedValue)---HI: \(heatInputValue)---Time: \(timeValue)")
         updatedParameters.collectedValues["Amps"] = ampsValue
         updatedParameters.collectedValues["Volts"] = voltsValue
         updatedParameters.collectedValues["Distance"] = distanceValue
         updatedParameters.collectedValues["ArcSpeed"] = arcSpeedValue
-        updatedParameters.collectedValues["HeaatInput"] = heatInputValue
+        updatedParameters.collectedValues["HeatInput"] = heatInputValue
         updatedParameters.collectedValues["Time"] = timeValue
         
         weldingInspector.jobs[jobIndex].weldingProcedures[procedureIndex].weldersQualified[welderIndex].welds[weldNumberIndex].parametersCollected[passIndex] = updatedParameters
