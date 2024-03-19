@@ -26,6 +26,7 @@ class MainViewModel: ObservableObject, Equatable {
             weldingInspectorDidChange()
         }
     }
+    
     @Published var selectedJob: WeldingInspector.Job? {
         didSet {
             selectedJobDidChange()

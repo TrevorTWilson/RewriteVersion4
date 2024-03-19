@@ -13,6 +13,13 @@ struct ProfileView: View {
     @ObservedObject var mainViewModel: MainViewModel
     
     @Binding var isPresented: Bool
+    @State private var lastSelection: Bool
+    
+    init(mainViewModel: MainViewModel, isPresented: Binding<Bool>) {
+        self.mainViewModel = mainViewModel
+        self._isPresented = isPresented
+        self.lastSelection = mainViewModel.weldingInspector.isMetric
+    }
     
     var body: some View {
         VStack {
@@ -25,6 +32,11 @@ struct ProfileView: View {
             Text("Selected System: \(mainViewModel.weldingInspector.isMetric ? "Metric" : "Imperial")")
             
             Button("Close") {
+                if mainViewModel.weldingInspector.isMetric != lastSelection {
+                    print("Selection changed from \(lastSelection) to \(mainViewModel.weldingInspector.isMetric)")
+                } else {
+                    print("No Change Detected")
+                }
                 isPresented = false
         }
         .padding()

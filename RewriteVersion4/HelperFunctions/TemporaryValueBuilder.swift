@@ -13,7 +13,7 @@ import Foundation
 func getTemporaryValuesForKey(_ key: String) -> (Double, Double, Double) {
     switch key {
     case "Amps":
-        return (Double(90), Double(350), Double(1.0))
+        return (Double(50), Double(350), Double(1.0))
     case "Volts":
         return (Double(7), Double(35), Double(0.1))
     case "ArcSpeed":
