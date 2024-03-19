@@ -34,7 +34,7 @@ func loadSample()-> WeldingInspector{
     
     let job2 = WeldingInspector.Job(name: "Welder Job 2", weldingProcedures: [weldingProcedure1, weldingProcedure2]) // Create an array of weldingProcedures
     
-    let weldingInspector = WeldingInspector(name: "Inspector1", jobs: [job1,job2]) // Create an array of jobs
+    let weldingInspector = WeldingInspector(name: "Inspector1", jobs: [job1,job2], isMetric: true) // Create an array of jobs
     
     return weldingInspector
 }

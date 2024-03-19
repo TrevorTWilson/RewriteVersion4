@@ -10,7 +10,7 @@ import Combine
 
 struct CollectParametersView: View {
     
-    @EnvironmentObject var profile:Profile
+ 
     @ObservedObject var mainViewModel: MainViewModel
     
     var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?

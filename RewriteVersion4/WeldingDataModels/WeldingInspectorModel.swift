@@ -12,10 +12,12 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
     var id = UUID()
     var name: String = ""
     var jobs: [Job]
+    var isMetric: Bool = true
     
-    init(name: String, jobs: [Job]) {
+    init(name: String, jobs: [Job], isMetric: Bool) {
         self.name = name
         self.jobs = jobs
+        self.isMetric = isMetric
     }
     
     struct Job: Codable, Identifiable, Hashable {

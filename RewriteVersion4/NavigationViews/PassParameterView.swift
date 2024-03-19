@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PassParameterView: View {
     
-    @EnvironmentObject var profile:Profile
+
     @ObservedObject var mainViewModel: MainViewModel
     var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     
@@ -67,6 +67,20 @@ struct PassParameterView: View {
                     mainViewModel.setSelectedWeldPass(weldPass: selectedWeldPass!)
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        showProfileView = true
+                        
+                    }) {
+                        Image(systemName: "gear")
+                            .imageScale(.large)
+                    }
+                }
+            }
+            .sheet(isPresented: $showProfileView) {
+                ProfileView(mainViewModel: mainViewModel,isPresented: $showProfileView)
+            }
             .sheet(isPresented: $addWeldParameters, content: {
                 // Add new job item view
                 CollectParametersView(mainViewModel: mainViewModel, isPresented: $addWeldParameters)
@@ -111,7 +125,6 @@ struct PassParameterView_Preview: PreviewProvider {
         
         return PassParameterView(mainViewModel: mockMainViewModel,
                                  selectedWeldPass: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0].parametersCollected[0])
-        .environmentObject(Profile()) // Provide necessary dependencies
     }
 }
 

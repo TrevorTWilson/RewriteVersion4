@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WeldingProcedureFormView: View {
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject var mainViewModel: MainViewModel
     var selectedWeldingProcedure: WeldingInspector.Job.WeldingProcedure?
     @Binding var isPresented: Bool
@@ -170,14 +169,14 @@ struct WeldingProcedureFormView: View {
                     
                     mainViewModel.updateProcedure(newName: updatedProcedureName, newType: updatedProcedureType, newUse: updatedProcedureUse, newOwner: updatedProcedureOwner)
                     
-                    dismiss()
+                    isPresented = false
                 }) {
                     Text("Save Procedure")
                 }
                 Spacer()
                 Button(action: {
                     // Add logic to save the collected data for WeldingProcedure
-                    dismiss()
+                    isPresented = false
                 }) {
                     Text("Cancel")
                 }

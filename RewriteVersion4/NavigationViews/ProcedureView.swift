@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct ProcedureView: View {
-    @EnvironmentObject var profile:Profile
+    
     @ObservedObject var mainViewModel: MainViewModel
     
     var selectedJob: WeldingInspector.Job?
@@ -110,7 +110,7 @@ struct ProcedureView: View {
                 )
             }
             .sheet(isPresented: $showProfileView) {
-                //ProfileView(weldingInspector: weldingInspector)
+                ProfileView(mainViewModel: mainViewModel,isPresented: $showProfileView)
                 
             }
             .sheet(isPresented: $addNewProcedure, content: {
@@ -134,7 +134,6 @@ struct ProcedureView_Previews: PreviewProvider {
         mockMainViewModel.weldingInspector = loadSample() // Initialize with default data or mock data
         
         return ProcedureView(mainViewModel: mockMainViewModel, selectedJob: mockMainViewModel.weldingInspector.jobs[1])
-            .environmentObject(Profile())
     }
 }
 

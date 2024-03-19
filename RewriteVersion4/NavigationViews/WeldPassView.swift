@@ -10,7 +10,7 @@ import Combine
 
 struct WeldPassView: View {
     
-    @EnvironmentObject var profile:Profile
+   
     @ObservedObject var mainViewModel: MainViewModel
     
     var selectedWeldNumber: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers?
@@ -100,6 +100,20 @@ struct WeldPassView: View {
                     mainViewModel.setSelectedWeldNumber(weldId: selectedWeldNumber!)
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        showProfileView = true
+                        
+                    }) {
+                        Image(systemName: "gear")
+                            .imageScale(.large)
+                    }
+                }
+            }
+            .sheet(isPresented: $showProfileView) {
+                ProfileView(mainViewModel: mainViewModel,isPresented: $showProfileView)
+            }
             .alert(item: $selectedItemForDeletion) { pass in
                 Alert(
                     title: Text("Delete Weld Pass"),
@@ -136,7 +150,6 @@ struct WeldPassView_Previews: PreviewProvider {
 
         return WeldPassView(mainViewModel: mockMainViewModel, 
                                  selectedWeldNumber: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0].welds[0])
-            .environmentObject(Profile())
     }
 }
 

@@ -12,7 +12,6 @@ import SwiftUI
 
 
 struct CircleSliderVC: View {
-    //@State var sliderValue: Double = 0.0
     @State private var angleValue: Double
     @Binding var sliderValue: Double
 

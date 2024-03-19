@@ -10,7 +10,7 @@ import Combine
 
 struct WelderNumberView: View {
     
-    @EnvironmentObject var profile:Profile
+
     @ObservedObject var mainViewModel: MainViewModel
 
     var selectedWelder: WeldingInspector.Job.WeldingProcedure.Welder?
@@ -117,7 +117,7 @@ struct WelderNumberView: View {
                 }
             }
             .sheet(isPresented: $showProfileView) {
-                //ProfileView(weldingInspector: weldingInspector)
+                ProfileView(mainViewModel: mainViewModel,isPresented: $showProfileView)
             }
             .sheet(isPresented: $addNewWeldNumber, content: {
                 // Add new job item view
@@ -139,6 +139,5 @@ struct WeldNumberView_Previews: PreviewProvider {
 
         return WelderNumberView(mainViewModel: mockMainViewModel,
                                 selectedWelder: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[0].weldersQualified[0])
-            .environmentObject(Profile())
     }
 }

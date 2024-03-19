@@ -119,7 +119,6 @@ struct AddParametersView_Previews: PreviewProvider {
         mockMainViewModel.setSelectedProcedure(procedure: mockMainViewModel.weldingInspector.jobs[1].weldingProcedures[1])
         
         return AddParametersView(mainViewModel: mockMainViewModel, isPresented: $isPresented)
-            .environmentObject(Profile())
     }
 }
 

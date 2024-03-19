@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct AddJobView: View {
-    @Environment(\.dismiss) private var dismiss
+
     @ObservedObject var mainViewModel: MainViewModel
     var selectedJob: WeldingInspector.Job?
     @State private var jobName = ""

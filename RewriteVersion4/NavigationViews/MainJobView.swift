@@ -9,8 +9,6 @@ import SwiftUI
 import Combine
 
 struct MainJobView: View {
-    
-    @EnvironmentObject var profile:Profile
     @StateObject var mainViewModel: MainViewModel = MainViewModel()
     @State private var selectedItemForDeletion: WeldingInspector.Job?
     @State private var showProfileView = false
@@ -86,7 +84,7 @@ struct MainJobView: View {
                 )
             }
             .sheet(isPresented: $showProfileView) {
-                //ProfileView(weldingInspector: weldingInspector)
+                ProfileView(mainViewModel: mainViewModel,isPresented: $showProfileView)
             }
             .sheet(isPresented: $addNewJob, content: {
                 // Add new job item view
@@ -101,6 +99,5 @@ struct MainJobView: View {
 
 #Preview {
     MainJobView()
-        .environmentObject(Profile())
 }
 

@@ -15,7 +15,7 @@ struct AppEntryPoint: App {
             
             
             MainJobView()
-                .environmentObject(Profile())
+
         }
     }
 }

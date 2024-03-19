@@ -20,6 +20,7 @@ class MainViewModel: ObservableObject, Equatable {
     }
     
     // Setup for Objects to be available through scope of app
+    
     @Published var weldingInspector: WeldingInspector {
         didSet {
             weldingInspectorDidChange()
@@ -55,6 +56,8 @@ class MainViewModel: ObservableObject, Equatable {
             selectedWeldPassDidChange()
         }
     }
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var jobIndex: Int = 0
     var procedureIndex: Int = 0
