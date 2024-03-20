@@ -327,5 +327,9 @@
          ]
       }
    ],
-   "isMetric": true
+   "isMetric":true,
+   "modelUnits":"Metric",
+   "unitSymbol":{"Distance":"mm","ArcSpeed":"mm/min","HeatInput":"kJ/mm"},
+   "defaultMinRange":{"Distance":50,"ArcSpeed":50,"HeatInput":0.3},
+   "defaultMaxRange":{"Distance":350,"ArcSpeed":1000,"HeatInput":3.0}
 }

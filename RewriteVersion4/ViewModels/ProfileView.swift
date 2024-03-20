@@ -5,7 +5,7 @@
 //  Created by trevor wilson on 2024-03-18.
 //
 
-import SwiftUI
+
 
 import SwiftUI
 
@@ -34,6 +34,7 @@ struct ProfileView: View {
             Button("Close") {
                 if mainViewModel.weldingInspector.isMetric != lastSelection {
                     print("Selection changed from \(lastSelection) to \(mainViewModel.weldingInspector.isMetric)")
+                    mainViewModel.convertDataModel()
                 } else {
                     print("No Change Detected")
                 }

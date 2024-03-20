@@ -8,6 +8,12 @@ import Foundation
 
 func loadSample()-> WeldingInspector{
     
+    let unitSymbol = ["Distance" : "mm", "ArcSpeed" : "mm/min", "HeatInput" : "kJ/mm"]
+    
+    let defaultMinRanges = ["Distance" : 50, "ArcSpeed" : 50, "HeatInput" : 0.3]
+    let defaultMaxRanges = ["Distance" : 350, "ArcSpeed" : 1000, "HeatInput" : 3.0]
+    let modelUnits = "Metric"
+    
     let pass1 = WeldingInspector.Job.WeldingProcedure.WeldPass(passName: "Root", minRanges: ["Amps": 200, "Volts": 28, "ArcSpeed": 50, "HeatInput": 80], maxRanges: ["Amps": 330, "Volts": 31,  "HeatInput": 50])
     
     let pass2 = WeldingInspector.Job.WeldingProcedure.WeldPass(passName: "HotPass", minRanges: ["Amps": 300, "Volts": 26, "ArcSpeed": 150, "HeatInput": 66], maxRanges: ["Amps": 330, "Volts": 31,  "HeatInput": 50])
@@ -34,7 +40,7 @@ func loadSample()-> WeldingInspector{
     
     let job2 = WeldingInspector.Job(name: "Welder Job 2", weldingProcedures: [weldingProcedure1, weldingProcedure2]) // Create an array of weldingProcedures
     
-    let weldingInspector = WeldingInspector(name: "Inspector1", jobs: [job1,job2], isMetric: true) // Create an array of jobs
+    let weldingInspector = WeldingInspector(name: "Inspector1", jobs: [job1,job2], isMetric: true, modelUnits: modelUnits, unitSymbol: unitSymbol, defaultMinRange: defaultMinRanges, defaultMaxRange: defaultMaxRanges) // Create an array of jobs
     
     return weldingInspector
 }
