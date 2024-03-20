@@ -44,15 +44,23 @@ struct AddWeldNumberView: View {
                     }
             }
             
-            HStack{
-                Button("\(sectionTitle) Weld Number") {
-                    addWeldNumber()
-                }
-                Spacer()
-                Button("Cancel") {
-                    isPresented = false
+            GeometryReader { geometry in
+                HStack{
+                    Button("\(sectionTitle) Weld Number") {
+                        addWeldNumber()
+                    }
+                    .disabled(name.isEmpty)
+                    .frame(width: geometry.size.width / 2 - 10)
+                    
+                    Spacer()
+                    
+                    Button("Cancel") {
+                        isPresented = false
+                    }
+                    .frame(width: geometry.size.width / 2 - 10)
                 }
             }
+            .padding(.horizontal, 10)
         }
         .navigationTitle("Add New Welder")
         .onAppear {

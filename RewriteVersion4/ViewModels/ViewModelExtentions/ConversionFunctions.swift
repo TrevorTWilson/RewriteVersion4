@@ -15,8 +15,8 @@ extension MainViewModel{
         let metric = weldingInspector.isMetric
         let modelUnits = weldingInspector.modelUnits
         
-        let passOrderedKey = ["ArcSpeed", "Amps","HeatInput","Volts"]
-        let collectedOrderedKey = ["Amps", "Distance", "Volts", "Time", "ArcSpeed", "HeatInput"]
+        let passOrderedKey = ["ArcSpeed","HeatInput"]
+        let collectedOrderedKey = ["Distance", "ArcSpeed", "HeatInput"]
         
         // handle direct converstion in weldingInspector
         weldingInspector.unitSymbol = metric ? [
@@ -29,6 +29,8 @@ extension MainViewModel{
             "ArcSpeed": "in/min",
             "HeatInput": "kJ/in"
         ]
+        
+        weldingInspector.distanceRange = metric ? 400 : 17
         
         weldingInspector.defaultMinRange = metric ? [
             "Amps" : 30,

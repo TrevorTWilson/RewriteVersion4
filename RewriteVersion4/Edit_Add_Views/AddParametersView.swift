@@ -85,16 +85,24 @@ struct AddParametersView: View {
                 TextField("\(sectionTitle) Pass Name Here", text: $passName)
             }
             
-            HStack{
-                Button("\(sectionTitle) Pass Name") {
-                    addParameters()
-                }
-                Spacer()
-                Button("Cancel") {
-                    isPresented = false
+            GeometryReader { geometry in
+                HStack{
+                    Button("\(sectionTitle) Pass Name") {
+                        addParameters()
+                    }
+                    .disabled(passName.isEmpty)
+                    .frame(width: geometry.size.width / 2 - 10)
+                    
+                    Spacer()
+                    
+                    Button("Cancel") {
+                        isPresented = false
+                    }
+                    .frame(width: geometry.size.width / 2 - 10)
                 }
             }
-        }
+            .padding(.horizontal, 10)
+                    }
         .navigationTitle("Add New Pass")
         .onAppear {
             if let selectedWeldPass = selectedWeldPass {

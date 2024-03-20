@@ -14,7 +14,6 @@ struct PassParameterView: View {
     var selectedWeldPass: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
     
     @State private var selectedItemForDeletion: WeldingInspector.Job.WeldingProcedure.Welder.WeldNumbers.Parameters?
-    @State private var showProfileView = false
     @State private var addWeldParameters = false
     @State private var isExpanded = false
     
@@ -66,20 +65,6 @@ struct PassParameterView: View {
                 if selectedWeldPass != nil {
                     mainViewModel.setSelectedWeldPass(weldPass: selectedWeldPass!)
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        showProfileView = true
-                        
-                    }) {
-                        Image(systemName: "gear")
-                            .imageScale(.large)
-                    }
-                }
-            }
-            .sheet(isPresented: $showProfileView) {
-                ProfileView(mainViewModel: mainViewModel,isPresented: $showProfileView)
             }
             .sheet(isPresented: $addWeldParameters, content: {
                 // Add new job item view

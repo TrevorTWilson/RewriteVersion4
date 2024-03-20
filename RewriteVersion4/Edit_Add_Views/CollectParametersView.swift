@@ -35,6 +35,11 @@ struct CollectParametersView: View {
     @State private var heatInputMinRange: Double = 0.0
     @State private var heatInputMaxRange: Double = 0.0
     
+    @State private var distanceUnit: String
+    @State private var arcSpeedUnit: String
+    @State private var heatInputUnit: String
+    @State private var distanceRange: Double
+    
     @State private var inRange = false
     @State private var failedRanges: [String] = []
     
@@ -54,7 +59,7 @@ struct CollectParametersView: View {
         // Set initial values for Sliders and StopWatch
         if let collectedValues = selectedWeldPass?.collectedValues, let passRange = selectedWeldPass?.procedurePass{
             let collectedKeys = ["Amps", "Volts", "Distance", "Time"]
-            let rangeKeys = ["Amps", "Volts", "HeatInput", "ArcSpeed"]
+            
             for key in collectedKeys {
                 if let value = collectedValues[key]{
                     switch key {
@@ -71,6 +76,8 @@ struct CollectParametersView: View {
                     }
                 }
             }
+            let rangeKeys = ["Amps", "Volts", "HeatInput", "ArcSpeed"]
+            
             for key in rangeKeys {
                 if let minRanges = passRange.minRanges[key] {
                     switch key {
@@ -106,7 +113,10 @@ struct CollectParametersView: View {
         } else {
             print("CollectedValues or PassRange failed")
         }
-        
+        self._distanceUnit = State(initialValue: mainViewModel.weldingInspector.unitSymbol["Distance"] ?? "")
+        self._arcSpeedUnit = State(initialValue: mainViewModel.weldingInspector.unitSymbol["ArcSpeed"] ?? "")
+        self._heatInputUnit = State(initialValue: mainViewModel.weldingInspector.unitSymbol["HeatInput"] ?? "")
+        self._distanceRange = State(initialValue: mainViewModel.weldingInspector.distanceRange)
     }
     
     
@@ -117,7 +127,7 @@ struct CollectParametersView: View {
         
         let volts = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 40,minimumSliderRange: voltMinRange, maximumSliderRange: voltMaxRange, knobRadius: 15, radius: 75, valueUnit: "Volts", sliderValue: $voltSliderValue)
         
-        let distance = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: 400, minimumSliderRange: 0, maximumSliderRange: 400, knobRadius: 15, radius: 75, valueUnit: "mm", sliderValue: $distanceSliderValue)
+        let distance = CircleSliderVC(minimunSliderValue: 0, maximunSliderValue: distanceRange, minimumSliderRange: 0, maximumSliderRange: distanceRange, knobRadius: 15, radius: 75, valueUnit: distanceUnit, sliderValue: $distanceSliderValue)
         
         let time = RoundStopwatchView(elapsedTime: $elapsedTime)
         
@@ -147,17 +157,18 @@ struct CollectParametersView: View {
                 HStack {
                     VStack{
                         Text("ArcSpeed Value: ")
-                        Text("\(String(format: "%.1f", arcSpeed))")
-                            .font(.system(size: 35))
+                            Text("\(String(format: "%.1f", arcSpeed))")
+                                .font(.system(size: 35))
+                        Text("\(arcSpeedUnit)")
                     }
                     
                     Spacer()
                     VStack{
                         Text("HeatInput Value: ")
-                        Text("\(String(format: "%.1f", heatInput))")
-                            .font(.system(size: 35))
+                            Text("\(String(format: "%.1f", heatInput))")
+                                .font(.system(size: 35))
+                            Text("\(heatInputUnit)")
                     }
-                    
                 }
                 .foregroundStyle(Color.white)
                 Spacer()
@@ -187,7 +198,7 @@ struct CollectParametersView: View {
                             mainViewModel.updateCollectedValues(ampsValue: formattedAmpSlider, voltsValue: voltSliderValue, distanceValue: formattedDistanceSlider, arcSpeedValue: arcSpeed, heatInputValue: heatInput, timeValue: formattedElapsedTime)
                             isPresented = false
                         }) {
-                            Text("Single Entry")
+                            Text("Save Data")
                                 .padding()
                                 .background(inRange ? Color.green : Color.red)
                                 .foregroundColor(inRange ? Color.white : Color.black)
