@@ -33,13 +33,11 @@ extension MainViewModel{
         weldingInspector.defaultMinRange = metric ? [
             "Amps" : 30,
             "Volts" : 5,
-            "Distance" : 50,
             "ArcSpeed" : 50,
             "HeatInput" : 0.3
         ] : [
             "Amps" : 30,
             "Volts" : 5,
-            "Distance" : 2,
             "ArcSpeed" : 2,
             "HeatInput" : 7.5
         ]
@@ -47,15 +45,25 @@ extension MainViewModel{
         weldingInspector.defaultMaxRange = metric ? [
             "Amps" : 400,
             "Volts" : 38,
-            "Distance" : 350,
             "ArcSpeed" : 1000,
             "HeatInput" : 3.0
         ] : [
             "Amps" : 400,
             "Volts" : 38,
-            "Distance" : 14,
             "ArcSpeed" : 39,
             "HeatInput" : 75
+        ]
+        
+        weldingInspector.defaultResolution = metric ? [
+            "Amps" : 1.0,
+            "Volts" : 0.1,
+            "ArcSpeed" : 1.0,
+            "HeatInput" : 0.01
+        ] : [
+            "Amps" : 1.0,
+            "Volts" : 0.1,
+            "ArcSpeed" : 0.25,
+            "HeatInput" : 0.25
         ]
         
         weldingInspector.modelUnits = metric ? "Metric" : "Imperial"

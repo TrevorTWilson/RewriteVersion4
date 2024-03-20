@@ -17,9 +17,10 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
     var unitSymbol: [String : String]
     var defaultMinRange: [String : Double]
     var defaultMaxRange: [String : Double]
+    var defaultResolution: [String : Double]
     
     init(name: String, jobs: [Job], isMetric: Bool, modelUnits: String, unitSymbol: [String : String],
-         defaultMinRange: [String : Double], defaultMaxRange: [String : Double]) {
+         defaultMinRange: [String : Double], defaultMaxRange: [String : Double], defaultResolution: [String : Double]) {
         self.name = name
         self.jobs = jobs
         self.isMetric = isMetric
@@ -27,6 +28,7 @@ struct WeldingInspector: Codable, Identifiable, Hashable {
         self.unitSymbol = unitSymbol
         self.defaultMinRange = defaultMinRange
         self.defaultMaxRange = defaultMaxRange
+        self.defaultResolution = defaultResolution
     }
     
     struct Job: Codable, Identifiable, Hashable {

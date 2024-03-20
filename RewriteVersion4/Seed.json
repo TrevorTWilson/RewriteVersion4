@@ -330,6 +330,7 @@
    "isMetric":true,
    "modelUnits":"Metric",
    "unitSymbol":{"Distance":"mm","ArcSpeed":"mm/min","HeatInput":"kJ/mm"},
-   "defaultMinRange":{"Distance":50,"ArcSpeed":50,"HeatInput":0.3},
-   "defaultMaxRange":{"Distance":350,"ArcSpeed":1000,"HeatInput":3.0}
+   "defaultMinRange":{"Amps":50,"Volts":7,"ArcSpeed":50,"HeatInput":0.3},
+   "defaultMaxRange":{"Amps":400,"Volts":39,"ArcSpeed":1000,"HeatInput":3.0},
+   "defaultResolution":{"Amps":1.0,"Volts":0.1,"ArcSpeed":1.0,"HeatInput":0.01}
 }

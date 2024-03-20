@@ -10,19 +10,24 @@ import Foundation
 
 // Sets temporary values for minRange and maxRange in WeldingInspector.Jobs.WeldingProcedure[index].passName.minRange(maxRange)
 
-func getTemporaryValuesForKey(_ key: String) -> (Double, Double, Double) {
+func getTemporaryValuesForKey(_ key: String, mainViewModel: MainViewModel) -> (Double, Double, Double) {
+    let minRange: Double
+    let maxRange: Double
+    let resolution: Double
+    
     switch key {
-    case "Amps":
-        return (Double(50), Double(350), Double(1.0))
-    case "Volts":
-        return (Double(7), Double(35), Double(0.1))
-    case "ArcSpeed":
-        return (Double(50), Double(1000), Double(1.0))
-    case "HeatInput":
-        return (Double(0.3), Double(3.0), Double(0.01))
+    case "Amps", "Volts", "ArcSpeed", "HeatInput":
+        minRange = mainViewModel.weldingInspector.defaultMinRange[key] ?? 0.0
+        maxRange = mainViewModel.weldingInspector.defaultMaxRange[key] ?? 0.0
+        resolution = mainViewModel.weldingInspector.defaultResolution[key] ?? 0.0
     default:
-        return (Double(0), Double(0), Double(1.0)) // Default values if key does not match
+        minRange = 0.0
+        maxRange = 0.0
+        resolution = 1.0
     }
+    
+    return (minRange, maxRange, resolution)
 }
+
 
 

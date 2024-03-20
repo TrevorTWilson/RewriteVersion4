@@ -14,7 +14,7 @@ func handleKeyAction(for key: String,
                      updateKeyValues: @escaping (String, String, Double, Double, Double, Double, Double) -> Void,
                      isRangeSliderSheetPresented: Binding<Bool>) -> some View {
     
-    let (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange, selectedResolution) = setTempValuesForKey(for: key, pass: pass)
+    let (selectedKey, selectedDescriptor, selectedMinRange, selectedMaxRange, selectedResolution) = setTempValuesForKey(for: key, pass: pass, mainViewModel: mainViewModel)
     
     return GeometryReader { geometry in
         if pass.minRanges[key] == nil || pass.maxRanges[key] == nil {

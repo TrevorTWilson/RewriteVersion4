@@ -8,7 +8,7 @@
 import Foundation
 
 // Helper function to set tempMin and tempMax
-func setTempValuesForKey(for key: String, pass: WeldingInspector.Job.WeldingProcedure.WeldPass?) -> (String, String, Double, Double, Double) {
+func setTempValuesForKey(for key: String, pass: WeldingInspector.Job.WeldingProcedure.WeldPass?, mainViewModel: MainViewModel) -> (String, String, Double, Double, Double) {
     var tempMin: Double = 0.0
     var tempMax: Double = 0.0
     var tempResolution = 0.0
@@ -26,7 +26,7 @@ func setTempValuesForKey(for key: String, pass: WeldingInspector.Job.WeldingProc
     }
 
     
-    (tempMin, tempMax, tempResolution) = getTemporaryValuesForKey(key)
+    (tempMin, tempMax, tempResolution) = getTemporaryValuesForKey(key, mainViewModel: mainViewModel)
 
     selectedKey = key
     selectedMinRange = tempMin
